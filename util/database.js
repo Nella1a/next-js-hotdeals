@@ -21,12 +21,19 @@ function connectOneTimeToDatabase() {
 const sql = connectOneTimeToDatabase();
 
 // CREATE
-export async function addProduct(name, url, priceOld, priceCurrent, saving) {
+export async function addProduct(
+  name,
+  url,
+  priceCurrent,
+  priceOld,
+  discount,
+  category,
+) {
   const products = await sql`
   INSERT INTO products
-  (product_name, product_url, price_current, price_old , saving)
+  (product_name, product_url, price_current, price_old , discount, category_id)
   VALUES
-  (${name}, ${url},${priceOld},${priceCurrent},${saving})
+  (${name}, ${url},${priceCurrent},${priceOld},${discount},${category})
   RETURNING *
   `;
   return camelcaseKeys(products);

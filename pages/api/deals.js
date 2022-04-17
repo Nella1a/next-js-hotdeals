@@ -3,6 +3,16 @@ const cheerio = require('cheerio');
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
+    const dealsCategory = [
+      { category: 'wohnzimmer', dbNumber: 1 },
+      { category: 'schlafzimmer', dbNumber: 2 },
+      { category: 'speisezimmer', dbNumber: 3 },
+      { category: 'dekoration', dbNumber: 4 },
+      { category: 'arbeitszimmer', dbNumber: 5 },
+      { category: 'badezimmer', dbNumber: 6 },
+      { category: 'garderobe', dbNumber: 7 },
+      { category: 'kinderzimmer', dbNumber: 8 },
+    ];
     const baseUrl = 'https://www.moemax.at';
     const headers = {
       Cookie:
@@ -13,56 +23,68 @@ export default async function handler(req, res) {
       Connection: 'keep-alive',
     };
 
-    const response = await fetch(`https://www.moemax.at/c/wohnzimmer-sale`, {
-      headers,
-    });
+    for (let j = 0; j < dealsCategory.length; j++) {
+      const response = await fetch(
+        `https://www.moemax.at/c/${dealsCategory[j].category}-sale`,
+        {
+          headers,
+        },
+      );
 
-    const htmlString = await response.text();
-    const indexPosition = htmlString.indexOf('window.__');
-    const newString = htmlString.slice(0, indexPosition);
+      const htmlString = await response.text();
+      const indexPosition = htmlString.indexOf('window.__');
+      const newString = htmlString.slice(0, indexPosition);
 
-    // load string into cheerio
-    const $ = cheerio.load(newString);
+      // load string into cheerio
+      const $ = cheerio.load(newString);
 
-    $('[data-purpose="listing.productsContainer"] article').each(
-      async (i, el) => {
-        const productMoemaxName = $(el).find('h3').text().replace(/,/g, '');
+      // get current deals
+      const checkCurrentDeals = $('[data-purpose="listing.productsContainer"]');
 
-        const productMoemaxUrl = $(el).find('a').attr('href');
-        const productMoemaxOldPrice = $(el)
-          .find('[data-purpose="product.price.old"]')
-          .text()
-          .replace(/["€*]/g, '')
-          .replace(',', '.')
-          .replace('/\\-/', '00')
-          .trim();
+      // get current deals data
+      if (checkCurrentDeals.html() !== 'null') {
+        $('[data-purpose="listing.productsContainer"] article').each(
+          async (i, el) => {
+            const productMoemaxName = $(el).find('h3').text().replace(/,/g, '');
 
-        const productMoemaxCurrentPrice = $(el)
-          .find('[data-purpose="product.price.current"]')
-          .text()
-          .replace(/["€*]/g, '')
-          .replace(',', '.')
-          .trim();
+            const productMoemaxUrl = $(el).find('a').attr('href');
+            const productMoemaxOldPrice = $(el)
+              .find('[data-purpose="product.price.old"]')
+              .text()
+              .replace(/["€*]/g, '')
+              .replace(',', '.')
+              .replace('/\\-/', '00')
+              .trim();
 
-        const productMoemaxSaving = $(el).find('._ggQHMv9W6taNwaY2').text();
+            const productMoemaxCurrentPrice = $(el)
+              .find('[data-purpose="product.price.current"]')
+              .text()
+              .replace(/["€*]/g, '')
+              .replace(',', '.')
+              .trim();
 
-        console.log(productMoemaxOldPrice);
-        console.log(productMoemaxOldPrice.length);
+            const productMoemaxSaving = $(el).find('._ggQHMv9W6taNwaY2').text();
 
-        const fullFroductMoemaxUrl = baseUrl + productMoemaxUrl;
+            console.log(productMoemaxOldPrice);
+            console.log(productMoemaxOldPrice.length);
 
-        // add product to db
-        const addProductToDB = await addProduct(
-          productMoemaxName,
-          fullFroductMoemaxUrl,
-          productMoemaxOldPrice,
-          productMoemaxCurrentPrice,
-          productMoemaxSaving,
+            const fullProductMoemaxUrl = baseUrl + productMoemaxUrl;
+            const productCategory = dealsCategory[j].dbNumber;
+
+            // add product to db
+            const addProductToDB = await addProduct(
+              productMoemaxName,
+              fullProductMoemaxUrl,
+              productMoemaxOldPrice,
+              productMoemaxCurrentPrice,
+              productMoemaxSaving,
+              productCategory,
+            );
+            console.log(addProductToDB);
+          },
         );
-
-        console.log(addProductToDB);
-      },
-    );
+      } // end if
+    }
     res.status(200).json({
       message: 'new deals in db',
     });
