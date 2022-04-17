@@ -42,6 +42,7 @@ export default function Home() {
             <option value="1">lutz</option>
             <option value="2">moebelix</option>
             <option value="3">moemax</option>
+            <option value="4">select all</option>
           </select>
           {console.log('Selected Deal', inputValue)}
           <button>Submit</button>

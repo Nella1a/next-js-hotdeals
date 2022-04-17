@@ -31,3 +31,11 @@ export async function addProduct(name, url, priceOld, priceCurrent, saving) {
   `;
   return camelcaseKeys(products);
 }
+
+// READ
+export async function readProducts() {
+  const readAllproducts = await sql`
+  SELECT * FROM products
+  `;
+  return readAllproducts.map((product) => camelcaseKeys(product));
+}

@@ -1,27 +1,9 @@
-import * as fs from 'node:fs';
 import { addProduct } from '../../util/database';
 const cheerio = require('cheerio');
 
 export default async function handler(req, res) {
-  /* const products = [
-    {
-      name: "",
-      url: "",
-      priceOld: "",
-      priceCurrent: "",
-      saving: ""
-    }
-  ];
-*/
-
-  const writeStream = fs.createWriteStream('post.csv');
-
-  // Write Headers;
-  writeStream.write(`ProductName,URL,OldPrice,NewPrice,Saving\n`);
-
   if (req.method === 'POST') {
-    const username = req.body.TWuser;
-    console.log('UserName-API:', username);
+    const baseUrl = 'https://www.moemax.at';
     const headers = {
       Cookie:
         '__cf_bm=kGvHo.NF0o5iXhgmNUblBEkrw7h_0ZCNqIigXJ1eYKc-1650104946-0-AbQ1xwkvZvzwLUxp2lHd9OZJGSBxiKMVGiBXluzAaa5ZYbMHjciAH4tvhyzKFT4V8FwU12D53+Yx3TKUN0n69A8=',
@@ -41,24 +23,6 @@ export default async function handler(req, res) {
 
     // load string into cheerio
     const $ = cheerio.load(newString);
-    const output = $('[data-purpose="listing.productsContainer"]');
-    console.log(output);
-    // const childrenHref = output.children("href").text();
-    // const childrenHref = output.find("a");
-
-    // loop to get names of products and href
-    /* $('[data-purpose="listing.productsContainer"] a').each((i, el) => {
-      const item = $(el).text();
-      const link = $(el).attr("href");
-      console.log(item, link);
-    }); */
-    // class="_d9CE7I60YYyUDrcS _Qqfpyw9j-SjRVm7g _O0cHS0-xdCNaU8MF _ne7vhnMjgDvpfr8I" data-purpose="listing.productsContainer"><div><article class="_P+dE9HsyHPTsQmVf _jcT2kfddTCMhMsUm"><div class="_y6dmV1r0DP+Zt1kp">
-    // console.log(output.html());
-    // console.log(pretty(output.html()));
-    // console.log(childrenHref.text());
-
-    // '[data-purpose="listing.productsContainer"] article'
-    // _P+dE9HsyHPTsQmVf _jcT2kfddTCMhMsUm
 
     $('[data-purpose="listing.productsContainer"] article').each(
       async (i, el) => {
@@ -67,22 +31,27 @@ export default async function handler(req, res) {
         const productMoemaxUrl = $(el).find('a').attr('href');
         const productMoemaxOldPrice = $(el)
           .find('[data-purpose="product.price.old"]')
-          .text();
+          .text()
+          .replace(/["€*]/g, '')
+          .replace(',', '.')
+          .replace('/\\-/', '00')
+          .trim();
+
         const productMoemaxCurrentPrice = $(el)
           .find('[data-purpose="product.price.current"]')
-          .text();
+          .text()
+          .replace(/["€*]/g, '')
+          .replace(',', '.')
+          .trim();
 
         const productMoemaxSaving = $(el).find('._ggQHMv9W6taNwaY2').text();
 
-        // write to CSV-File
-        writeStream.write(
-          `${productMoemaxName}, ${productMoemaxUrl}, ${productMoemaxOldPrice}, ${productMoemaxCurrentPrice}, ${productMoemaxSaving}\n`,
-        );
-
-        const baseUrl = 'https://www.moemax.at';
+        console.log(productMoemaxOldPrice);
+        console.log(productMoemaxOldPrice.length);
 
         const fullFroductMoemaxUrl = baseUrl + productMoemaxUrl;
 
+        // add product to db
         const addProductToDB = await addProduct(
           productMoemaxName,
           fullFroductMoemaxUrl,
@@ -94,9 +63,8 @@ export default async function handler(req, res) {
         console.log(addProductToDB);
       },
     );
-    console.log('scraping Done');
     res.status(200).json({
-      user: username,
+      message: 'new deals in db',
     });
     return;
   }
