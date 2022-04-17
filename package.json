@@ -6,10 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "dotenv ley"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "camelcase-keys": "^7.0.2",
+    "cheerio": "^1.0.0-rc.10",
+    "dotenv-cli": "^5.1.0",
+    "dotenv-safe": "^8.2.0",
+    "ley": "^0.7.1",
     "next": "12.1.5",
+    "postgres": "^3.0.5",
+    "puppeteer": "^13.5.2",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "sharp": "^0.30.3"
