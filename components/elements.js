@@ -47,6 +47,11 @@ export const globalStyleBody = (theme) => css`
     color: var(--colorMainBlue);
   }
 
+  section {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
   /* make img easier to work with*/
   img {
     max-width: 100%; /* ensure that the img gets narrow when viewoprt shrinks*/
@@ -93,14 +98,6 @@ export const globalStyleBody = (theme) => css`
   }
 `;
 
-export const showForm = css`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const hideForm = css`
-  display: none;
-`;
 /* *************************** */
 /*    Utility Styles?          */
 /* *************************** */
@@ -122,17 +119,14 @@ const marginCenter = {
   margin: '0 auto',
 };
 
-const size = (width = '100%', height = '100%') => {
-  return { width, height };
-};
-
 const displayFlex = (
   display = 'flex',
   flexDirection = 'row',
   justifyContent = 'center',
   alignItems = 'center',
+  flexWrap = 'no wrap',
 ) => {
-  return { display, flexDirection, justifyContent, alignItems };
+  return { display, flexDirection, justifyContent, alignItems, flexWrap };
 };
 
 /** Layout ** */
@@ -141,45 +135,107 @@ export const styleMain = css`
   min-height: 100vh;
 `;
 
+export const captext = css`
+  text-transform: capitalize;
+  font-weight: 600;
+`;
+
 /* *************************** */
 /*            Header           */
 /* *************************** */
 
 export const headerStyle = css`
   width: 100%;
+  height: 5rem;
   ${marginCenter}
+  border: 1px solid red;
+  a {
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    line-height: 18px;
+    font-weight: bold;
+    font-size: 2rem;
+    min-height: 40px;
+    margin-top: 1.5rem;
+    padding: 1.5rem 16px;
+    text-align: center;
+    color: var(--fontColorParagraphAndLinks);
+    border: none;
+    border-radius: 4px;
+  }
+`;
 
-  nav {
-    max-width: 95%;
-    ${marginCenter}
-    gap: 60px;
-    align-items: center;
-    display: flex;
-    height: 4rem;
-    justify-content: space-between;
-    border: 1px solid red;
+/* *************************** */
+/*            index            */
+/* *************************** */
+export const sectionOneIndex = css`
+  text-align: center;
+  p {
+    font-size: 1.2rem;
+  }
+`;
 
-    a {
-      text-decoration: none;
-      display: block;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      line-height: 18px;
-      text-transform: uppercase;
-      font-weight: bold;
-      font-size: 12px;
-      min-height: 40px;
-      padding: 10px 16px;
-      text-align: center;
-      color: var(--fontColorParagraphAndLinks);
-      border: none;
-      border-radius: 4px;
+export const sectionTwoIndex = css`
+  text-align: center;
+  h1 {
+    text-align: left;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+
+  > div {
+    font-size: 1.2rem;
+    ${displayFlex('flex', 'row', '', '', 'wrap')}
+    gap: 1.8rem;
+  }
+`;
+
+/* *************************** */
+/*            Categories       */
+/* *************************** */
+export const sectionOneCategorie = css`
+  ${displayFlex('flex', 'row', '', '', 'wrap')}
+  gap: 1rem;
+
+  a {
+    text-decoration: none;
+    margin-bottom: 1rem;
+    color: black;
+    :hover {
+      border-bottom: 2px solid black;
     }
 
-    button {
-      width: 5rem;
-      height: 1rem;
-      border: 1px solid blue;
+    a:link,
+    a:visited,
+    a:active {
+      color: black;
+    }
+  }
+`;
+
+export const sectionTwoCategorie = css`
+  > div {
+    ${displayFlex('flex', 'row', '', '', 'wrap')}
+    gap: 1.8rem;
+    margin-bottom: 1rem;
+    article {
+      width: 300px;
+      border: 1px solid lightgrey;
+      padding: 1rem;
+
+      div:first-of-type {
+        ${displayFlex('flex', 'column', 'flex-start', 'center', 'no-wrap')}
+      }
+
+      div:nth-of-type(2),
+      div:nth-of-type(3) {
+        margin-top: 1rem;
+        p {
+          padding: 0 1rem;
+        }
+      }
     }
   }
 `;

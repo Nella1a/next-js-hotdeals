@@ -1,7 +1,15 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import { addProduct } from '../../util/database';
 const cheerio = require('cheerio');
 
-export default async function handler(req, res) {
+export type AddContractResponseBody =
+  | { errors: string }
+  | { message: string | undefined };
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<AddContractResponseBody>,
+) {
   if (req.method === 'POST') {
     const dealsCategory = [
       { category: 'wohnzimmer', dbNumber: 1 },
@@ -91,6 +99,6 @@ export default async function handler(req, res) {
     return;
   }
   return res.status(405).json({
-    error: `Method not supported.`,
+    errors: `Method not supported.`,
   });
 }
