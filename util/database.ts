@@ -3,6 +3,7 @@ import { config } from 'dotenv-safe';
 // 1. Import postgres
 import postgres from 'postgres';
 import camelcaseKeys from 'camelcase-keys';
+import { productionBrowserSourceMaps } from '../next.config';
 
 config();
 
@@ -209,4 +210,48 @@ WHERE
 RETURNING *
 `;
   camelcaseKeys(session);
+}
+
+/* *************************** */
+/*      Table: categories      */
+/* *************************** */
+
+export type ProductCategories = {
+  id: number;
+  category: string;
+};
+
+export async function productCategories() {
+  const categories = await sql<ProductCategories[]>`
+SELECT * FROM
+product_categories
+`;
+  return categories.map((category: ProductCategories) =>
+    camelcaseKeys(category),
+  );
+}
+
+export type ProductsCategory = {
+  id: number;
+  productName: string;
+  productUrl: string;
+  priceCurrent: string;
+  priceOld: string;
+  discount: string;
+  categoryId: number;
+  category: string;
+};
+
+export async function readProductsByCategory(category: string | undefined) {
+  if (!category) {
+    return undefined;
+  }
+  const products = await sql<ProductsCategory[]>`
+   SELECT * FROM
+  products,
+  product_categories
+  WHERE
+  products.category_id = product_categories.id AND product_categories.category = ${category}
+  `;
+  return products.map((product) => camelcaseKeys(product));
 }
