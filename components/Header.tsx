@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header css={headerStyle}>
       <Link href="/" passHref>
-        <a>Moebel Deals</a>
+        <a>Möbel Deals</a>
       </Link>
     </header>
   );
