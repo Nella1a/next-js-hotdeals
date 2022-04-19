@@ -10,6 +10,7 @@ import { LoginResponseBody } from './api/login';
 import { GetServerSidePropsContext } from 'next';
 import { getValidSessionByToken } from '../util/database';
 import { createCsrfToken } from '../util/auth';
+import { sectionRegisterAndLogin } from './../components/elements';
 
 type Errors = { message: string }[];
 type Props = {
@@ -26,7 +27,7 @@ export default function Admin(props: Props) {
         <title>login</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section>
+      <section css={sectionRegisterAndLogin}>
         <article>
           <form
             onSubmit={async (event) => {
@@ -60,9 +61,12 @@ export default function Admin(props: Props) {
               await router.push(`/deals`);
             }}
           >
+            <h1>Admin Login</h1>
             <div>
-              {' '}
-              <label htmlFor="username">Username</label>
+              <p>
+                {' '}
+                <label htmlFor="username">Username</label>
+              </p>
               <input
                 id="username"
                 name="username"
@@ -71,7 +75,11 @@ export default function Admin(props: Props) {
               />
             </div>
             <div>
-              <label htmlFor="password">Password</label>
+              <p>
+                {' '}
+                <label htmlFor="password">Password</label>
+              </p>
+
               <input
                 id="password"
                 type="password"

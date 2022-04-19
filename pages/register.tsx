@@ -3,6 +3,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import {
+  sectionRegisterAndLogin,
+  sectionRegister,
+} from '../components/elements';
 
 import Layout from '../components/Layout';
 
@@ -30,13 +34,8 @@ export default function Register(props: Props) {
         <meta name="Login Page" content="Login to website " />
       </Head>
 
-      <section>
+      <section css={sectionRegister}>
         <article>
-          <div>
-            <h1>Create account</h1>
-            <p>Create your account and get started. </p>
-          </div>
-
           {/* show error message if username already exist  */}
           <div>
             {errors.map((error) => {
@@ -81,40 +80,41 @@ export default function Register(props: Props) {
                 return;
               }
 
-              // Login worked, redirect to the homepage using the Next.js router
+              // Login worked, redirect to the admin page using the Next.js router
               // props.refreshUserProfile();
               await router.push('/deals');
               console.log(registerResponseBody.user.id);
               console.log(registerResponseBody.user.username);
             }}
           >
+            <h1>Create account</h1>
             <div>
               <p>
                 {' '}
                 <label htmlFor="username">Username</label>
-                <input
-                  id="username"
-                  name="username"
-                  value={username}
-                  onChange={(event) => setUsername(event.currentTarget.value)}
-                />
               </p>
+              <input
+                id="username"
+                name="username"
+                value={username}
+                onChange={(event) => setUsername(event.currentTarget.value)}
+              />
 
               <p>
                 <label htmlFor="password">Password</label>
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.currentTarget.value)}
-                />
               </p>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                value={password}
+                onChange={(event) => setPassword(event.currentTarget.value)}
+              />
             </div>
             <button>Sign Up</button>
             <p>
               Already have an account?
-              <Link href="/login">
+              <Link href="/admin">
                 <a> Login here.</a>
               </Link>
             </p>

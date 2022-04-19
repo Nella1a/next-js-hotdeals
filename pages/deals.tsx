@@ -3,33 +3,38 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 import { getUserByValidSessionToken } from '../util/database';
 import { useState } from 'react';
+import { sectionOneIndex } from '../components/elements';
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<number>(0);
-  const [userFollowers, setUserFollowers] = useState({});
+  const [userFollowers, setUserFollowers] = useState();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    await fetch('/api/deals', {
+    await fetch(`/api/deals${inputValue}`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
-      body: JSON.stringify({ TWuser: inputValue }), // ACHTUNG
+      body: JSON.stringify({ hotdeals: inputValue }), // ACHTUNG
     })
       .then((res) => res.json())
       .then((userData) => {
         setUserFollowers(userData);
+        console.log('userData', userData);
       });
+    console.log('userFollowers:,', userFollowers);
   };
   return (
     <Layout>
-      <div>
-        <Head>
-          <title>Get Deals</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
+      <Head>
+        <title>Get Deals</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <section css={sectionOneIndex}>
+        <p>Update and Manage Deals</p>
+      </section>
+      <section>
         <h1>Fetch Deals</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="selectDeal">
@@ -42,14 +47,14 @@ export default function Home() {
             onChange={(e) => setInputValue(Number(e.target.value))}
           >
             <option value="0">--pleae select---</option>
-            <option value="1">lutz</option>
+            <option value="1">moemax</option>
             <option value="2">moebelix</option>
             <option value="3">moemax</option>
             <option value="4">select all</option>
           </select>
           <button>Submit</button>
         </form>
-      </div>
+      </section>
     </Layout>
   );
 }

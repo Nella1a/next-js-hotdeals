@@ -72,7 +72,7 @@ export const globalStyleBody = (theme) => css`
   select {
     min-height: 3.5rem;
     padding: 1rem;
-    border: 1px solid blue;
+    border: 1px solid black;
     margin-bottom: 0.8rem;
   }
 
@@ -147,8 +147,8 @@ export const captext = css`
 export const headerStyle = css`
   width: 100%;
   height: 5rem;
-  ${marginCenter}
-  border: 1px solid red;
+  background-color: #e20015;
+
   a {
     text-decoration: none;
     display: block;
@@ -161,7 +161,7 @@ export const headerStyle = css`
     margin-top: 1.5rem;
     padding: 1.5rem 16px;
     text-align: center;
-    color: var(--fontColorParagraphAndLinks);
+    color: #fff;
     border: none;
     border-radius: 4px;
   }
@@ -172,8 +172,15 @@ export const headerStyle = css`
 /* *************************** */
 export const sectionOneIndex = css`
   text-align: center;
+  background-color: #0f0f0f0f;
+  height: 3rem;
+  color: #000;
+  ${displayFlex('flex', 'row', 'center', 'center', 'no-wrap')}
   p {
+    display: inline-block;
     font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0;
   }
 `;
 
@@ -236,6 +243,89 @@ export const sectionTwoCategorie = css`
           padding: 0 1rem;
         }
       }
+    }
+  }
+`;
+
+/* *************************** */
+/*          login              */
+/* *************************** */
+export const sectionRegisterAndLogin = css`
+  height: 100vh;
+  ${displayFlex('flex', 'column', 'center', 'center', 'no-wrap')}
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  article {
+    width: 28rem;
+    height: 28rem;
+    border: 1px solid black;
+
+    form {
+      width: inherit;
+      height: inherit;
+      ${displayFlex('flex', 'column', 'center', 'center', 'no-wrap')}
+      gap: 1rem;
+
+      div > p {
+        margin-bottom: 0.3rem;
+      }
+      button {
+        width: 10rem;
+        background-color: #000;
+        color: #fff;
+        border: none;
+
+        :hover {
+          background-color: #e20015;
+        }
+      }
+    }
+  }
+`;
+
+/* *************************** */
+/*          register             */
+/* *************************** */
+export const sectionRegister = css`
+  height: 100vh;
+  ${displayFlex('flex', 'column', 'center', 'center', 'no-wrap')}
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  article {
+    width: 28rem;
+    height: 28rem;
+    border: 1px solid black;
+
+    form {
+      width: inherit;
+      height: inherit;
+      ${displayFlex('flex', 'column', 'center', 'center', 'no-wrap')}
+      gap: 1rem;
+
+      div > p {
+        margin-bottom: 0.3rem;
+      }
+      button {
+        width: 10rem;
+        background-color: #000;
+        color: #fff;
+        border: none;
+
+        :hover {
+          background-color: #e20015;
+        }
+      }
+    }
+    a {
+      text-decoration: none;
     }
   }
 `;
