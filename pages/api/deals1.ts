@@ -1,12 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-// import { addProduct } from '../../util/database';
 import { GetDealsReponseBody } from './deals2';
 import cheerio from 'cheerio';
-// const cheerio = require('cheerio');
-
-// export type AddContractResponseBody =
-//   | { errors: string }
-//   | { message: string | undefined };
 
 export default async function handler(
   req: NextApiRequest,

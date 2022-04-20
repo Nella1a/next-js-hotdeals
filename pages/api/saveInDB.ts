@@ -1,16 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { addProduct, Products, readProducts } from '../../util/database';
 
-// type Products = {
-//   name: string;
-//   nameAndInfo: string;
-//   productUrl: string;
-//   oldPrice: string;
-//   currentPrice: string;
-//   savings: string;
-//   category: number;
-// };
-
 export type GetDealsReponseBody =
   | { errors: string }
   | { deals: Products[]; message: string };

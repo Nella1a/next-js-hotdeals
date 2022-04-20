@@ -10,16 +10,6 @@ import {
   sectionTwoAdminDashboard,
 } from '../components/elements';
 
-// type Products = {
-//   name: string;
-//   nameAndInfo: string;
-//   productUrl: string;
-//   oldPrice: string;
-//   currentPrice: string;
-//   savings: string;
-//   category: number;
-// };
-
 export default function Home() {
   const [inputValue, setInputValue] = useState<number>(0);
   const [deals, setDeals] = useState<Products[]>([]);

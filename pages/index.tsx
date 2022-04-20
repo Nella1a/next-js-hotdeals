@@ -24,21 +24,6 @@ type Props = {
 };
 
 export default function Deals(props: Props) {
-  // const [search, setSearch] = useState('');
-  // if (props.deals === undefined) {
-  //   return (
-  //     <Layout>
-  //       <Head>
-  //         <title>Get Deals</title>
-  //         <link rel="icon" href="/favicon.ico" />
-  //       </Head>
-  //       <section>
-  //         <h1>Upps.... Derzeit gibt es keine Deals verfügbar</h1>
-  //       </section>
-  //     </Layout>
-  //   );
-  // }
-
   return (
     <Layout>
       <Head>

@@ -1,17 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Products } from '../../util/database';
 import cheerio from 'cheerio';
-// const cheerio = require('cheerio');
-
-// type Products = {
-//   name: string;
-//   nameAndInfo: string;
-//   productUrl: string;
-//   oldPrice: string;
-//   currentPrice: string;
-//   savings: string;
-//   category: number;
-// };
 
 export type GetDealsReponseBody = { errors: string } | { deals: Products[] };
 
