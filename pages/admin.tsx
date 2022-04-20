@@ -47,7 +47,6 @@ export default function Admin(props: Props) {
               });
 
               // get response from api & check for error message
-
               const loginResponseBody =
                 (await loginResponse.json()) as LoginResponseBody;
               if ('errors' in loginResponseBody) {
