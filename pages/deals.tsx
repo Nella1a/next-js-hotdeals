@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>Get Deals</title>
+        <title>Admin Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section css={[sectionOneIndex, sectionOneAdmin]}>

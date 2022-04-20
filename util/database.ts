@@ -242,10 +242,10 @@ export type ProductsCategory = {
   category: string;
 };
 
-export async function readProductsByCategory(category: string | undefined) {
-  if (!category) {
-    return undefined;
-  }
+export async function readProductsByCategory(category: any) {
+  // if (!category) {
+  //   return undefined;
+  // }
   const products = await sql<ProductsCategory[]>`
    SELECT * FROM
   products,

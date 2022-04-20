@@ -6,7 +6,7 @@ export default function Header() {
     <header css={headerStyle}>
       <Link href="/" passHref>
         <a>
-          %<span>Möbel</span> Deals
+          %<span>Möbel</span>Deals
         </a>
       </Link>
     </header>

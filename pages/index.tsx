@@ -1,13 +1,11 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import { useState } from 'react';
-import router from 'next/router';
 
 import {
-  readProducts,
+  // readProducts,
   productCategories,
   ProductCategories,
-  ProductsCategory,
+  // ProductsCategory,
 } from '../util/database';
 import Layout from '../components/Layout';
 import Image from 'next/image';
@@ -21,32 +19,32 @@ import { GetServerSidePropsResult } from 'next';
 import Search from '../components/search';
 
 type Props = {
-  deals?: ProductsCategory[];
+  // deals?: ProductsCategory[];
   readCategories: ProductCategories[];
 };
 
 export default function Deals(props: Props) {
-  const [search, setSearch] = useState('');
-  if (props.deals === undefined) {
-    return (
-      <Layout>
-        <Head>
-          <title>Get Deals</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <section>
-          <h1>Upps.... Derzeit gibt es keine Deals verfügbar</h1>
-        </section>
-      </Layout>
-    );
-  }
+  // const [search, setSearch] = useState('');
+  // if (props.deals === undefined) {
+  //   return (
+  //     <Layout>
+  //       <Head>
+  //         <title>Get Deals</title>
+  //         <link rel="icon" href="/favicon.ico" />
+  //       </Head>
+  //       <section>
+  //         <h1>Upps.... Derzeit gibt es keine Deals verfügbar</h1>
+  //       </section>
+  //     </Layout>
+  //   );
+  // }
 
   return (
     <Layout>
       <Head>
         <title>Get Deals</title>
       </Head>
-      <Search categories={props.readCategories} />
+      <Search />
 
       <section css={sectionOneIndex}>
         <p>
@@ -55,7 +53,6 @@ export default function Deals(props: Props) {
       </section>
 
       <section css={sectionTwoIndex}>
-        {/* <h1>Suche nach Kategorien</h1> */}
         <div>
           {props.readCategories.map((productCategory) => {
             return (
@@ -82,19 +79,19 @@ export default function Deals(props: Props) {
 
 export async function getServerSideProps(): Promise<
   GetServerSidePropsResult<{
-    deals?: ProductsCategory[];
+    // deals?: ProductsCategory[];
     readCategories: ProductCategories[];
   }>
 > {
   // get deals from db
-  const getDeals = await readProducts();
+  // const getDeals = await readProducts();
 
   // get categories from db
   const readCategories = await productCategories();
   console.log(readCategories);
   return {
     props: {
-      deals: getDeals,
+      // deals: getDeals,
       readCategories,
     },
   };

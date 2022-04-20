@@ -29,7 +29,7 @@ export default async function handler(
     }
 
     // save deals in DB
-    req.body.hotdeals.forEach(async (deal) => {
+    req.body.hotdeals.forEach(async (deal: any) => {
       await addProduct(
         deal.name,
         deal.url,
