@@ -3,6 +3,7 @@ exports.up = async (sql) => {
 	INSERT INTO product_categories
 	(id,category)
 	VALUES
+	(0, 'topseller'),
 	(1,'wohnzimmer'),
 	(2,'schlafzimmer'),
 	(3,'speisezimmer'),
@@ -12,11 +13,9 @@ exports.up = async (sql) => {
 	(7,'garderobe'),
 	(8,'kinderzimmer'),
 	(9, 'gartenmoebel'),
-	(10,'kueche / kochen / essen'),
-	(11,'lampen und leuchten'),
-	(12,'Heimtextilien')
-
-
+	(10,'kueche'),
+	(11,'lampen-und-leuchten'),
+	(12,'heimtextilien')
 	`;
 };
 

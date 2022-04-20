@@ -1,16 +1,30 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { addProduct } from '../../util/database';
-const cheerio = require('cheerio');
+// import { addProduct } from '../../util/database';
+import { GetDealsReponseBody } from './deals2';
+import cheerio from 'cheerio';
+// const cheerio = require('cheerio');
 
-export type AddContractResponseBody =
-  | { errors: string }
-  | { message: string | undefined };
+// export type AddContractResponseBody =
+//   | { errors: string }
+//   | { message: string | undefined };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<AddContractResponseBody>,
+  res: NextApiResponse<GetDealsReponseBody>,
 ) {
   if (req.method === 'POST') {
+    console.log('number;', req.body.hotdeals);
+    const productsArray = [
+      {
+        name: '',
+        url: '',
+        priceOld: 0,
+        priceCurrent: 0,
+        discount: '',
+        category: 0,
+      },
+    ];
+
     const dealsCategory = [
       { category: 'wohnzimmer', dbNumber: 1 },
       { category: 'schlafzimmer', dbNumber: 2 },
@@ -43,58 +57,59 @@ export default async function handler(
       const indexPosition = htmlString.indexOf('window.__');
       const newString = htmlString.slice(0, indexPosition);
 
-      // load string into cheerio
+      // load string into cheerio: create pseudo-DOM of website
       const $ = cheerio.load(newString);
 
-      // get current deals
+      // get deals-container in DOM
       const checkCurrentDeals = $('[data-purpose="listing.productsContainer"]');
 
-      // get current deals data
+      // If deals-container exists loop trough each deal and get data
       if (checkCurrentDeals.html() !== 'null') {
         $('[data-purpose="listing.productsContainer"] article').each(
-          async (i, el) => {
-            const productMoemaxName = $(el).find('h3').text().replace(/,/g, '');
+          (i, el) => {
+            const productName = $(el).find('h3').text().replace(/,/g, '');
 
-            const productMoemaxUrl = $(el).find('a').attr('href');
-            const productMoemaxOldPrice = $(el)
+            const productUrl = $(el).find('a').attr('href');
+            const productOldPrice = $(el)
               .find('[data-purpose="product.price.old"]')
+              .next()
               .text()
               .replace(/["€*]/g, '')
               .replace(',', '.')
-              .replace('/\\-/', '00')
+              .replace(/.‒/g, '')
               .trim();
 
-            const productMoemaxCurrentPrice = $(el)
+            const productCurrentPrice = $(el)
               .find('[data-purpose="product.price.current"]')
               .text()
               .replace(/["€*]/g, '')
               .replace(',', '.')
+              .replace(/.‒/g, '')
               .trim();
 
-            const productMoemaxSaving = $(el).find('._ggQHMv9W6taNwaY2').text();
+            const productSaving = $(el).find('._ggQHMv9W6taNwaY2').text();
 
-            console.log(productMoemaxOldPrice);
-            console.log(productMoemaxOldPrice.length);
-
-            const fullProductMoemaxUrl = baseUrl + productMoemaxUrl;
-            const productCategory = dealsCategory[j].dbNumber;
-
-            // add product to db
-            const addProductToDB = await addProduct(
-              productMoemaxName,
-              fullProductMoemaxUrl,
-              productMoemaxOldPrice,
-              productMoemaxCurrentPrice,
-              productMoemaxSaving,
-              productCategory,
-            );
-            console.log(addProductToDB);
+            // save deal-details
+            productsArray.push({
+              name: productName,
+              url: baseUrl + productUrl,
+              priceOld: parseFloat(productOldPrice),
+              priceCurrent: parseFloat(productCurrentPrice),
+              discount: productSaving,
+              category: dealsCategory[j].dbNumber,
+            });
           },
         );
-      } // end if
+      }
+    }
+    if (productsArray.length === 0) {
+      res.status(405).json({
+        errors: `Currently no deals on ${baseUrl}`,
+      });
+      return;
     }
     res.status(200).json({
-      message: 'new deals in db',
+      deals: productsArray,
     });
     return;
   }
