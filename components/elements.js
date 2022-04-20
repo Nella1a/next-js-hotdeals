@@ -122,7 +122,7 @@ export const captext = css`
 export const headerStyle = css`
   width: 100%;
   height: 5rem;
-  background-color: #e20015;
+  background-color: #fff;
 
   a {
     text-decoration: none;
@@ -136,9 +136,37 @@ export const headerStyle = css`
     margin-top: 1.5rem;
     padding: 1.5rem 16px;
     text-align: center;
-    color: #fff;
+    color: #e20015;
     border: none;
     border-radius: 4px;
+
+    span {
+      color: #000;
+    }
+  }
+`;
+
+/* *************************** */
+/*       component: Search            */
+/* *************************** */
+export const sectionSearch = css`
+  background-color: #333;
+  padding: 0.8rem;
+  ${displayFlex('flex', 'row', 'center', 'center', 'no-wrap')}
+
+  form {
+    ${displayFlex('flex', 'row', 'center', 'center', 'no-wrap')}
+    height: 100%;
+
+    select {
+      margin-bottom: 0;
+      width: 30rem;
+      text-align: center;
+    }
+
+    button {
+      height: 3.5rem;
+    }
   }
 `;
 
@@ -147,20 +175,24 @@ export const headerStyle = css`
 /* *************************** */
 export const sectionOneIndex = css`
   text-align: center;
-  background-color: #0f0f0f0f;
   height: 3rem;
   color: #000;
   ${displayFlex('flex', 'row', 'center', 'center', 'no-wrap')}
+  margin: 3rem 0;
   p {
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     padding: 0;
+    span {
+      color: #e20015;
+    }
   }
 `;
 
 export const sectionTwoIndex = css`
   text-align: center;
+
   h1 {
     text-align: left;
     margin-bottom: 1.5rem;
@@ -219,6 +251,24 @@ export const sectionTwoCategorie = css`
           padding: 0 1rem;
         }
       }
+
+      div:last-of-type {
+        width: 100%;
+        p {
+          width: 100%;
+          text-align: right;
+        }
+        p:nth-of-type(2) {
+          font-size: 1.1rem;
+          font-weight: 600;
+        }
+      }
+
+      div:last-of-type > p:last-of-type span {
+        background-color: #e20015;
+        color: #fff;
+        font-weight: 600;
+      }
     }
   }
 `;
@@ -228,7 +278,7 @@ export const sectionTwoCategorie = css`
 /* *************************** */
 export const sectionRegisterAndLogin = css`
   height: 100vh;
-  ${displayFlex('flex', 'column', 'center', 'center', 'no-wrap')}
+  ${displayFlex('flex', 'column', 'flex-start', 'center', 'no-wrap')}
 
   h1 {
     font-size: 1.8rem;
@@ -300,14 +350,23 @@ export const sectionRegister = css`
 /*          deals (admin)      */
 /* *************************** */
 
+export const sectionOneAdmin = css`
+  margin: 0;
+`;
+
 export const sectionTwoAdmin = css`
-  ${displayFlex('flex', 'row', 'flex-start', 'flex-start')}
+  ${displayFlex('flex', 'column', 'flex-start', 'center')}
   gap: 1.5rem;
   h1 {
     font-size: 1.5rem;
   }
   margin-bottom: 2rem;
   margin-top: 1rem;
+
+  div > h1 {
+    text-align: center;
+  }
+
   form {
     ${displayFlex('flex', 'column', 'flex-start', 'flex-start')}
     gap: .5rem;
@@ -316,15 +375,19 @@ export const sectionTwoAdmin = css`
       font-size: 1.3rem;
     }
 
+    label {
+      width: 100%;
+      text-align: center;
+    }
     div {
       ${displayFlex('flex', 'row', 'flex-start', 'flex-start')}
       gap: .5rem;
-      button {
-        width: 10.5rem;
-        height: 3.4rem;
-        padding: 0;
-      }
     }
+  }
+  button {
+    width: 11.5rem;
+    height: 3.4rem;
+    padding: 0;
   }
 `;
 
