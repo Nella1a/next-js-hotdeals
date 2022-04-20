@@ -115,6 +115,10 @@ export const captext = css`
   font-weight: 600;
 `;
 
+export const errorStyles = css`
+  color: red;
+`;
+
 /* *************************** */
 /*            Header           */
 /* *************************** */

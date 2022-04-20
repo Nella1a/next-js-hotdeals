@@ -3,10 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import {
-  sectionRegisterAndLogin,
-  sectionRegister,
-} from '../components/elements';
+import { sectionRegister } from '../components/elements';
 
 import Layout from '../components/Layout';
 

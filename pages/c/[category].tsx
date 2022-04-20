@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import React from 'react';
@@ -16,31 +15,30 @@ import placeHolderImg from '../../public/placeHolderImg.jpg';
 
 import {
   captext,
-  sectionOneCategorie,
   sectionOneIndex,
   sectionTwoCategorie,
 } from '../../components/elements';
 import Search from '../../components/search';
 
 type Props = {
-  deals?: ProductsCategory[];
-  currentCategory: string;
-  getCategories: ProductsCategory[];
+  deals?: ProductsCategory[] | undefined;
+  currentCategory: string | string[] | undefined;
+  // getCategories: ProductsCategory[];
 };
 
 export default function Category(props: Props) {
-  const [categories, setCategories] = useState(props.getCategories);
+  // const [categories, setCategories] = useState(props.getCategories);
 
+  // if (props.deals?.length === 0)
   console.log(props.deals);
-  if (props.deals?.length === 0) {
+  if (props.deals === undefined || props.deals.length === 0) {
     return (
       <Layout>
         <Head>
-          <title>Get Deals</title>
+          <title>{props.currentCategory}</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Search categories={props.getCategories} />
-
+        <Search />
         <section css={sectionOneIndex}>
           <h1 css={captext}>{props.currentCategory}</h1>
         </section>
@@ -56,7 +54,7 @@ export default function Category(props: Props) {
       <Head>
         <title>Get Deals</title>
       </Head>
-      <Search categories={props.getCategories} />
+      <Search />
 
       <section css={sectionOneIndex}>
         <h1 css={captext}>{props.currentCategory}</h1>
@@ -107,7 +105,7 @@ export async function getServerSideProps(
 ): Promise<
   GetServerSidePropsResult<{
     deals?: ProductsCategory[];
-    currentCategory: string;
+    currentCategory: string | string[] | undefined;
     getCategories: ProductCategories[];
   }>
 > {

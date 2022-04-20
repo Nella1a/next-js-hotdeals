@@ -10,7 +10,6 @@
     "migrate": "dotenv ley"
   },
   "dependencies": {
-    "@emotion/babel-plugin": "^11.9.2",
     "@emotion/react": "^11.9.0",
     "bcrypt": "^5.0.1",
     "camelcase-keys": "^7.0.2",

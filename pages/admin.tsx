@@ -10,7 +10,7 @@ import { LoginResponseBody } from './api/login';
 import { GetServerSidePropsContext } from 'next';
 import { getValidSessionByToken } from '../util/database';
 import { createCsrfToken } from '../util/auth';
-import { sectionRegisterAndLogin } from './../components/elements';
+import { errorStyles, sectionRegisterAndLogin } from './../components/elements';
 
 type Errors = { message: string }[];
 type Props = {
@@ -63,6 +63,13 @@ export default function Admin(props: Props) {
           >
             <h1>Admin Login</h1>
             <div>
+              <div css={errorStyles}>
+                {errors.map((error) => {
+                  return (
+                    <div key={`error-${error.message}`}>{error.message}</div>
+                  );
+                })}
+              </div>
               <p>
                 {' '}
                 <label htmlFor="username">Username</label>
