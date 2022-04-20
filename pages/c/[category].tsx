@@ -17,8 +17,10 @@ import placeHolderImg from '../../public/placeHolderImg.jpg';
 import {
   captext,
   sectionOneCategorie,
+  sectionOneIndex,
   sectionTwoCategorie,
 } from '../../components/elements';
+import Search from '../../components/search';
 
 type Props = {
   deals?: ProductsCategory[];
@@ -29,26 +31,20 @@ type Props = {
 export default function Category(props: Props) {
   const [categories, setCategories] = useState(props.getCategories);
 
-  if (props.deals === undefined) {
+  console.log(props.deals);
+  if (props.deals?.length === 0) {
     return (
       <Layout>
         <Head>
           <title>Get Deals</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <section css={sectionOneCategorie}>
-          {categories.map((category) => {
-            return (
-              <p key={`category-${category.id}`}>
-                <Link href="/" passHref>
-                  <a>{category.category}</a>
-                </Link>
-              </p>
-            );
-          })}
+        <Search categories={props.getCategories} />
+
+        <section css={sectionOneIndex}>
+          <h1 css={captext}>{props.currentCategory}</h1>
         </section>
-        <section>
-          <p>{props.currentCategory}</p>
+        <section css={sectionOneIndex}>
           <p>Bald gibt es hier wieder tolle Angebote.</p>
         </section>
       </Layout>
@@ -60,20 +56,13 @@ export default function Category(props: Props) {
       <Head>
         <title>Get Deals</title>
       </Head>
+      <Search categories={props.getCategories} />
 
-      <section css={sectionOneCategorie}>
-        {categories.map((category) => {
-          return (
-            <p key={`category-${category.id}`} css={captext}>
-              <Link href="/" passHref>
-                <a>{category.category}</a>
-              </Link>
-            </p>
-          );
-        })}
-      </section>
-      <section css={sectionTwoCategorie}>
+      <section css={sectionOneIndex}>
         <h1 css={captext}>{props.currentCategory}</h1>
+      </section>
+
+      <section css={sectionTwoCategorie}>
         <div>
           {props.deals.map((deal) => {
             return (
@@ -97,10 +86,12 @@ export default function Category(props: Props) {
                 <div>
                   {' '}
                   <p>
-                    <del>{deal.priceOld}</del>
+                    <del>€ {deal.priceOld}</del>
                   </p>
-                  <p>{deal.priceCurrent}</p>
-                  <p>{deal.discount}</p>
+                  <p>€ {deal.priceCurrent}</p>
+                  <p>
+                    <span>{deal.discount}</span>
+                  </p>
                 </div>
               </article>
             );

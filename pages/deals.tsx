@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import { getUserByValidSessionToken, Products } from '../util/database';
 import { useState } from 'react';
 import {
+  sectionOneAdmin,
   sectionOneIndex,
   sectionTwoAdmin,
   sectionTwoAdminDashboard,
@@ -58,8 +59,8 @@ export default function Home() {
         <title>Get Deals</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section css={sectionOneIndex}>
-        <p>Update and Manage Deals</p>
+      <section css={[sectionOneIndex, sectionOneAdmin]}>
+        <p>Update And Manage Deals</p>
       </section>
       <section css={sectionTwoAdmin}>
         <div>
@@ -109,12 +110,9 @@ export default function Home() {
         </div>
         {/* send deals to db  */}
         <div>
-          <h1>Send deals to DB</h1>
-
-          <div />
           <p>{errors}</p>
           <p>{apiResponse}</p>
-          <button onClick={sendDealsToDB}>Submit</button>
+          <button onClick={sendDealsToDB}>Save Products in DB</button>
         </div>
       </section>
       <section css={sectionTwoAdminDashboard}>

@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import React from 'react';
+import { useState } from 'react';
+import router from 'next/router';
+
 import {
   readProducts,
   productCategories,
@@ -16,6 +18,7 @@ import {
 } from '../components/elements';
 import placeHolderImg from '../public/placeHolderImg.jpg';
 import { GetServerSidePropsResult } from 'next';
+import Search from '../components/search';
 
 type Props = {
   deals?: ProductsCategory[];
@@ -23,6 +26,7 @@ type Props = {
 };
 
 export default function Deals(props: Props) {
+  const [search, setSearch] = useState('');
   if (props.deals === undefined) {
     return (
       <Layout>
@@ -42,13 +46,16 @@ export default function Deals(props: Props) {
       <Head>
         <title>Get Deals</title>
       </Head>
+      <Search categories={props.readCategories} />
+
       <section css={sectionOneIndex}>
-        <p>Die besten Angebote.</p>
-        <p>Für Dich zusammengestellt!</p>
+        <p>
+          <span>Die besten Angebote.</span> Für Dich zusammengestellt!
+        </p>
       </section>
 
       <section css={sectionTwoIndex}>
-        <h1>Suche nach Kategorien</h1>
+        {/* <h1>Suche nach Kategorien</h1> */}
         <div>
           {props.readCategories.map((productCategory) => {
             return (
