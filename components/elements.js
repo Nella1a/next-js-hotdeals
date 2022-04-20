@@ -84,16 +84,14 @@ export const globalStyleBody = (theme) => css`
     font: inherit;
     line-height: 1.5;
     letter-spacing: 0.5px;
-    /* border-radius: 20px; */
     font-weight: bold;
     display: block;
     min-height: 2.5rem;
-    /* background-color: var(--highlightsPink);
-    color: var(--fontColorWhite); */
-    /* border: none; */
 
     :hover {
-      background-color: var(--colorMainBlue);
+      background-color: #e20015;
+      border: none;
+      color: #fff;
     }
   }
 `;
@@ -101,23 +99,6 @@ export const globalStyleBody = (theme) => css`
 /* *************************** */
 /*    Utility Styles?          */
 /* *************************** */
-
-const flexCenter = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
-const flexCenterColumn = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
-const marginCenter = {
-  margin: '0 auto',
-};
 
 const displayFlex = (
   display = 'flex',
@@ -128,12 +109,6 @@ const displayFlex = (
 ) => {
   return { display, flexDirection, justifyContent, alignItems, flexWrap };
 };
-
-/** Layout ** */
-export const styleMain = css`
-  display: flex;
-  min-height: 100vh;
-`;
 
 export const captext = css`
   text-transform: capitalize;
@@ -202,6 +177,7 @@ export const sectionTwoIndex = css`
 /* *************************** */
 /*            Categories       */
 /* *************************** */
+
 export const sectionOneCategorie = css`
   ${displayFlex('flex', 'row', '', '', 'wrap')}
   gap: 1rem;
@@ -277,18 +253,13 @@ export const sectionRegisterAndLogin = css`
         width: 10rem;
         background-color: #000;
         color: #fff;
-        border: none;
-
-        :hover {
-          background-color: #e20015;
-        }
       }
     }
   }
 `;
 
 /* *************************** */
-/*          register             */
+/*          register            */
 /* *************************** */
 export const sectionRegister = css`
   height: 100vh;
@@ -317,15 +288,105 @@ export const sectionRegister = css`
         width: 10rem;
         background-color: #000;
         color: #fff;
-        border: none;
-
-        :hover {
-          background-color: #e20015;
-        }
       }
     }
     a {
       text-decoration: none;
+    }
+  }
+`;
+
+/* *************************** */
+/*          deals (admin)      */
+/* *************************** */
+
+export const sectionTwoAdmin = css`
+  ${displayFlex('flex', 'row', 'flex-start', 'flex-start')}
+  gap: 1.5rem;
+  h1 {
+    font-size: 1.5rem;
+  }
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  form {
+    ${displayFlex('flex', 'column', 'flex-start', 'flex-start')}
+    gap: .5rem;
+
+    span {
+      font-size: 1.3rem;
+    }
+
+    div {
+      ${displayFlex('flex', 'row', 'flex-start', 'flex-start')}
+      gap: .5rem;
+      button {
+        width: 10.5rem;
+        height: 3.4rem;
+        padding: 0;
+      }
+    }
+  }
+`;
+
+export const sectionTwoAdminDashboard = css`
+  ${displayFlex('flex', 'column', 'space-between', 'flex-start')}
+  background-color: #fff;
+  width: 85%;
+  min-width: 57.5rem;
+  padding: 1.5rem;
+  /* border-radius: 10px; */
+
+  article:first-of-type {
+    display: flex;
+    margin-bottom: 0.5rem;
+    gap: 0.8rem;
+
+    div {
+      ${displayFlex('flex', 'row', 'center', 'center')}
+      background-color: grey;
+      color: #fff;
+      font-weight: 600;
+      text-align: center;
+      width: 18.5rem;
+      height: 3rem;
+      border-radius: 5px;
+    }
+    div:first-of-type {
+      text-align: center;
+      width: 35rem;
+    }
+    div:nth-of-type(2),
+    div:nth-of-type(3),
+    div:nth-of-type(4),
+    div:nth-of-type(5) {
+      width: 12rem;
+    }
+  }
+
+  article {
+    display: flex;
+    margin-bottom: 0.5rem;
+    gap: 0.8rem;
+    p {
+      ${displayFlex('flex', 'row', 'center', 'center')}
+      background-color: #0f0f0f0f;
+      color: #000;
+      font-weight: 300;
+
+      width: 18.5rem;
+      height: 3rem;
+      border-radius: 5px;
+    }
+
+    p:first-of-type {
+      width: 35rem;
+    }
+
+    p:nth-of-type(2),
+    p:nth-of-type(3),
+    p:nth-of-type(4),
+    p:nth-of-type(5) {
+      width: 12rem;
     }
   }
 `;

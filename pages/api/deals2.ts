@@ -1,50 +1,49 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { addProduct } from '../../util/database';
-const cheerio = require('cheerio');
+import { Products } from '../../util/database';
+import cheerio from 'cheerio';
+// const cheerio = require('cheerio');
 
-type Products = {
-  name: string;
-  nameAndInfo: string;
-  productUrl: string;
-  oldPrice: string;
-  currentPrice: string;
-  savings: string;
-  category: number;
-};
+// type Products = {
+//   name: string;
+//   nameAndInfo: string;
+//   productUrl: string;
+//   oldPrice: string;
+//   currentPrice: string;
+//   savings: string;
+//   category: number;
+// };
 
-export type AddContractResponseBody =
-  | { errors: string }
-  | { deals: Products[] };
+export type GetDealsReponseBody = { errors: string } | { deals: Products[] };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<AddContractResponseBody>,
+  res: NextApiResponse<GetDealsReponseBody>,
 ) {
   if (req.method === 'POST') {
+    console.log('number;', req.body.hotdeals);
     const productsArray = [
       {
         name: '',
-        nameAndInfo: '',
-        productUrl: '',
-        oldPrice: '',
-        currentPrice: '',
-        savings: '',
+        url: '',
+        priceOld: 0,
+        priceCurrent: 0,
+        discount: '',
         category: 0,
       },
     ];
 
     const dealsCategory = [
       { category: 'wohnzimmer', dbNumber: 1 },
-      // { category: 'schlafzimmer', dbNumber: 2 },
-      // { category: 'speisezimmer', dbNumber: 3 },
-      // { category: 'dekoration', dbNumber: 4 },
-      // { category: 'arbeitszimmer', dbNumber: 5 },
-      // { category: 'badezimmer', dbNumber: 6 },
-      // { category: 'garderobe', dbNumber: 7 },
-      // { category: 'kinderzimmer', dbNumber: 8 },
+      { category: 'schlafzimmer', dbNumber: 2 },
+      { category: 'esszimmer', dbNumber: 3 },
+      // { category: 'badezimmer', dbNumber: 4 },
+      // { category: 'buero-arbeitszimmer', dbNumber: 5 }, // arbeitszimmer
+      // { category: 'garderobe', dbNumber: 6 },
+      // { category: 'kinder-jungedzimmer', dbNumber: 7 }, // kinderzimmer
+      // { category: 'kueche', dbNumber: 8 },
     ];
-    console.log('number;', req.body.hotdeals);
-    const baseUrl = `https://www.moebelix.at/`;
+
+    const baseUrl = `https://www.moebelix.at`;
     const headers = {
       Cookie:
         '__cf_bm=kGvHo.NF0o5iXhgmNUblBEkrw7h_0ZCNqIigXJ1eYKc-1650104946-0-AbQ1xwkvZvzwLUxp2lHd9OZJGSBxiKMVGiBXluzAaa5ZYbMHjciAH4tvhyzKFT4V8FwU12D53+Yx3TKUN0n69A8=',
@@ -56,7 +55,8 @@ export default async function handler(
 
     for (let j = 0; j < dealsCategory.length; j++) {
       const response = await fetch(
-        `https://www.moebelix.at/${dealsCategory[j].category}-C1?v_eyecatcher=sale`,
+        // `https://www.moebelix.at/${dealsCategory[j].category}-C1?v_eyecatcher=sale`,
+        `https://www.moebelix.at/${dealsCategory[j].category}-C${j + 1}`,
         {
           headers,
         },
@@ -69,7 +69,7 @@ export default async function handler(
       // load string into cheerio: create pseudo-DOM of website
       const $ = cheerio.load(newString);
 
-      // get deals-container in html
+      // get deals-container in DOM
       const checkCurrentDeals = $('[data-purpose="listing.productsContainer"]');
       // console.log($.html());
 
@@ -77,8 +77,7 @@ export default async function handler(
       if (checkCurrentDeals.html() !== 'null') {
         $('[data-purpose="listing.productsContainer"] article').each(
           (i, el) => {
-            const productName = $(el).find('h3 > span').text();
-            const productNameAndInfo = $(el).find('h3').text();
+            const productName = $(el).find('h3').text().replace(/,/g, '');
             const productUrl = $(el).find('a').attr('href');
             const productOldPrice = $(el)
               .find('[data-purpose="product.price.old"]')
@@ -95,53 +94,30 @@ export default async function handler(
               .replace(/.‒/g, '')
               .trim();
 
-            // not sure why no data
-            // tried  typeof productSaving (string) &  productSaving.length (0),
-            /*
-            <div class="_yXeEMK49RPkE+6r-">
-            <span class="_tBbIYxt08aknZp5O _ct-7A3TPX8s9vVX+ _9IKHT9jVjdivPUFm">-20% reduziert
-            */
             const productSaving = $(el)
               .find('._tBbIYxt08aknZp5O._ct-7A3TPX8s9vVX+._9IKHT9jVjdivPUFm')
               .text();
-            //  .replace(/[\\-\\%]/g, '');
 
             // save deal-details
             productsArray.push({
               name: productName,
-              nameAndInfo: productNameAndInfo,
-              productUrl: productUrl,
-              oldPrice: productOldPrice,
-              currentPrice: productCurrentPrice,
-              savings: productSaving,
+              url: baseUrl + productUrl,
+              priceOld: parseFloat(productOldPrice),
+              priceCurrent: parseFloat(productCurrentPrice),
+              discount: productSaving,
               category: dealsCategory[j].dbNumber,
             });
-            console.log(
-              'DATEN:',
-              productName,
-              productNameAndInfo,
-              productUrl,
-              productOldPrice,
-              productCurrentPrice,
-              productSaving,
-            );
-
-            // console.log(productOldPrice.length);
-            // const fullProductUrl = baseUrl + productUrl;
-            // const productCategory = dealsCategory[j].dbNumber;
-
-            // add product to db
-            // const addProductToDB = await addProduct(
+            // console.log(
+            //   'DATEN:',
             //   productName,
-            //   fullProductUrl,
+            //   productUrl,
             //   productOldPrice,
             //   productCurrentPrice,
             //   productSaving,
-            //   productCategory,
             // );
           },
         );
-      } // end if
+      }
     }
     if (productsArray.length === 0) {
       res.status(405).json({

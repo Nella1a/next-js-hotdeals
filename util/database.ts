@@ -32,8 +32,8 @@ const sql = connectOneTimeToDatabase();
 export type Products = {
   name: string;
   url: string;
-  priceCurrent: string;
-  priceOld: string;
+  priceCurrent: number;
+  priceOld: number;
   discount: string;
   category: number;
 };
@@ -42,8 +42,8 @@ export type Products = {
 export async function addProduct(
   name: string,
   url: string,
-  priceCurrent: string,
-  priceOld: string,
+  priceCurrent: number,
+  priceOld: number,
   discount: string,
   category: number,
 ) {
@@ -235,8 +235,8 @@ export type ProductsCategory = {
   id: number;
   productName: string;
   productUrl: string;
-  priceCurrent: string;
-  priceOld: string;
+  priceCurrent: number;
+  priceOld: number;
   discount: string;
   categoryId: number;
   category: string;

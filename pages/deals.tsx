@@ -1,30 +1,57 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Layout from '../components/Layout';
-import { getUserByValidSessionToken } from '../util/database';
+import { getUserByValidSessionToken, Products } from '../util/database';
 import { useState } from 'react';
-import { sectionOneIndex } from '../components/elements';
+import {
+  sectionOneIndex,
+  sectionTwoAdmin,
+  sectionTwoAdminDashboard,
+} from '../components/elements';
+
+// type Products = {
+//   name: string;
+//   nameAndInfo: string;
+//   productUrl: string;
+//   oldPrice: string;
+//   currentPrice: string;
+//   savings: string;
+//   category: number;
+// };
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<number>(0);
-  const [userFollowers, setUserFollowers] = useState();
+  const [deals, setDeals] = useState<Products[]>([]);
+  const [errors, setErrors] = useState('');
+  const [apiResponse, setApiResponse] = useState('');
 
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-    await fetch(`/api/deals${inputValue}`, {
+  // if (deals !== []) {
+  //   console.log('deals length:,', deals.length);
+  // }
+
+  // send deals to API
+  const sendDealsToDB = async () => {
+    console.log('Deals Send To DB:', deals);
+    const dealsInDB = await fetch(`/api/saveInDB`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
-      body: JSON.stringify({ hotdeals: inputValue }), // ACHTUNG
-    })
-      .then((res) => res.json())
-      .then((userData) => {
-        setUserFollowers(userData);
-        console.log('userData', userData);
-      });
-    console.log('userFollowers:,', userFollowers);
+      body: JSON.stringify({ hotdeals: deals }),
+    });
+
+    const dealsInDBResponseBody = await dealsInDB.json();
+    console.log('ResponseBody:', dealsInDBResponseBody);
+
+    // check response from api for errors
+    if ('erros' in dealsInDBResponseBody) {
+      setErrors(dealsInDBResponseBody.errors);
+    }
+    setErrors('');
+    setDeals(dealsInDBResponseBody.deals);
+    setApiResponse(dealsInDBResponseBody.message);
   };
+
   return (
     <Layout>
       <Head>
@@ -34,26 +61,88 @@ export default function Home() {
       <section css={sectionOneIndex}>
         <p>Update and Manage Deals</p>
       </section>
-      <section>
-        <h1>Fetch Deals</h1>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="selectDeal">
-            <span>Select Platform</span>
-          </label>
-          <select
-            id="selectDeal"
-            name="selectDeal"
-            value={inputValue}
-            onChange={(e) => setInputValue(Number(e.target.value))}
+      <section css={sectionTwoAdmin}>
+        <div>
+          <h1>Get new deals</h1>
+          {/* Get new deals */}
+          <form
+            onSubmit={async (event) => {
+              event.preventDefault();
+              const getNewDeals = await fetch(`/api/deals${inputValue}`, {
+                method: 'POST',
+                headers: {
+                  'content-type': 'application/json',
+                },
+                body: JSON.stringify({ hotdeals: inputValue }),
+              });
+
+              const getNewDealsResponseBody = await getNewDeals.json();
+              console.log('ResponseBody:', getNewDealsResponseBody);
+
+              // check response from api for errors
+              if ('erros' in getNewDealsResponseBody) {
+                setErrors(getNewDealsResponseBody.errors);
+              }
+              setErrors('');
+              setDeals(getNewDealsResponseBody.deals);
+            }}
           >
-            <option value="0">--pleae select---</option>
-            <option value="1">moemax</option>
-            <option value="2">moebelix</option>
-            <option value="3">moemax</option>
-            <option value="4">select all</option>
-          </select>
-          <button>Submit</button>
-        </form>
+            <label htmlFor="selectDeal">
+              <span>Select Platform</span>
+            </label>
+            <div>
+              <select
+                id="selectDeal"
+                name="selectDeal"
+                value={inputValue}
+                onChange={(e) => setInputValue(Number(e.target.value))}
+              >
+                <option value="0">--please select---</option>
+                <option value="1">moemax</option>
+                <option value="2">moebelix</option>
+                <option value="3">xxlutz</option>
+              </select>
+
+              <button>Submit</button>
+            </div>
+          </form>
+        </div>
+        {/* send deals to db  */}
+        <div>
+          <h1>Send deals to DB</h1>
+
+          <div />
+          <p>{errors}</p>
+          <p>{apiResponse}</p>
+          <button onClick={sendDealsToDB}>Submit</button>
+        </div>
+      </section>
+      <section css={sectionTwoAdminDashboard}>
+        <article>
+          <div>Product Name</div>
+          <div>Category</div>
+          <div>Old Price</div>
+          <div>Current Price</div>
+          <div>Discount</div>
+        </article>
+
+        {errors ? (
+          <p>{errors}</p>
+        ) : deals.length === 0 ? (
+          <p>no new deals available</p>
+        ) : (
+          deals.map((deal) => {
+            return (
+              <article key={`deal${deal.name}${deal.priceOld}`}>
+                <p>{deal.name}</p>
+                <p>{deal.category}</p>
+                <p>{deal.priceOld}</p>
+                <p>{deal.priceCurrent}</p>
+                <p>{deal.discount}</p>
+              </article>
+            );
+          })
+        )}
       </section>
     </Layout>
   );
