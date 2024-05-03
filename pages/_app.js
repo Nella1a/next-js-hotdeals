@@ -1,3 +1,4 @@
+import './index.css';
 import { Global, ThemeProvider } from '@emotion/react';
 import { globalStyleBody } from '../components/elements';
 import theme from '../components/theme';
