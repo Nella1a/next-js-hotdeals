@@ -8,7 +8,6 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <Global styles={globalStyleBody(theme)} />
       <Component {...pageProps} />
-      );
     </ThemeProvider>
   );
 }
