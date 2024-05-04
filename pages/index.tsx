@@ -34,14 +34,12 @@ export default function Deals(props: Props) {
           return (
             <div key={`deal${productCategory.id}`} className="p-2">
               <Link href={`/c/${productCategory.category}`} passHref>
-                <a>
-                  <Image
-                    src={placeHolderImg}
-                    alt="icon logout"
-                    width="228"
-                    height="230"
-                  />
-                </a>
+                <Image
+                  src={placeHolderImg}
+                  alt="icon logout"
+                  width="228"
+                  height="230"
+                />
               </Link>
               <p className="font-semibold capitalize">
                 {productCategory.category}

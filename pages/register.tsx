@@ -109,7 +109,7 @@ export default function Register(props: Props) {
             <p>
               Already have an account?
               <Link href="/admin">
-                <a> Login here.</a>
+                 Login here.
               </Link>
             </p>
           </form>

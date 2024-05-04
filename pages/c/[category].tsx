@@ -60,14 +60,12 @@ export default function Category(props: Props) {
               <article key={`deal${deal.id}${deal.productName}`}>
                 <div>
                   <Link href={deal.productUrl} passHref>
-                    <a>
-                      <Image
-                        src={placeHolderImg}
-                        alt="icon logout"
-                        width="228"
-                        height="230"
-                      />
-                    </a>
+                    <Image
+                      src={placeHolderImg}
+                      alt="icon logout"
+                      width="228"
+                      height="230"
+                    />
                   </Link>
                 </div>
                 <div>
