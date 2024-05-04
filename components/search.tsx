@@ -7,7 +7,7 @@ export default function Search() {
   return (
     <section className="flex justify-center items-center bg-[#333] p-3.5">
       <form
-        className="flex justify-center items-center h-full mx-7 "
+        className="flex justify-center items-center h-full mx-7"
         onSubmit={async (event) => {
           event.preventDefault();
           await router.push(`/c/${search}`);
