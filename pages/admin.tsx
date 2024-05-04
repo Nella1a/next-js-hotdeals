@@ -2,15 +2,14 @@
 /* login (admin) to manage deals
  /* ****************************** */
 
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../components/Layout';
-import { LoginResponseBody } from './api/login';
-import { GetServerSidePropsContext } from 'next';
-import { getValidSessionByToken } from '../util/database';
 import { createCsrfToken } from '../util/auth';
-import { errorStyles, sectionRegisterAndLogin } from './../components/elements';
+import { getValidSessionByToken } from '../util/database';
+import { LoginResponseBody } from './api/login';
 
 type Errors = { message: string }[];
 type Props = {
@@ -27,7 +26,7 @@ export default function Admin(props: Props) {
         <title>login</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section css={sectionRegisterAndLogin}>
+      <section>
         <article>
           <form
             onSubmit={async (event) => {
@@ -62,7 +61,7 @@ export default function Admin(props: Props) {
           >
             <h1>Admin Login</h1>
             <div>
-              <div css={errorStyles}>
+              <div>
                 {errors.map((error) => {
                   return (
                     <div key={`error-${error.message}`}>{error.message}</div>

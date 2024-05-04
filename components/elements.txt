@@ -425,8 +425,10 @@ export const sectionTwoAdminDashboard = css`
     div:nth-of-type(2),
     div:nth-of-type(3),
     div:nth-of-type(4),
-    div:nth-of-type(5) {
-      width: 12rem;
+    div:nth-of-type(5),
+    div:nth-of-type(6),
+    div:nth-of-type(7) {
+      width: 10rem;
     }
   }
 
@@ -452,8 +454,10 @@ export const sectionTwoAdminDashboard = css`
     p:nth-of-type(2),
     p:nth-of-type(3),
     p:nth-of-type(4),
-    p:nth-of-type(5) {
-      width: 12rem;
+    p:nth-of-type(5),
+    p:nth-of-type(6),
+    p:nth-of-type(7) {
+      width: 10rem;
     }
   }
 `;

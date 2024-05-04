@@ -1,9 +1,10 @@
+import camelcaseKeys from 'camelcase-keys';
 // 2. Connect to database by importing environment variables
 import { config } from 'dotenv-safe';
 // 1. Import postgres
 import postgres from 'postgres';
-import camelcaseKeys from 'camelcase-keys';
-import { productionBrowserSourceMaps } from '../next.config';
+
+// import { productionBrowserSourceMaps } from '../next.config';
 
 config();
 
@@ -65,8 +66,20 @@ export async function readProducts() {
   return readAllproducts.map((product: Products) => camelcaseKeys(product));
 }
 
+// DELETE
+
+export async function deleteProduct(dealId: any) {
+  const deleteId = await sql`
+  DELETE FROM
+  products
+  WHERE
+  products.id = ${dealId}
+  `;
+  return deleteId;
+}
+
 /* *************************** */
-/*        Table: users         */
+/*        Table: user         */
 /* *************************** */
 
 export type User = {

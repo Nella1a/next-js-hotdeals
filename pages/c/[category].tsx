@@ -1,24 +1,17 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
-
-import Link from 'next/link';
 import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
+import Layout from '../../components/Layout';
+import Search from '../../components/search';
+import placeHolderImg from '../../public/placeHolderImg.jpg';
 import {
-  ProductsCategory,
-  readProductsByCategory,
   productCategories,
   ProductCategories,
+  ProductsCategory,
+  readProductsByCategory,
 } from '../../util/database';
-import Layout from '../../components/Layout';
-import Image from 'next/image';
-import placeHolderImg from '../../public/placeHolderImg.jpg';
-
-import {
-  captext,
-  sectionOneIndex,
-  sectionTwoCategorie,
-} from '../../components/elements';
-import Search from '../../components/search';
 
 type Props = {
   deals?: ProductsCategory[] | undefined;
@@ -39,11 +32,11 @@ export default function Category(props: Props) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Search />
-        <section css={sectionOneIndex}>
-          <h1 css={captext}>{props.currentCategory}</h1>
-        </section>
-        <section css={sectionOneIndex}>
-          <p>Bald gibt es hier wieder tolle Angebote.</p>
+        <section className="max-w-screen-lg  mx-auto flex flex-col justify-center items-center my-10 h-12 flex-nowrap sm:my-12">
+          <h1 className="font-semibold capitalize  text-3xl m-3">
+            {props.currentCategory}
+          </h1>
+          <p className="">Bald gibt es hier wieder tolle Angebote.</p>
         </section>
       </Layout>
     );
@@ -56,25 +49,23 @@ export default function Category(props: Props) {
       </Head>
       <Search />
 
-      <section css={sectionOneIndex}>
-        <h1 css={captext}>{props.currentCategory}</h1>
+      <section className="max-w-screen-lg  mx-auto flex justify-center items-center my-10 h-12 flex-nowrap sm:my-12">
+        <h1 className="font-semibold capitalize">{props.currentCategory}</h1>
       </section>
 
-      <section css={sectionTwoCategorie}>
+      <section className="max-w-screen-lg  mx-auto flex justify-center items-center my-10 h-12 flex-nowrap sm:my-12">
         <div>
           {props.deals.map((deal) => {
             return (
               <article key={`deal${deal.id}${deal.productName}`}>
                 <div>
                   <Link href={deal.productUrl} passHref>
-                    <a>
-                      <Image
-                        src={placeHolderImg}
-                        alt="icon logout"
-                        width="228"
-                        height="230"
-                      />
-                    </a>
+                    <Image
+                      src={placeHolderImg}
+                      alt="icon logout"
+                      width="228"
+                      height="230"
+                    />
                   </Link>
                 </div>
                 <div>

@@ -7,7 +7,5 @@ module.exports = nextConfig;
 
 module.exports = {
   reactStrictMode: true,
-  experimental: {
-    emotion: true,
-  },
+  experimental: {},
 };
