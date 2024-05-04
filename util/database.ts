@@ -68,7 +68,7 @@ export async function readProducts() {
 
 // DELETE
 
-export async function deleteProduct(dealId) {
+export async function deleteProduct(dealId: any) {
   const deleteId = await sql`
   DELETE FROM
   products
