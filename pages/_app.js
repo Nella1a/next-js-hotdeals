@@ -1,15 +1,7 @@
-import './index.css';
-import { Global, ThemeProvider } from '@emotion/react';
-import { globalStyleBody } from '../components/elements';
-import theme from '../components/theme';
+import './global.css';
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <ThemeProvider theme={theme}>
-      <Global styles={globalStyleBody(theme)} />
-      <Component {...pageProps} />
-    </ThemeProvider>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;

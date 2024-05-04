@@ -3,12 +3,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { sectionRegister } from '../components/elements';
-
 import Layout from '../components/Layout';
-
-import { createCsrfToken } from './../util/auth';
-import { getValidSessionByToken } from './../util/database';
+import { createCsrfToken } from '../util/auth';
+import { getValidSessionByToken } from '../util/database';
 
 type Errors = { message: string }[];
 
@@ -31,7 +28,7 @@ export default function Register(props: Props) {
         <meta name="Login Page" content="Login to website " />
       </Head>
 
-      <section css={sectionRegister}>
+      <section>
         <article>
           {/* show error message if username already exist  */}
           <div>

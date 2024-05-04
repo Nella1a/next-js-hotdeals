@@ -5,12 +5,6 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import {
-  sectionOneAdmin,
-  sectionOneIndex,
-  sectionTwoAdmin,
-  sectionTwoAdminDashboard,
-} from '../components/elements';
 import Layout from '../components/Layout';
 import {
   getUserByValidSessionToken,
@@ -18,7 +12,7 @@ import {
   readProducts,
 } from '../util/database';
 
-export default function Home(props) {
+export default function Home(props: any) {
   const [inputValue, setInputValue] = useState<number>(0);
   const [deals, setDeals] = useState<Products[]>(props.deals);
   const [errors, setErrors] = useState('');
@@ -32,7 +26,7 @@ export default function Home(props) {
   // }
 
   useEffect(() => {
-    const sortArray = deals.sort(function (a, b) {
+    const sortArray = deals.sort(function (a: any, b: any) {
       return a.categoryId - b.categoryId;
     });
 
@@ -64,7 +58,7 @@ export default function Home(props) {
 
   // delete item in DB
 
-  const deleteItemInDB = async () => {
+  const deleteItemInDB = async (deal: any) => {
     const deleteProduct = await fetch(`/api/deleteInDB`, {
       method: 'POST',
       headers: {
@@ -79,7 +73,7 @@ export default function Home(props) {
     }
 
     const newDeals = deals.filter(
-      (event) => event.id !== deleteProductResponseBody.dealId,
+      (event: any) => event.id !== deleteProductResponseBody.dealId,
     );
     setDeals(newDeals);
   };
@@ -90,10 +84,10 @@ export default function Home(props) {
         <title>Admin Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section css={[sectionOneIndex, sectionOneAdmin]}>
+      <section>
         <p>Update And Manage Deals</p>
       </section>
-      <section css={sectionTwoAdmin}>
+      <section>
         <div>
           <h1>Get new deals</h1>
 
@@ -152,7 +146,7 @@ export default function Home(props) {
             <form
               onSubmit={(event) => {
                 event.preventDefault();
-                const filterDeals = deals.filter((deal) => {
+                const filterDeals = deals.filter((deal: any) => {
                   return deal.categoryId === filterByCategory;
                 });
                 console.log('Anzahl:', filterDeals.length);
@@ -178,7 +172,7 @@ export default function Home(props) {
           </div>
         </div>
       </section>
-      <section css={sectionTwoAdminDashboard}>
+      <section>
         <article>
           <div>Product Name</div>
           <div>Category</div>
@@ -188,7 +182,7 @@ export default function Home(props) {
           <div>Id</div>
         </article>
 
-        {deals.map((deal) => {
+        {deals.map((deal: any) => {
           return (
             <article key={`deal${deal.name}${deal.priceOld}`}>
               <p>{deal.productName}</p>
@@ -202,7 +196,7 @@ export default function Home(props) {
               <button
                 onClick={() => {
                   setDeleteDeal(deal.id);
-                  deleteItemInDB();
+                  deleteItemInDB(deal.id);
                 }}
               >
                 X
@@ -232,7 +226,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const readDealsInDB = await readProducts();
 
-  const sortArray = readDealsInDB.sort(function (a, b) {
+  const sortArray = readDealsInDB.sort(function (a: any, b: any) {
     if (a.productName < b.productName) {
       return -1;
     }
