@@ -1,6 +1,6 @@
 import './global.css';
 import Header from './c/components/Header';
-import Search from './c/components/search';
+import Search from './c/components/Search';
 
 export default function RootLayout({
   children,
