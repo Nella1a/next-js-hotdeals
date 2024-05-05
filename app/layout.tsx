@@ -1,4 +1,6 @@
 import './global.css';
+import Header from './c/components/Header';
+import Search from './c/components/search';
 
 export default function RootLayout({
   children,
@@ -7,7 +9,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <header>
+          <Header />
+          <Search />
+        </header>
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

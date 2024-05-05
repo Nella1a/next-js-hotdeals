@@ -9,11 +9,6 @@ export const metadata: Metadata = {
   title: 'Get Deals',
 };
 
-const getCategories = async () => {
-  const readCategories = await productCategories();
-  return readCategories;
-};
-
 export default async function Deals() {
   const readCategories = await productCategories();
   return (
