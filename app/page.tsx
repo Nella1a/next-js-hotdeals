@@ -1,25 +1,31 @@
-import { GetServerSidePropsResult } from 'next';
-import Head from 'next/head';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import Layout from '../components/Layout';
-import Search from '../components/search';
 import placeHolderImg from '../public/placeHolderImg.jpg';
-import { productCategories, ProductCategories } from '../util/database';
 
-type Props = {
-  // deals?: ProductsCategory[];
-  readCategories: ProductCategories[];
+export const metadata: Metadata = {
+  title: 'Get Deals',
 };
 
-export default function Deals(props: Props) {
-  return (
-    <Layout>
-      <Head>
-        <title>Get Deals</title>
-      </Head>
-      <Search />
+export const readCategories = [
+  { id: 0, category: 'topseller' },
+  { id: 1, category: 'wohnzimmer' },
+  { id: 2, category: 'schlafzimmer' },
+  { id: 3, category: 'speisezimmer' },
+  { id: 4, category: 'dekoration' },
+  { id: 5, category: 'arbeitszimmer' },
+  { id: 6, category: 'badezimmer' },
+  { id: 7, category: 'garderobe' },
+  { id: 8, category: 'kinderzimmer' },
+  { id: 9, category: 'gartenmoebel' },
+  { id: 10, category: 'kueche' },
+  { id: 11, category: 'lampen-und-leuchten' },
+  { id: 12, category: 'heimtextil' },
+];
 
+export default async function Deals() {
+  return (
+    <>
       <section className="max-w-screen-lg  mx-auto flex justify-center items-center my-10 h-12 flex-nowrap sm:my-12 ">
         <p className="flex flex-col justify-center items-center text-xl font-semibold p-0 sm:flex-row">
           <span className="inline-block text-[#e20015]">
@@ -30,10 +36,10 @@ export default function Deals(props: Props) {
       </section>
 
       <section className="max-w-screen-lg mx-auto justify-items-center items-center pt-0 px-7 grid grid-cols-2 gap-y-1 sm:grid-cols-3  lg:grid-cols-4 lg:w-10/12 xl:w-9/12">
-        {props.readCategories.map((productCategory) => {
+        {readCategories.map((productCategory) => {
           return (
             <div key={`deal${productCategory.id}`} className="p-2">
-              <Link href={`/c/${productCategory.category}`} passHref>
+              <Link href={`/c/${productCategory.category}`}>
                 <Image
                   src={placeHolderImg}
                   alt="icon logout"
@@ -48,26 +54,6 @@ export default function Deals(props: Props) {
           );
         })}
       </section>
-    </Layout>
+    </>
   );
-}
-
-export async function getServerSideProps(): Promise<
-  GetServerSidePropsResult<{
-    // deals?: ProductsCategory[];
-    readCategories: ProductCategories[];
-  }>
-> {
-  // get deals from db
-  // const getDeals = await readProducts();
-
-  // get categories from db
-  const readCategories = await productCategories();
-  console.log(readCategories);
-  return {
-    props: {
-      // deals: getDeals,
-      readCategories,
-    },
-  };
 }

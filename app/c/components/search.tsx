@@ -1,16 +1,17 @@
-import router from 'next/router';
-import { useState } from 'react';
+'use client';
+import { useRouter } from 'next/navigation';
+import { use, useState } from 'react';
 
 export default function Search() {
   const [search, setSearch] = useState('');
-
+  const router = useRouter();
   return (
     <section className="flex justify-center items-center bg-[#333] p-3.5">
       <form
         className="flex justify-center items-center h-full mx-7"
         onSubmit={async (event) => {
           event.preventDefault();
-          await router.push(`/c/${search}`);
+          router.push(`/c/${search}`);
         }}
       >
         <select
