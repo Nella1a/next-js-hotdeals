@@ -1,11 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import placeHolderImg from '../../../public/placeHolderImg.jpg';
-import {
-  ProductsCategory,
-  readProductsByCategory,
-} from '../../../util/database';
+
+export type ProductsCategory = {
+  id: number;
+  productName: string;
+  productUrl: string;
+  priceCurrent: number;
+  priceOld: number;
+  discount: string;
+  categoryId: number;
+  category: string;
+};
 
 type Props = {
   deals?: ProductsCategory[] | undefined;
@@ -15,10 +21,9 @@ type Props = {
 
 const Category = async (props: Props) => {
   const currentCategory = props.params;
-  console.log('currenCategory: ', currentCategory);
 
-  const deals = await readProductsByCategory(currentCategory.category);
-  console.log('deals', deals);
+  const deals = [] as any;
+
   if (deals === undefined || deals.length === 0) {
     return (
       <>
