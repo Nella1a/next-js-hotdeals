@@ -1,16 +1,29 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import Search from '../components/search';
 import placeHolderImg from '../public/placeHolderImg.jpg';
-import { productCategories } from '../util/database';
 
 export const metadata: Metadata = {
   title: 'Get Deals',
 };
 
+export const readCategories = [
+  { id: 0, category: 'topseller' },
+  { id: 1, category: 'wohnzimmer' },
+  { id: 2, category: 'schlafzimmer' },
+  { id: 3, category: 'speisezimmer' },
+  { id: 4, category: 'dekoration' },
+  { id: 5, category: 'arbeitszimmer' },
+  { id: 6, category: 'badezimmer' },
+  { id: 7, category: 'garderobe' },
+  { id: 8, category: 'kinderzimmer' },
+  { id: 9, category: 'gartenmoebel' },
+  { id: 10, category: 'kueche' },
+  { id: 11, category: 'lampen-und-leuchten' },
+  { id: 12, category: 'heimtextil' },
+];
+
 export default async function Deals() {
-  const readCategories = await productCategories();
   return (
     <>
       <section className="max-w-screen-lg  mx-auto flex justify-center items-center my-10 h-12 flex-nowrap sm:my-12 ">
