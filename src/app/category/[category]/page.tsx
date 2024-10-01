@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import placeHolderImg from '../../../public/placeHolderImg.jpg';
+import placeHolderImg from '../../../../public/placeHolderImg.jpg';
 
 export type ProductsCategory = {
   id: number;
