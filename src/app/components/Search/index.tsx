@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { use, useState } from 'react';
+import { useState } from 'react';
 
 export default function Search() {
   const [search, setSearch] = useState('');
@@ -23,12 +23,7 @@ export default function Search() {
           <option value="0">Wähle eine Kategorie</option>
           <option value="wohnzimmer">Wohnzimmer</option>
           <option value="schlafzimmer">Schlafzimmer</option>
-          <option value="speisezimmer">Speisezimmer</option>
-          <option value="dekoration">Dekoration</option>
-          <option value="arbeitszimmer">Arbeitszimmer</option>
           <option value="badezimmer">Badezimmer</option>
-          <option value="garderobe">Garderobe</option>
-          <option value="Kinderzimmer">Kinderzimmer</option>
         </select>
         <button className="min-h-14 bg-slate-200 px-1.5 font-bold tracking-wider inline-block leading-6  hover:bg-[#e20015] hover:text-white">
           search
