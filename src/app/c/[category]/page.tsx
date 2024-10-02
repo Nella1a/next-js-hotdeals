@@ -1,35 +1,44 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import placeHolderImg from '../../../../public/placeHolderImg.jpg';
+import prisma from '../../../../prisma';
+import Products from './products';
 
-export type ProductsCategory = {
+export interface ProductDetails {
   id: number;
-  productName: string;
-  productUrl: string;
-  priceCurrent: number;
-  priceOld: number;
-  discount: string;
-  categoryId: number;
-  category: string;
+  title: string;
+  product_url: string;
+  current_price: number;
+  old_price: number;
+  discount: number;
+  categories_id: number;
+  shops_id: number;
+}
+
+const getDeals = async (category: string) => {
+  console.log('category: ', category);
+  const catId = await prisma.categories.findFirst({
+    where: { name: category },
+  });
+
+  console.log('found category: ', catId);
+  if (catId) {
+    const cat = await prisma.products.findMany({
+      where: { categories_id: catId.id },
+    });
+
+    return cat;
+  }
+  return [] as ProductDetails[];
 };
 
-type Props = {
-  deals?: ProductsCategory[] | undefined;
-  currentCategory: string | string[] | undefined;
-  params: { [key: string]: string };
-};
+const Category = async ({ params }: { params: { category: string } }) => {
+  const deals = await getDeals(params.category);
+  const filteredDeals = deals?.filter((deal) => deal.discount);
 
-const Category = async (props: Props) => {
-  const currentCategory = props.params;
-
-  const deals = [] as any;
-
-  if (deals === undefined || deals.length === 0) {
+  if (deals && deals.length < 0) {
     return (
       <>
-        <section className="max-w-screen-lg  mx-auto flex flex-col justify-center items-center my-10 h-12 flex-nowrap sm:my-12">
+        <section className="max-w-screen-lg  mx-auto flex flex-col justify-center items-center my-10 flex-nowrap sm:my-12">
           <h1 className="font-semibold capitalize  text-3xl m-3">
-            {currentCategory.category}
+            {params.category}
           </h1>
           <p className="">Bald gibt es hier wieder tolle Angebote.</p>
         </section>
@@ -39,43 +48,11 @@ const Category = async (props: Props) => {
 
   return (
     <>
-      <section className="max-w-screen-lg  mx-auto flex justify-center items-center my-10 h-12 flex-nowrap sm:my-12">
-        <h1 className="font-semibold capitalize">{currentCategory.category}</h1>
+      <section className="border-2 max-w-screen-lg  mx-auto flex justify-center items-center my-10  flex-nowrap sm:my-12">
+        <h1 className="font-semibold capitalize">{params.category}</h1>
       </section>
-
-      <section className="max-w-screen-lg  mx-auto flex justify-center items-center my-10 h-12 flex-nowrap sm:my-12">
-        <div>
-          {deals.map((deal: any) => {
-            return (
-              <article key={`deal${deal.id}${deal.productName}`}>
-                <div>
-                  <Link href={deal.productUrl} passHref>
-                    <Image
-                      src={placeHolderImg}
-                      alt="icon logout"
-                      width="228"
-                      height="230"
-                    />
-                  </Link>
-                </div>
-                <div>
-                  {' '}
-                  <p>{deal.productName}</p>
-                </div>
-                <div>
-                  {' '}
-                  <p>
-                    <del>€ {deal.priceOld}</del>
-                  </p>
-                  <p>€ {deal.priceCurrent}</p>
-                  <p>
-                    <span>{deal.discount}</span>
-                  </p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+      <section className="max-w-screen-lg  mx-auto flex justify-center items-center my-10  flex-nowrap sm:my-12">
+        <Products deals={filteredDeals} />
       </section>
     </>
   );
