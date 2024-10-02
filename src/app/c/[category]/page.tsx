@@ -1,5 +1,5 @@
 import prisma from '../../../../prisma';
-import Products from './products';
+import Products from './components/products';
 
 export interface ProductDetails {
   id: number;
@@ -31,6 +31,7 @@ const getDeals = async (category: string) => {
 
 const Category = async ({ params }: { params: { category: string } }) => {
   const deals = await getDeals(params.category);
+  const shops = await prisma.shops.findMany();
   const filteredDeals = deals?.filter((deal) => deal.discount);
 
   if (deals && deals.length < 0) {
@@ -51,8 +52,8 @@ const Category = async ({ params }: { params: { category: string } }) => {
       <section className="border-2 max-w-screen-lg  mx-auto flex justify-center items-center my-10  flex-nowrap sm:my-12">
         <h1 className="font-semibold capitalize">{params.category}</h1>
       </section>
-      <section className="max-w-screen-lg  mx-auto flex justify-center items-center my-10  flex-nowrap sm:my-12">
-        <Products deals={filteredDeals} />
+      <section className="max-w-screen-lg  mx-auto justify-center items-center my-10   sm:my-12">
+        <Products deals={filteredDeals} shops={shops} />
       </section>
     </>
   );
