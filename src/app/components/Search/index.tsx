@@ -11,7 +11,9 @@ export default function Search() {
         className="flex justify-center items-center h-full mx-7"
         onSubmit={async (event) => {
           event.preventDefault();
-          router.push(`/c/${search}`);
+          if (search) {
+            router.push(`/c/${search}`);
+          }
         }}
       >
         <select
@@ -20,7 +22,7 @@ export default function Search() {
           name="searchbar"
           onChange={(event) => setSearch(event.currentTarget.value)}
         >
-          <option value="0">Wähle eine Kategorie</option>
+          <option value="">Wähle eine Kategorie</option>
           <option value="wohnzimmer">Wohnzimmer</option>
           <option value="schlafzimmer">Schlafzimmer</option>
           <option value="badezimmer">Badezimmer</option>
