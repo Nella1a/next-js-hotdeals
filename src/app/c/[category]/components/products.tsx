@@ -32,8 +32,8 @@ const Products = ({
           onChange={(event) => setSelected(Number(event.currentTarget.value))}
         >
           <option value="">filter</option>
-          <option value="1">möbelix</option>
-          <option value="2">mömax</option>
+          <option value="1">moebelix</option>
+          <option value="2">moemax</option>
         </select>
       </div>
 
