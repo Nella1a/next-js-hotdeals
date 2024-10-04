@@ -1,10 +1,16 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Search() {
   const [search, setSearch] = useState('');
   const router = useRouter();
+  const params = useParams();
+
+  useEffect(() => {
+    if (!params.category) setSearch('');
+  }, [params.category]);
+
   return (
     <section className="flex justify-center items-center bg-[#333] p-3.5">
       <form
@@ -13,6 +19,8 @@ export default function Search() {
           event.preventDefault();
           if (search) {
             router.push(`/c/${search}`);
+          } else {
+            router.push(`/`);
           }
         }}
       >
@@ -21,6 +29,7 @@ export default function Search() {
           id="searchBar"
           name="searchbar"
           onChange={(event) => setSearch(event.currentTarget.value)}
+          value={search}
         >
           <option value="">Wähle eine Kategorie</option>
           <option value="wohnzimmer">Wohnzimmer</option>
