@@ -34,7 +34,7 @@ const Category = async ({ params }: { params: { category: string } }) => {
   const shops = await prisma.shops.findMany();
   const filteredDeals = deals?.filter((deal) => deal.discount);
 
-  if (deals && deals.length < 0) {
+  if (!deals?.length) {
     return (
       <>
         <section className="max-w-screen-lg  mx-auto flex flex-col justify-center items-center my-10 flex-nowrap sm:my-12">
