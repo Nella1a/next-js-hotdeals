@@ -37,7 +37,7 @@ const Products = ({
         </select>
       </div>
 
-      <div className="grid grid-cols-4">
+      <div className="border-2 border-fuchsia-900 flex flex-col gap-2">
         {filteredDeals.map((deal) => (
           <Product key={deal.title} deal={deal} shops={shops} />
         ))}
