@@ -5,7 +5,7 @@ import prisma from '../../prisma';
 import placeHolderImg from '../../public/placeHolderImg.jpg';
 
 export const metadata: Metadata = {
-  title: 'Get Deals',
+  title: 'MoebelDeals',
 };
 
 const Deals = async () => {
