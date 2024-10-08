@@ -23,9 +23,9 @@ const Products = ({
 
   return (
     <>
-      <div className="border-2 flex justify-end mb-6">
+      <div className="flex justify-end mb-6">
         <select
-          className="border min-h-14 p-4 text-left mb-0 w-32 rounded-lg"
+          className="min-h-14 p-4 text-left mb-0 w-32 rounded-md border"
           id="selected"
           name="selected"
           onChange={(event) => setSelected(Number(event.currentTarget.value))}
@@ -36,7 +36,7 @@ const Products = ({
         </select>
       </div>
 
-      <div className="border-2 border-fuchsia-900 flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         {filteredDeals.map((deal) => (
           <Product key={deal.title} deal={deal} shops={shops} />
         ))}
