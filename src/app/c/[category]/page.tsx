@@ -49,10 +49,10 @@ const Category = async ({ params }: { params: { category: string } }) => {
 
   return (
     <>
-      <section className="border-2 max-w-screen-lg  mx-auto flex justify-center items-center my-10  flex-nowrap sm:my-12">
-        <h1 className="font-semibold capitalize">{params.category}</h1>
-      </section>
-      <section className="max-w-screen-lg  mx-auto justify-center items-center my-10   sm:my-12">
+      <h1 className="my-10 h-12 flex flex-col justify-center items-center text-xl font-semibold p-0 sm:flex-row sm:my-12">
+        <span className="font-semibold capitalize">{params.category}</span>
+      </h1>
+      <section className="bordder-2 border-black max-w-screen-md  mx-auto justify-center items-center my-10   sm:my-12">
         <Products deals={filteredDeals} shops={shops} />
       </section>
     </>
