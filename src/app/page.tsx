@@ -30,7 +30,9 @@ const Deals = async () => {
                 height="230"
               />
             </Link>
-            <p className="font-semibold capitalize">{productCategory.name}</p>
+            <p className="font-semibold capitalize mt-2">
+              {productCategory.name}
+            </p>
           </div>
         ))}
       </section>
