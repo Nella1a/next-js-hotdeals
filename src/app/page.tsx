@@ -19,7 +19,7 @@ const Deals = async () => {
         <span className="inline-block"> Für dich zusammengestellt!</span>
       </h1>
 
-      <section className="border max-w-screen-lg mx-auto justify-items-center items-center pt-0 px-7 grid grid-cols-2 gap-y-1 sm:grid-cols-3  lg:grid-cols-4 lg:w-10/12 xl:w-9/12">
+      <section className="flex flex-col md:flex-row max-w-screen-lg mx-auto justify-center items-center pt-0 px-7 gap-2 ">
         {readCategories?.map((productCategory) => (
           <div key={`deal${productCategory.id}`} className="p-2">
             <Link href={`/c/${productCategory.name}`}>
