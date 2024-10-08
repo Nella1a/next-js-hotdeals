@@ -12,14 +12,12 @@ const Deals = async () => {
   const readCategories = await prisma.categories.findMany();
   return (
     <>
-      <div className="max-w-screen-lg  mx-auto flex justify-center items-center my-10 h-12 flex-nowrap sm:my-12 ">
-        <h1 className="flex flex-col justify-center items-center text-xl font-semibold p-0 sm:flex-row">
-          <span className="inline-block text-[#e20015]">
-            Die besten Angebote.
-          </span>
-          <span className="inline-block"> Für dich zusammengestellt!</span>
-        </h1>
-      </div>
+      <h1 className="my-10 h-12 flex flex-col justify-center items-center text-xl font-semibold p-0 sm:flex-row sm:my-12">
+        <span className="inline-block text-[#e20015]">
+          Die besten Angebote.
+        </span>
+        <span className="inline-block"> Für dich zusammengestellt!</span>
+      </h1>
 
       <section className="border max-w-screen-lg mx-auto justify-items-center items-center pt-0 px-7 grid grid-cols-2 gap-y-1 sm:grid-cols-3  lg:grid-cols-4 lg:w-10/12 xl:w-9/12">
         {readCategories?.map((productCategory) => (
