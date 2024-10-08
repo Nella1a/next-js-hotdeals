@@ -23,10 +23,9 @@ const Products = ({
 
   return (
     <>
-      <div>
-        {' '}
+      <div className="border-2 flex justify-end mb-6">
         <select
-          className="border min-h-14 p-4 text-left mb-0 sm:w-96"
+          className="border min-h-14 p-4 text-left mb-0 w-32 rounded-lg"
           id="selected"
           name="selected"
           onChange={(event) => setSelected(Number(event.currentTarget.value))}
