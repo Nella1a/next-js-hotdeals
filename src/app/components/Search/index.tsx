@@ -25,7 +25,7 @@ export default function Search() {
         }}
       >
         <select
-          className="min-h-14 p-4 text-left mb-0 sm:w-96"
+          className="min-h-14 p-4 text-left mb-0 sm:w-96 focus:outline-none focus-visible:ring "
           id="searchBar"
           name="searchbar"
           onChange={(event) => setSearch(event.currentTarget.value)}
@@ -36,7 +36,7 @@ export default function Search() {
           <option value="schlafzimmer">Schlafzimmer</option>
           <option value="badezimmer">Badezimmer</option>
         </select>
-        <button className="min-h-14 bg-slate-200 px-1.5 font-bold tracking-wider inline-block leading-6  hover:bg-[#e20015] hover:text-white">
+        <button className="min-h-14 bg-slate-200 px-2 font-bold tracking-wider inline-block leading-6  hover:bg-[#e20015] hover:text-white">
           search
         </button>
       </form>
