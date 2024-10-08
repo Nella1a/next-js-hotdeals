@@ -3,7 +3,7 @@ import Search from '../Search';
 
 export default function Header() {
   return (
-    <header className="border-4 border-cyan-300 w-full  bg-white">
+    <header className="w-full  bg-white">
       <div>
         <Link
           href="/"
