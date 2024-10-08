@@ -10,24 +10,26 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
     <Link href={deal.product_url} passHref>
       <article
         key={`deal${deal.id}${deal.title}`}
-        className="border-2 border-red-600 grid grid-cols-[100px,_1fr] gap-2
-      h-28
+        className="border-[.5px] border-grey-600 grid grid-cols-[100px,_1fr]
+      h-28 shadow-md
       "
       >
-        <div className="border  border-cyan-800">
+        <div className="flex flex-col justify-center items-center p-2">
           <Image src={placeHolderImg} alt="icon logout" width="150" />
 
-          <div className="text-sm text-center mt-[.2rem]">{shop?.name}</div>
+          <div className="text-sm mt-[.2rem]">{shop?.name}</div>
         </div>
-        <div className="border-2 flex flex-col gap-2">
-          <p className="line-clamp-2">{deal.title}</p>
+        <div className="border-l-[1px] flex flex-col gap-2 pt-2 pl-2">
+          <p className="line-clamp-2 font-semibold text-sm sm:text-base">
+            {deal.title}
+          </p>
           <p className="grid gap-2 grid-cols-[60px,60px,50px]">
-            <span>
+            <span className="text-gray-400">
               <del>€ {deal.old_price / 100}</del>
             </span>
             <span>€ {deal.current_price / 100}</span>
             <span className="text-center bg-yellow-200 rounded-sm">
-              {deal.discount}%
+              -{deal.discount}%
             </span>
           </p>
         </div>
