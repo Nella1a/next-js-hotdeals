@@ -36,7 +36,7 @@ const Products = ({
         </select>
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2">
         {filteredDeals.map((deal) => (
           <Product key={deal.title} deal={deal} shops={shops} />
         ))}
