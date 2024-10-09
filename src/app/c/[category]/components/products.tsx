@@ -25,12 +25,12 @@ const Products = ({
     <>
       <div className="flex justify-end mb-6">
         <select
-          className="min-h-14 p-4 text-left mb-0 w-32 rounded-md border"
+          className="h-10 pl-2 text-left mb-0 w-32 rounded-md border-[1px] border-gray-300"
           id="selected"
           name="selected"
           onChange={(event) => setSelected(Number(event.currentTarget.value))}
         >
-          <option value="">filter</option>
+          <option value="">Filter</option>
           <option value="1">moebelix</option>
           <option value="2">moemax</option>
         </select>
