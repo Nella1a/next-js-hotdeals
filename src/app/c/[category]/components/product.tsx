@@ -11,7 +11,7 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
       <article
         key={`deal${deal.id}${deal.title}`}
         className="border-[.5px] border-grey-600 grid grid-cols-[100px,_1fr]
-      h-28 shadow-md
+      h-28 shadow-md relative
       "
       >
         <div className="flex flex-col justify-center items-center p-2">
@@ -27,7 +27,7 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
               <del>€ {deal.old_price / 100}</del>
             </span>
             <span>€ {deal.current_price / 100}</span>
-            <span className="text-center bg-yellow-200 rounded-sm">
+            <span className="text-center bg-yellow-200 rounded-sm absolute bottom-0 right-0 px-[8px]">
               -{deal.discount}%
             </span>
           </p>
