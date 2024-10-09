@@ -16,10 +16,9 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
       >
         <div className="flex flex-col justify-center items-center p-2">
           <Image src={placeHolderImg} alt="icon logout" width="150" />
-
           <div className="text-sm mt-[.2rem]">{shop?.name}</div>
         </div>
-        <div className="border-l-[1px] flex flex-col gap-2 pt-2 pl-2">
+        <div className="border-l-[1px] flex flex-col gap-2 p-2">
           <p className="line-clamp-2 font-semibold text-sm sm:text-base">
             {deal.title}
           </p>
