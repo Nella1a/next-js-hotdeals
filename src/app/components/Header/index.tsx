@@ -8,7 +8,7 @@ export default function Header() {
         <Link
           href="/"
           passHref
-          className="text-[#e20015] no-underline block font-bold tracking-wide text-4xl  mt-6 text-center py-6"
+          className="text-[#e20015] no-underline block font-bold tracking-wide text-4xl text-center py-8"
         >
           %<span className="text-black">Möbel</span>Deals
         </Link>
