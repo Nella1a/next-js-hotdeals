@@ -12,7 +12,7 @@ const Deals = async () => {
   const readCategories = await prisma.categories.findMany();
   return (
     <>
-      <h1 className="my-10 h-12 flex flex-col justify-center items-center text-xl font-semibold p-0 sm:flex-row sm:my-12">
+      <h1 className="h-12 my-12 flex flex-col justify-center items-center text-xl font-semibold sm:flex-row">
         <span className="inline-block text-[#e20015]">
           Die besten Angebote.
         </span>
