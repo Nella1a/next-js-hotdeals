@@ -23,7 +23,7 @@ const Products = ({
 
   return (
     <>
-      <div className="flex justify-end mb-6">
+      <div className="flex mb-6">
         <select
           className="h-10 pl-2 text-left mb-0 w-32 rounded-md border-[1px] border-gray-300"
           id="selected"
