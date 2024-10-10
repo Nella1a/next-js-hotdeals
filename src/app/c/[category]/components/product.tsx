@@ -21,7 +21,7 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
           <p className="line-clamp-2 font-semibold text-sm sm:text-base">
             {deal.title}
           </p>
-          <p className="grid gap-2 grid-cols-[60px,60px,50px]">
+          <p className="grid grid-cols-[80px,80px]">
             <span className="text-gray-400">
               <del>€ {deal.old_price / 100}</del>
             </span>
