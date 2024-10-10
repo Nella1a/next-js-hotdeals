@@ -11,7 +11,7 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
       <article
         key={`deal${deal.id}${deal.title}`}
         className="border-[.5px] border-grey-600 grid grid-cols-[100px,_1fr]
-      h-28 shadow-md relative
+      h-28 relative bg-white
       "
       >
         <div className="flex flex-col items-center p-2">
