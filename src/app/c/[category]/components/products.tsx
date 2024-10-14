@@ -30,7 +30,7 @@ const Products = ({
           name="selected"
           onChange={(event) => setSelected(Number(event.currentTarget.value))}
         >
-          <option value="">Filter Shop</option>
+          <option value="">Filter Shops</option>
           <option value="1">moebelix</option>
           <option value="2">moemax</option>
         </select>
