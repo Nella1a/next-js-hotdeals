@@ -10,6 +10,7 @@ export interface ProductDetails {
   discount: number;
   category_id: number;
   shop_id: number;
+  uvp: boolean;
 }
 
 const getDeals = async (category: string) => {
