@@ -8,8 +8,8 @@ export interface ProductDetails {
   current_price: number;
   old_price: number;
   discount: number;
-  categories_id: number;
-  shops_id: number;
+  category_id: number;
+  shop_id: number;
 }
 
 const getDeals = async (category: string) => {
@@ -21,7 +21,7 @@ const getDeals = async (category: string) => {
   console.log('found category: ', catId);
   if (catId) {
     const cat = await prisma.products.findMany({
-      where: { categories_id: catId.id },
+      where: { category_id: catId.id },
     });
 
     return cat;

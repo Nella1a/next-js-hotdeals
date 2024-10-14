@@ -18,7 +18,7 @@ const Products = ({
 }) => {
   const [selected, setSelected] = useState(0);
   const filteredDeals = deals.filter((deal) =>
-    selected === 0 ? true : deal.shops_id === selected,
+    selected === 0 ? true : deal.shop_id === selected,
   );
 
   return (
