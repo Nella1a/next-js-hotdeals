@@ -21,15 +21,20 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
           <p className="line-clamp-2 font-semibold text-sm sm:text-base">
             {deal.title}
           </p>
-          <p className="grid grid-cols-[80px,80px]">
-            <span className="text-gray-400">
-              <del>€ {deal.old_price / 100}</del>
-            </span>
+          <div className="grid grid-cols-[90px,80px] ">
+            <p>
+              <span className="text-gray-400 text-xs">
+                {deal.uvp
+                  ? `UVP € ${deal.old_price / 100}`
+                  : `statt € ${deal.old_price / 100}`}
+              </span>
+            </p>
+
             <span>€ {deal.current_price / 100}</span>
             <span className="text-center bg-yellow-200 rounded-sm absolute bottom-0 right-0 px-[8px]">
               -{deal.discount}%
             </span>
-          </p>
+          </div>
         </div>
       </article>
     </Link>
