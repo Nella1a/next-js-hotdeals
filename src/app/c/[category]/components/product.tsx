@@ -7,7 +7,7 @@ import { Shops } from './products';
 const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
   const shop = shops.find((cat: Shops) => cat.id === deal.shop_id);
   return (
-    <Link href={deal.product_url} passHref>
+    <Link href={deal.product_url} passHref target="_blank">
       <article
         key={`deal${deal.id}${deal.title}`}
         className="border-[.5px] border-grey-600 grid grid-cols-[100px,_1fr]
