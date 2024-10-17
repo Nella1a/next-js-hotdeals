@@ -1,6 +1,5 @@
 import './global.css';
-import Header from './c/components/Header';
-import Search from './c/components/Search';
+import Header from './components/Header';
 
 export default function RootLayout({
   children,
@@ -9,11 +8,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <header>
-          <Header />
-          <Search />
-        </header>
+      <body className="bg-gray-50">
+        <Header />
         <main>{children}</main>
       </body>
     </html>
