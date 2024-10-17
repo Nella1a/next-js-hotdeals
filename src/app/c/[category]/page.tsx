@@ -14,12 +14,10 @@ export interface ProductDetails {
 }
 
 const getDeals = async (category: string) => {
-  console.log('category: ', category);
   const catId = await prisma.categories.findFirst({
     where: { name: category },
   });
 
-  console.log('found category: ', catId);
   if (catId) {
     const cat = await prisma.products.findMany({
       where: { category_id: catId.id },
