@@ -19,7 +19,7 @@ const getDeals = async (category: string) => {
   });
 
   if (catId) {
-    const cat = await prisma.products.findMany({
+    const cat = await prisma.hproducts.findMany({
       where: { category_id: catId.id },
     });
 

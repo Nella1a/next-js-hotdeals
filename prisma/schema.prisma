@@ -13,12 +13,12 @@ datasource db {
 model categories {
   id       Int        @id @default(autoincrement())
   name     String     @db.VarChar(255)
-  products products[]
+  products hproducts[]
 
   @@schema("hotdeals")
 }
 
-model products {
+model hproducts {
   id            Int        @id @default(autoincrement())
   title         String     @db.VarChar(255)
   current_price Int
@@ -33,13 +33,14 @@ model products {
   categories    categories @relation(fields: [category_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "products_categories_id_fkey")
   shops         shops      @relation(fields: [shop_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "products_shops_id_fkey")
 
+@@map("products")
 @@schema("hotdeals")
 }
 
 model shops {
   id       Int        @id @default(autoincrement())
   name     String     @db.VarChar(255)
-  products products[]
+  products hproducts[]
 
   @@schema("hotdeals")
 }
