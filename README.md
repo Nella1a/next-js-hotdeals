@@ -1,25 +1,28 @@
-<!-- ### Hot Deals Platform
+# MöbelDeals Platform Mock-Up
 
-This is a basic platform mock-up that displays the best deals available from different Austrian furniture stores. A simple logo and name - %MöbelDeals - was created for this platform.
+This is a basic platform mock-up showcasing deals from two Austrian furniture stores. The platform is branded with a simple logo and name: MöbelDeals.
 
-Users can filter deals based on categories. All deals are linked to the original shop product page, where users can get more information and purchase the product.
+MöbelDeals is built as a Next.js application that uses a PostgreSQL database for storing and managing deals data. The data is scraped using Python packages, specifically Scrapy and Playwright.
 
-Currently deals are extracted for the following categories:  1: Wohnzimmer, 2: Schlafzimmer, 3: Badezimmer
+## Features
+
+Users can browse and filter deals by categories and shops.
+Each deal links directly to the product page on the original store's website, allowing users to get more information and purchase items seamlessly.
+Currently, deals are available for the following categories: Wohnzimmer (Living Room), Schlafzimmer (Bedroom), and Badezimmer (Bathroom).
+
+## Data Collection
+
+Scraping: Deals are scraped using Scrapy, a Python framework for web scraping, combined with Playwright to handle dynamic content.
+Database Integration: The scraped data is stored in a PostgreSQL database and accessed by the Next.js application.
 
 Note: Only deals with an actual discount are displayed (thus if no discount or list price is provided on the original website, the deals is filtered out ).
 
-### Languages and Tools:
+## Technology Stack
 
-<p align="left">
- <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer">
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://heroku.com" target="_blank" rel="noreferrer">
- <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://nextjs.org/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/nextjs-2.svg" alt="nextjs" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
+Frontend: Next.js for server-side rendering and efficient client-side interactions.
+Styling: Tailwind CSS for rapid and customizable UI development.
+Backend: Scrapy and Playwright for web scraping and data collection.
+Database:
 
-## Screenshot of the project
-
-<p>
-  <img src="./public/index.png" width="400" alt="screenshot index page">
-</p>
-<p>
-  <img src="./public/login.png" width="400" alt="screenshot login page">
-</p> -->
+- PostgreSQL for data storage.
+- Prisma for database schema management and querying.
