@@ -21,9 +21,9 @@ export default function Search() {
         value={search}
       >
         <option value="">Wähle eine Kategorie</option>
-        <option value="wohnzimmer">Wohnzimmer</option>
-        <option value="schlafzimmer">Schlafzimmer</option>
-        <option value="badezimmer">Badezimmer</option>
+        <option value="Wohnzimmer">Wohnzimmer</option>
+        <option value="Schlafzimmer">Schlafzimmer</option>
+        <option value="Badezimmer">Badezimmer</option>
       </select>
     </section>
   );
