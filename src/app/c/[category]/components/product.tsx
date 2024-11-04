@@ -4,6 +4,17 @@ import placeHolderImg from '../../../../../public/placeHolderImg.jpg';
 import { ProductDetails } from '../page';
 import { Shops } from './products';
 
+const formatPrice = (price: number) => {
+  const euros = Math.floor(price / 100);
+  const cents = price % 100;
+  const formattedCents = cents === 0 ? '‒' : cents.toString().padStart(2, '0');
+  return (
+    <span>
+      {euros},{formattedCents}
+    </span>
+  );
+};
+
 const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
   const shop = shops.find((cat: Shops) => cat.id === deal.shop_id);
   return (
@@ -24,13 +35,11 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
           <div className="grid grid-cols-[90px,80px] ">
             <p>
               <span className="text-gray-400 text-xs">
-                {deal.uvp
-                  ? `UVP € ${deal.old_price / 100}`
-                  : `statt € ${deal.old_price / 100}`}
+                {deal.uvp ? 'UVP €' : 'statt €'} {formatPrice(deal.old_price)}
               </span>
             </p>
 
-            <span>€ {deal.current_price / 100}</span>
+            <span>€ {formatPrice(deal.current_price)}</span>
             <span className="text-center bg-yellow-200 rounded-sm absolute bottom-0 right-0 px-[8px]">
               -{deal.discount}%
             </span>
