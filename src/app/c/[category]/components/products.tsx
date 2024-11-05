@@ -37,9 +37,13 @@ const Products = ({
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2">
-        {filteredDeals.map((deal) => (
-          <Product key={deal.title} deal={deal} shops={shops} />
-        ))}
+        {filteredDeals?.length > 0 ? (
+          filteredDeals.map((deal) => (
+            <Product key={deal.title} deal={deal} shops={shops} />
+          ))
+        ) : (
+          <p className="">Bald gibt es hier wieder tolle Angebote!</p>
+        )}
       </div>
     </>
   );
