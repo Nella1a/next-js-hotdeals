@@ -51,7 +51,7 @@ const Category = async ({ params }: { params: { category: string } }) => {
       <h1 className="h-12 mt-12 mb-10 md:mb-6 flex flex-col justify-center items-center text-xl font-semibold ">
         <span className="font-semibold capitalize">{params.category}</span>
         <span className="font-normal text-xs text-gray-500">
-          Angebote vom 02.10.2024
+          Angebote vom 02.11.2024
         </span>
       </h1>
 
