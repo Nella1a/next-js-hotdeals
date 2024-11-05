@@ -19,10 +19,7 @@ Note: Only deals with an actual discount are displayed (thus if no discount or l
 
 ## Technology Stack
 
-Frontend: Next.js for server-side rendering and efficient client-side interactions.
-Styling: Tailwind CSS for rapid and customizable UI development.
-Backend: Scrapy and Playwright for web scraping and data collection.
-Database:
-
-- PostgreSQL for data storage.
-- Prisma for database schema management and querying.
+  - Frontend: Next.js for server-side rendering and efficient client-side interactions.
+  - Styling: Tailwind CSS for rapid and customizable UI development.
+  - Backend: Scrapy and Playwright for web scraping and data collection.
+  - Database: PostgreSQL for data storage. Prisma for database schema management and querying.
