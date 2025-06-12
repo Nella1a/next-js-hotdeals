@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Search from '../Search';
 
 export default function Header() {
   return (
@@ -13,7 +12,7 @@ export default function Header() {
           %<span className="text-black">Möbel</span>Deals
         </Link>
       </div>
-      <Search />
+      <div className="flex justify-center items-center bg-[#333] p-3.5" />
     </header>
   );
 }
