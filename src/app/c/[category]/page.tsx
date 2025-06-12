@@ -28,8 +28,8 @@ const getDeals = async (category: string) => {
   return [] as ProductDetails[];
 };
 
-const Category = async ({ params }: { params: { category: string } }) => {
-  const deals = await getDeals(params.category);
+const Category = async ({ category }: { category: string }) => {
+  const deals = await getDeals(category);
   const shops = await prisma.shops.findMany();
   const filteredDeals = deals?.filter((deal) => deal.discount);
 
@@ -37,9 +37,7 @@ const Category = async ({ params }: { params: { category: string } }) => {
     return (
       <>
         <section className="max-w-screen-lg  mx-auto flex flex-col justify-center items-center my-10 flex-nowrap sm:my-12">
-          <h1 className="font-semibold capitalize  text-3xl m-3">
-            {params.category}
-          </h1>
+          <h1 className="font-semibold capitalize  text-3xl m-3">{category}</h1>
           <p className="">Bald gibt es hier wieder tolle Angebote.</p>
         </section>
       </>
@@ -49,7 +47,7 @@ const Category = async ({ params }: { params: { category: string } }) => {
   return (
     <>
       <h1 className="h-12 mt-12 mb-10 md:mb-6 flex flex-col justify-center items-center text-xl font-semibold ">
-        <span className="font-semibold capitalize">{params.category}</span>
+        <span className="font-semibold capitalize">{category}</span>
         <span className="font-normal text-xs text-gray-500">
           Angebote vom 02.11.2024
         </span>
