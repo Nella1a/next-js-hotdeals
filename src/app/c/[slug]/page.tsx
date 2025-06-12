@@ -22,14 +22,15 @@ const getDeals = async (category: string) => {
     const cat = await prisma.hproducts.findMany({
       where: { category_id: catId.id },
     });
-
     return cat;
   }
   return [] as ProductDetails[];
 };
 
-const Category = async ({ category }: { category: string }) => {
-  const deals = await getDeals(category);
+const Category = async (props: { params: Promise<{ slug: string }> }) => {
+  const category = await props.params;
+  console.log(' ---> category: ', category.slug);
+  const deals = await getDeals(category.slug);
   const shops = await prisma.shops.findMany();
   const filteredDeals = deals?.filter((deal) => deal.discount);
 
@@ -37,7 +38,9 @@ const Category = async ({ category }: { category: string }) => {
     return (
       <>
         <section className="max-w-screen-lg  mx-auto flex flex-col justify-center items-center my-10 flex-nowrap sm:my-12">
-          <h1 className="font-semibold capitalize  text-3xl m-3">{category}</h1>
+          <h1 className="font-semibold capitalize  text-3xl m-3">
+            {category.slug}
+          </h1>
           <p className="">Bald gibt es hier wieder tolle Angebote.</p>
         </section>
       </>
@@ -46,15 +49,18 @@ const Category = async ({ category }: { category: string }) => {
 
   return (
     <>
-      <h1 className="h-12 mt-12 mb-10 md:mb-6 flex flex-col justify-center items-center text-xl font-semibold ">
-        <span className="font-semibold capitalize">{category}</span>
+      {' '}
+      <h1 className="h-12 mt-2 mb-10 md:mb-6 flex flex-col justify-center items-center text-xl font-semibold ">
         <span className="font-normal text-xs text-gray-500">
           Angebote vom 02.11.2024
         </span>
       </h1>
-
       <section className="max-w-screen-md  mx-auto justify-center items-center px-4 md:max-w-screen-lg">
-        <Products deals={filteredDeals} shops={shops} />
+        <Products
+          deals={filteredDeals}
+          shops={shops}
+          currentCategory={deals[0]?.category_id}
+        />
       </section>
     </>
   );
