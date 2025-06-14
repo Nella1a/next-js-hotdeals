@@ -6,7 +6,7 @@ type Params = {
   params: { id: string };
 };
 
-export const getCategoryDeals = async (category: number) => {
+const getCategoryDeals = async (category: number) => {
   if (category) {
     const cat = await prisma.hproducts.findMany({
       where: {
