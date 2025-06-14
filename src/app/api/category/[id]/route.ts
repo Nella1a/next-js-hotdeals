@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../../../prisma';
 import { ProductDetails } from '../../../c/[slug]/page';
 
-type Params = {
-  params: { id: string };
-};
-
 const getCategoryDeals = async (category: number) => {
   if (category) {
     const cat = await prisma.hproducts.findMany({
@@ -21,8 +17,11 @@ const getCategoryDeals = async (category: number) => {
   return [] as ProductDetails[];
 };
 
-export async function GET(req: NextRequest, { params }: Params) {
-  const { id } = await params;
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  const { id } = params;
   if (isNaN(Number(id))) {
     return NextResponse.json({ error: 'Invalid category ID' }, { status: 400 });
   }
