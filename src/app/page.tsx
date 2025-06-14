@@ -25,18 +25,21 @@ const Deals = async () => {
 
       <section className="flex flex-col md:flex-row max-w-screen-lg mx-auto justify-center items-center gap-8 ">
         {readCategories?.map((productCategory) => (
-          <div key={`deal${productCategory.id}`} className="bg-white p-4">
+          <div
+            key={`deal${productCategory.id}`}
+            className="bg-white p-4 border-2 hover:border-[#e20015]"
+          >
             <Link href={`/c/${productCategory.name}`}>
-              <Image
+              {/* <Image
                 src={placeHolderImg}
                 alt="icon logout"
                 width="228"
                 height="230"
-              />
+              /> */}
+              <p className="font-semibold capitalize mt-2">
+                {productCategory.name}
+              </p>
             </Link>
-            <p className="font-semibold capitalize mt-2">
-              {productCategory.name}
-            </p>
           </div>
         ))}
       </section>
