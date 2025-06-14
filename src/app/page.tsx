@@ -1,8 +1,6 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import prisma from '../../prisma';
-import placeHolderImg from '../../public/placeHolderImg.jpg';
 
 export const metadata: Metadata = {
   title: 'MoebelDeals',
@@ -30,12 +28,6 @@ const Deals = async () => {
             className="bg-white p-4 border-2 hover:border-[#e20015]"
           >
             <Link href={`/c/${productCategory.name}`}>
-              {/* <Image
-                src={placeHolderImg}
-                alt="icon logout"
-                width="228"
-                height="230"
-              /> */}
               <p className="font-semibold capitalize mt-2">
                 {productCategory.name}
               </p>

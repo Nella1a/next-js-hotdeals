@@ -1,6 +1,4 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import placeHolderImg from '../../../../../public/placeHolderImg.jpg';
 import { ProductDetails } from '../page';
 import { Shops } from './products';
 

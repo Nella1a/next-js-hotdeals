@@ -66,9 +66,10 @@ const Products = ({
     return shopMatches && categoryMatches;
   });
 
+  // todo: make select reusable and add sorting logic for deals
   return (
     <>
-      <div className="flex mb-6">
+      <div className="flex mb-6 gap-4">
         <select
           className="h-10 pl-2 text-left mb-0 w-40 rounded-md border-[1px] border-gray-300"
           id="selectedShop"
@@ -94,7 +95,7 @@ const Products = ({
           <option value="3">Wohnzimmer</option>
         </select>
       </div>
-      <div> {filteredDeals.length} Artikel</div>
+      <div className="mb-2"> {filteredDeals.length} Artikel</div>
 
       <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2">
         {filteredDeals?.length > 0 ? (
