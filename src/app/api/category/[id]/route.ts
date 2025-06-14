@@ -19,9 +19,9 @@ const getCategoryDeals = async (category: number) => {
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id } = params;
+  const { id } = await params;
   if (isNaN(Number(id))) {
     return NextResponse.json({ error: 'Invalid category ID' }, { status: 400 });
   }
