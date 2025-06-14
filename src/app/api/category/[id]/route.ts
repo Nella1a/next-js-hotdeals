@@ -6,7 +6,7 @@ type Params = {
   params: { id: string };
 };
 
-const getDeals = async (category: number) => {
+export const getCategoryDeals = async (category: number) => {
   if (category) {
     const cat = await prisma.hproducts.findMany({
       where: {
@@ -21,12 +21,12 @@ const getDeals = async (category: number) => {
   return [] as ProductDetails[];
 };
 
-export async function GET({ params }: Params) {
-  const catId = Number(params.id);
-  if (isNaN(catId)) {
+export async function GET(req: NextRequest, { params }: Params) {
+  const { id } = await params;
+  if (isNaN(Number(id))) {
     return NextResponse.json({ error: 'Invalid category ID' }, { status: 400 });
   }
 
-  const deals = await getDeals(Number(catId));
+  const deals = await getCategoryDeals(Number(id));
   return NextResponse.json(deals);
 }
