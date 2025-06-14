@@ -1,6 +1,4 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import placeHolderImg from '../../../../../public/placeHolderImg.jpg';
 import { ProductDetails } from '../page';
 import { Shops } from './products';
 
@@ -21,11 +19,10 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
     <Link href={deal.product_url} passHref target="_blank">
       <article
         key={`deal${deal.id}${deal.title}`}
-        className="border-[.5px] border-grey-600 grid grid-cols-[100px,_1fr]
+        className="border-[.5px] border-grey-600 grid grid-cols-[80px,_1fr]
       h-28 relative bg-white hover:border-[1px] hover:border-yellow-200"
       >
-        <div className="flex flex-col items-center p-2">
-          <Image src={placeHolderImg} alt="icon logout" width="150" />
+        <div className="flex justify-center items-center">
           <div className="text-sm mt-[.2rem]">{shop?.name}</div>
         </div>
         <div className="border-l-[1px] flex flex-col gap-2 p-2">
