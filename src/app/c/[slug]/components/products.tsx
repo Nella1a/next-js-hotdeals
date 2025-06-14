@@ -9,6 +9,13 @@ export type Shops = {
   name: string;
 };
 
+export type Category =
+  | {
+      id: number;
+      name: string;
+    }
+  | undefined;
+
 const Products = ({
   deals,
   shops,
@@ -16,22 +23,49 @@ const Products = ({
 }: {
   deals: ProductDetails[];
   shops: Shops[];
-  currentCategory: number;
+  currentCategory?: number;
 }) => {
   const [selectedShop, setSelectedShop] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(currentCategory);
+  const [products, setProducts] = useState(deals);
+
   const handleOnChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const option = event.currentTarget.value;
     setSelectedCategory(Number(option));
   };
 
-  const filteredDeals = deals.filter((deal) =>
-    selectedShop === 0
-      ? true
-      : deal.shop_id === selectedShop && deal.category_id === selectedCategory,
-  );
+  useEffect(() => {
+    if (selectedCategory) {
+      fetch(`/api/category/${selectedCategory}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setProducts(data);
+          setSelectedCategory(selectedCategory);
+        })
+        .catch(() =>
+          console.log(
+            'Something went wrong while retrieving a product category.',
+          ),
+        );
+    } else {
+      fetch(`/api/product/`)
+        .then((response) => response.json())
+        .then((products) => {
+          setProducts(products);
+        })
+        .catch(() =>
+          console.log('Something went wrong while retrieving the products'),
+        );
+    }
+  }, [selectedCategory]);
 
-  useEffect(() => {}, [selectedCategory]);
+  const filteredDeals = products.filter((deal) => {
+    const shopMatches = selectedShop === 0 || deal.shop_id === selectedShop;
+    const categoryMatches =
+      selectedCategory === 0 || deal.category_id === selectedCategory;
+    return shopMatches && categoryMatches;
+  });
+
   return (
     <>
       <div className="flex mb-6">
@@ -54,7 +88,7 @@ const Products = ({
           onChange={(event) => handleOnChange(event)}
           value={selectedCategory}
         >
-          <option value="">Filter Kategorie</option>
+          <option value="0">Filter Kategorie</option>
           <option value="1">Badezimmer</option>
           <option value="2">Schlafzimmer</option>
           <option value="3">Wohnzimmer</option>
@@ -64,8 +98,8 @@ const Products = ({
 
       <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2">
         {filteredDeals?.length > 0 ? (
-          filteredDeals.map((deal) => (
-            <Product key={deal.title} deal={deal} shops={shops} />
+          filteredDeals.map((deal, index) => (
+            <Product key={`${index}-${deal.title}`} deal={deal} shops={shops} />
           ))
         ) : (
           <p className="">Bald gibt es hier wieder tolle Angebote!</p>
