@@ -6,12 +6,8 @@ export const metadata: Metadata = {
   title: 'MoebelDeals',
 };
 
-export const getCategories = async () => {
-  return await prisma.categories.findMany();
-};
-
 const Deals = async () => {
-  const readCategories = await getCategories();
+  const readCategories = await prisma.categories.findMany();
   return (
     <>
       <h1 className="h-12 my-12 flex flex-col justify-center items-center text-xl font-semibold sm:flex-row">

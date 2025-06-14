@@ -1,5 +1,4 @@
 import prisma from '../../../../prisma';
-import { getCategories } from '../../page';
 import Products from './components/products';
 
 export interface ProductDetails {
@@ -15,7 +14,9 @@ export interface ProductDetails {
 }
 
 const getDeals = async (category: string) => {
-  const catId = (await getCategories()).find((cat) => cat.name === category);
+  const catId = (await prisma.categories.findMany()).find(
+    (cat) => cat.name === category,
+  );
 
   if (catId?.id) {
     const cat = await prisma.hproducts.findMany({
@@ -35,7 +36,7 @@ const getShops = async () => await prisma.shops.findMany();
 
 const Category = async (props: { params: Promise<{ slug: string }> }) => {
   const category = await props.params;
-  const currentCat = (await getCategories()).find(
+  const currentCat = (await prisma.categories.findMany()).find(
     (cat) => cat.name === category.slug,
   );
   const deals = await getDeals(category.slug);
