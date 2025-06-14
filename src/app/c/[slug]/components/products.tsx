@@ -95,7 +95,9 @@ const Products = ({
           <option value="3">Wohnzimmer</option>
         </select>
       </div>
-      <div className="mb-2"> {filteredDeals.length} Artikel</div>
+      {filteredDeals?.length > 0 && (
+        <div className="mb-2"> {filteredDeals.length} Artikel</div>
+      )}
 
       <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2">
         {filteredDeals?.length > 0 ? (
