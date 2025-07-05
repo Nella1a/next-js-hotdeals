@@ -45,4 +45,4 @@ yarn-error.log*
 
 # docker
 /docker
-.docker-compose.override.yaml
+docker-compose.override.yaml
