@@ -1,0 +1,34 @@
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - hotdeals-network
+    depends_on:
+      - postgres-db
+
+  postgres-db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-pass
+      POSTGRES_USER_FILE: /run/secrets/db-user
+      POSTGRES_DB_FILE: /run/secrets/db-name
+    secrets:
+      - db-pass
+      - db-user
+      - db-name
+    volumes:
+      - hotdeals_scraper_db-data:/var/lib/postgresql/data
+    networks:
+      - hotdeals-network
+
+networks:
+  hotdeals-network:
+
+volumes:
+  hotdeals_scraper_db-data:
+    external: true
