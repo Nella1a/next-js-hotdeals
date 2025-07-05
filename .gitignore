@@ -42,3 +42,7 @@ yarn-error.log*
 /infos
 
 /.vscode
+
+# docker
+/docker
+docker-compose.override.yaml
