@@ -20,23 +20,21 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
       <article
         key={`deal${deal.id}${deal.title}`}
         className="border-[.5px] border-grey-600 grid grid-cols-[80px,_1fr]
-      h-28 relative bg-white hover:border-[1px] hover:border-yellow-200"
+      h-28 relative bg-white hover:border-[1px] hover:border-yellow-200 p-2"
       >
-        <div className="flex justify-center items-center">
-          <div className="text-sm mt-[.2rem]">{shop?.name}</div>
+        <div className="flex justify-center items-center pb-1.5">
+          <div className="text-sm">{shop?.name}</div>
         </div>
-        <div className="border-l-[1px] flex flex-col gap-2 p-2">
-          <p className="line-clamp-2 font-semibold text-sm sm:text-base">
+        <div className="flex flex-col">
+          <p className="line-clamp-1 font-semibold text-sm sm:text-base pb-1">
             {deal.title}
           </p>
           <div className="grid grid-cols-[90px,80px] ">
-            <p>
-              <span className="text-gray-400 text-xs">
-                {deal.uvp ? 'UVP €' : 'statt €'} {formatPrice(deal.old_price)}
-              </span>
+            <p className="text-gray-400 text-xs">
+              {deal.uvp ? 'UVP €' : 'statt €'} {formatPrice(deal.old_price)}
             </p>
+            <p>€ {formatPrice(deal.current_price)}</p>
 
-            <span>€ {formatPrice(deal.current_price)}</span>
             <span className="text-center bg-yellow-200 rounded-sm absolute bottom-0 right-0 px-[8px]">
               -{deal.discount}%
             </span>
