@@ -41,11 +41,9 @@ cd next-js-hotdeals
      - Create a file named db-user.txt and add your database username.
      - Create a file named db-name.txt and add your database name.
      
-5. Add a docker-compose.override.yaml in your root directory.
+5. docker-compose.override.yaml:
    
-   For development, a docker-compose.override-example.yaml is provided.
-   The file also opens a database port so you can connect to it with your local database client. After copying the example file to docker-compose.override.yaml, Docker Compose will automatically apply the overrides. The docker-compose.yaml file runs a Next.js app along with a PostgreSQL database in a Docker stack.
-   You can find more details on how docker compose works [here](https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/)
+   For development, a docker-compose.override-example.yaml is provided. After copying the example file to docker-compose.override.yaml, Docker Compose will automatically apply the overrides. The docker-compose.yaml file runs a Next.js app along with a PostgreSQL database in a Docker stack. You can find more details on how docker compose works [here](https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/)
 
    ```
    cp docker-compose.override-example.yaml docker-compose.override.yaml
