@@ -1,25 +1,105 @@
 # MöbelDeals Platform Mock-Up
 
 This is a basic platform mock-up showcasing deals from two Austrian furniture stores. The platform is branded with a simple logo and name: MöbelDeals.
+It is built as a Next.js application that uses a PostgreSQL database for storing and managing deals data. The data was scraped using Python packages (Scrapy and Playwright).
 
-MöbelDeals is built as a Next.js application that uses a PostgreSQL database for storing and managing deals data. The data is scraped using Python packages, specifically Scrapy and Playwright.
-
-## Features
-
+#### Features
 Users can browse and filter deals by categories and shops.
 Each deal links directly to the product page on the original store's website, allowing users to get more information and purchase items seamlessly.
 Currently, deals are available for the following categories: Wohnzimmer (Living Room), Schlafzimmer (Bedroom), and Badezimmer (Bathroom).
 
-## Data Collection
-
-Scraping: Deals are scraped using Scrapy, a Python framework for web scraping, combined with Playwright to handle dynamic content.
+#### Data Collection
+Scraping: Deals were scraped using Scrapy, a Python framework for web scraping, combined with Playwright to handle dynamic content.
 Database Integration: The scraped data is stored in a PostgreSQL database and accessed by the Next.js application.
 
-Note: Only deals with an actual discount are displayed (thus if no discount or list price is provided on the original website, the deals is filtered out ).
+## Setup
+
+### Clone the repository
+
+First, clone the repository. Then, you can run the application either using Docker or locally (without Docker).
+
+```
+git clone https://github.com/Nella1a/next-js-hotdeals.git
+cd next-js-hotdeals
+```
+#### Run with Docker
+
+- Make sure that you have a reasonably recent version of docker installed & running
+- Make sure you have docker-compose installed
+
+1. Create a .env file in the project’s root directory and set the environment variable for the database connection URL that Prisma ORM uses to connect to the database.
+   For example:
+
+   ```
+     POSTGRES_PRISMA_URL="postgresql://myuser:mypassword@postgres-db:5432/mydatabase?schema=hotdeals"
+   ```
+
+3. Secrets:
+
+    Create a new directory named docker/secrets in the project's root folder, and then:
+     - Create a file named db-pass.txt and add your database password to it.
+     - Create a file named db-user.txt and add your database username.
+     - Create a file named db-name.txt and add your database name.
+     
+5. Add a docker-compose.override.yaml in your root directory.
+   
+   For development, a docker-compose.override-example.yaml is provided.
+   The file also opens a database port so you can connect to it with your local database client. After copying the example file to docker-compose.override.yaml, Docker Compose will automatically apply the overrides. The docker-compose.yaml file runs a Next.js app along with a PostgreSQL database in a Docker stack.
+   You can find more details on how docker compose works [here](https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/)
+
+   ```
+   cp docker-compose.override-example.yaml docker-compose.override.yaml
+   ```
+
+7. Start the entire application stack
+
+   ```
+   docker compose up
+   ```
+8. Open <http://localhost:3000> on your browser.
+   
+#### Run Local (without Docker)
+
+1. Ensure that you have a PostgreSQL instance running, then create a database and user.
+
+   ```sql
+   CREATE DATABASE mydatabase;
+   CREATE USER myuser WITH PASSWORD 'mypassword';
+   GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
+   ```
+
+   **Note:** The last command grants the user myuser full access to the database mydatabase.
+
+2. Create a .env file in the project’s root directory and set the environment variable for the database connection URL that Prisma ORM uses to connect to the database.
+   For example:
+
+   ```text
+   POSTGRES_PRISMA_URL="postgresql://myuser:mypassword@localhost:5432/mydatabase?schema=hotdeals"   
+   ```
+
+3. Install dependencies
+
+   ```text
+   npm run install
+   ```
+
+4. Run database migrations
+
+   ```text
+   npx prisma migrate dev
+   ```
+5. Run application
+
+   ```text
+   npm run start
+   ```
+
+6. Open <http://localhost:3000> on your browser.
+
 
 ## Technology Stack
 
   - Frontend: Next.js for server-side rendering and efficient client-side interactions.
   - Styling: Tailwind CSS for rapid and customizable UI development.
-  - Backend: Scrapy and Playwright for web scraping and data collection.
   - Database: PostgreSQL for data storage. Prisma for database schema management and querying.
+  - Docker 
