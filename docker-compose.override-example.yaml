@@ -1,0 +1,26 @@
+# Overrides for the development environment
+# The .env file contains the variables referenced such as ${POSTGRES_PRISMA_URL}
+
+services:
+  frontend:
+    environment:
+      POSTGRES_PRISMA_URL: ${POSTGRES_PRISMA_URL}
+      NODE_ENV: development
+    volumes:
+      # in development: create bind mounts so that changes are seen without rebuild
+      - ./src:/opt/frontend/src:ro
+      - ./public:/opt/frontend/public:ro
+      - ./tsconfig.json:/opt/frontend/tsconfig.json:ro
+      - ./package.json:/opt/frontend/package.json:ro
+      - ./next.config.mjs:/opt/frontend/next.config.mjs:ro
+      - ./postcss.config.js:/opt/frontend/postcss.config.js:ro
+      - ./tailwind.config.ts:/opt/frontend/tailwind.config.ts:ro
+      - ./prisma.ts:/opt/frontend/prisma.ts:ro
+
+secrets:
+  db-pass:
+    file: ./docker/secrets/db-pass.txt
+  db-user:
+    file: ./docker/secrets/db-user.txt
+  db-name:
+    file: ./docker/secrets/db-name.txt
