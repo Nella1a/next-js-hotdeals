@@ -22,11 +22,15 @@ COPY tsconfig.json ./
 COPY docker/context/run.sh ./
 COPY docker/context/wait-for.sh ./
 
+RUN mkdir -p /opt/frontend/static && \
+    apt-get update && \
+    apt-get --assume-yes install netcat-traditional
 
-RUN NODE_ENV=development npm install
+RUN NODE_ENV=development
 RUN npx next telemetry disable
 
 RUN chmod +x /opt/frontend/run.sh
+RUN chmod +x /opt/frontend/wait-for.sh
 
 EXPOSE 3000
 CMD ./run.sh
