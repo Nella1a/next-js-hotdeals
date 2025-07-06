@@ -1,6 +1,9 @@
 # syntax=docker/dockerfile:1
 
 FROM node:22
+ENV NODE_ENV production
+ENV PATH $NODE_PATH/.bin:$PATH
+
 
 RUN mkdir -p /opt/frontend
 WORKDIR /opt/frontend
@@ -16,9 +19,14 @@ COPY prisma.ts ./
 COPY tailwind.config.js ./
 COPY postcss.config.js ./
 COPY tsconfig.json ./
+COPY docker/context/run.sh ./
+COPY docker/context/wait-for.sh ./
 
-RUN npm install
+
+RUN NODE_ENV=development npm install
 RUN npx next telemetry disable
 
+RUN chmod +x /opt/frontend/run.sh
+
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+CMD ./run.sh
