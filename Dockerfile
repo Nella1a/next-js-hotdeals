@@ -33,4 +33,4 @@ RUN chmod +x /opt/frontend/run.sh
 RUN chmod +x /opt/frontend/wait-for.sh
 
 EXPOSE 3000
-CMD ./run.sh
+CMD ["./run.sh"]
