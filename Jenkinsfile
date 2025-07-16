@@ -13,7 +13,7 @@ pipeline {
             script {
 
               sh "git checkout ${env.BRANCH_NAME}"
-              sh "git fetch"
+              sh "git pull -r"
 
               // Capture current version from package.json
               env.CURRENT_VERSION = sh(
