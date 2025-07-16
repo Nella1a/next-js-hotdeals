@@ -1,9 +1,8 @@
 #! /usr/bin/env groovy
 
 pipeline {
-    agent any
-
-    stages {
+  agent any
+  stages {
         stage('Build Docker Image') {
             when {
                 expression {
@@ -21,13 +20,17 @@ pipeline {
                     }
             }
         }
-        stage('Deploy') {
+        stage ("Deploy") {
             when {
                 expression {
                     BRANCH_NAME == "main"
                 }
             }
-
+            steps {
+              script {
+                    echo "Deploying ... "
+              }
+            }
         }
-    }
+  }
 }
