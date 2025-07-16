@@ -12,6 +12,8 @@ pipeline {
           steps {
             script {
 
+              sh "git checkout ${env.BRANCH_NAME}"
+
               // Capture current version from package.json
               env.CURRENT_VERSION = sh(
                 script: "node -p \"require('./package.json').version\"",
@@ -57,19 +59,13 @@ pipeline {
               script {
                     echo "Commit changes to github"
                     withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                      sh 'git config user.name "jenkins"'
-                      sh 'git config user.email "jenkins@example.com"'
 
-                      sh 'git fetch'
-                      sh  "git checkout ${env.BRANCH_NAME}"
-                      sh 'git status'
-                      sh 'git branch'
-                      sh 'git config --list'
+
 
                       sh 'git remote set-url origin https://$USER:$PASS@github.com/Nella1a/next-js-hotdeals.git'
                       sh 'git add .'
                       sh "git commit -m \"Updated image version from ${env.CURRENT_VERSION} to ${env.UPDATED_VERSION}\""
-                      sh 'git push'
+                      sh 'git push origin HEAD:main'
                     }
               }
             }
