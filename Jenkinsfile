@@ -3,7 +3,7 @@
 pipeline {
   agent any
   stages {
-        stage('increment version') {
+        stage('Increment Version') {
           when {
             expression {
               BRANCH_NAME == "main"
@@ -16,7 +16,7 @@ pipeline {
               sh  "git checkout $BRANCH_NAME"
 
               // Capture current version from package.json
-              def currentVersion = sh(
+              env.CURRENT_VERSION = sh(
                 script: "node -p \"require('./package.json').version\"",
                 returnStdout: true
               ).trim()
@@ -48,6 +48,30 @@ pipeline {
                           sh "docker push kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
                         }
                     }
+            }
+        }
+        stage ("Commit Version Update") {
+            when {
+                expression {
+                    BRANCH_NAME == "main"
+                }
+            }
+            steps {
+              script {
+                    echo "Commit changes to github"
+                    withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
+                      sh 'git config user.name "jenkins'
+                      sh 'git config user.email "jenkins@example.com"'
+
+                      sh 'git status'
+                      sh 'git branch'
+                      sh 'git config --list'
+
+                      sh 'git remote set-url origin https://$USER:$PASS@github.com/Nella1a/next-js-hotdeals.git'
+                      sh 'git add .'
+                      sh "git commit -m \"Updated image version from ${env.CURRENT_VERSION} to ${env.UPDATED_VERSION}\""
+                    }
+              }
             }
         }
         stage ("Deploy") {
