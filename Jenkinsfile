@@ -12,9 +12,6 @@ pipeline {
           steps {
             script {
 
-              sh  'git fetch'
-              sh  "git checkout $BRANCH_NAME"
-
               // Capture current version from package.json
               env.CURRENT_VERSION = sh(
                 script: "node -p \"require('./package.json').version\"",
@@ -44,7 +41,7 @@ pipeline {
                         echo 'Building the docker image'
                         withCredentials([usernamePassword(credentialsId: 'cred-docker', passwordVariable: 'PASS', usernameVariable: 'USER')]){
                           sh "docker build -t kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION} ."
-                          sh 'echo $PASS | docker login -u $USER --password-stdin'
+                          sh "echo $PASS | docker login -u $USER --password-stdin'
                           sh "docker push kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
                         }
                     }
@@ -63,6 +60,8 @@ pipeline {
                       sh 'git config user.name "jenkins'
                       sh 'git config user.email "jenkins@example.com"'
 
+                      sh 'git fetch'
+                      sh  "git checkout {env.BRANCH_NAME}"
                       sh 'git status'
                       sh 'git branch'
                       sh 'git config --list'
@@ -70,6 +69,7 @@ pipeline {
                       sh 'git remote set-url origin https://$USER:$PASS@github.com/Nella1a/next-js-hotdeals.git'
                       sh 'git add .'
                       sh "git commit -m \"Updated image version from ${env.CURRENT_VERSION} to ${env.UPDATED_VERSION}\""
+                      sh 'git push'
                     }
               }
             }
