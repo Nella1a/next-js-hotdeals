@@ -41,7 +41,7 @@ pipeline {
                         echo 'Building the docker image'
                         withCredentials([usernamePassword(credentialsId: 'cred-docker', passwordVariable: 'PASS', usernameVariable: 'USER')]){
                           sh "docker build -t kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION} ."
-                          sh "echo $PASS | docker login -u $USER --password-stdin"
+                          sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
                           sh "docker push kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
                         }
                     }
@@ -57,11 +57,11 @@ pipeline {
               script {
                     echo "Commit changes to github"
                     withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                      sh 'git config user.name "jenkins'
+                      sh 'git config user.name "jenkins"'
                       sh 'git config user.email "jenkins@example.com"'
 
                       sh 'git fetch'
-                      sh  "git checkout {env.BRANCH_NAME}"
+                      sh  "git checkout ${env.BRANCH_NAME}"
                       sh 'git status'
                       sh 'git branch'
                       sh 'git config --list'
