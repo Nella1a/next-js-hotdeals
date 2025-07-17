@@ -6,7 +6,7 @@ pipeline {
         stage ('Run Tests') {
           steps {
             script {
-              sh 'Tests will be running here very soon...'
+              echo 'Tests will be running here very soon...'
             }
           }
         }
