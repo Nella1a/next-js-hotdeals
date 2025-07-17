@@ -5,7 +5,7 @@ pipeline {
   stages {
         stage ('Run Tests') {
           script {
-            sh 'Test are running here very soon ... '
+            sh 'Test are running here very soon!'
           }
         }
         stage('Increment Version') {
