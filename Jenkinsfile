@@ -4,8 +4,10 @@ pipeline {
   agent any
   stages {
         stage ('Run Tests') {
-          script {
-            sh 'Test are running here very soon!'
+          steps {
+            script {
+              sh 'Tests will be running here very soon...'
+            }
           }
         }
         stage('Increment Version') {
