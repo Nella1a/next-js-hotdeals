@@ -3,6 +3,11 @@
 pipeline {
   agent any
   stages {
+        stage ('Run Tests') {
+          script {
+            sh 'Test are running here very soon ... '
+          }
+        }
         stage('Increment Version') {
           when {
             expression {
