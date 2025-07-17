@@ -1,15 +1,18 @@
-***Please note that this project is currently under active development. The codebase is subject to change and continuous improvement.***
+**_Please note that this project is currently under active development. The codebase is subject to change and continuous improvement._**
+
 # MöbelDeals Platform Mock-Up
 
 This is a basic platform mock-up showcasing deals from two Austrian furniture stores. The platform is branded with a simple logo and name: MöbelDeals.
 It is built as a Next.js application that uses a PostgreSQL database for storing and managing deals data. The data was scraped using Python packages (Scrapy and Playwright).
 
 #### Features
+
 Users can browse and filter deals by categories and shops.
 Each deal links directly to the product page on the original store's website, allowing users to get more information and purchase items seamlessly.
 Currently, deals are available for the following categories: Wohnzimmer (Living Room), Schlafzimmer (Bedroom), and Badezimmer (Bathroom).
 
 #### Data Collection
+
 Scraping: Deals were scraped using Scrapy, a Python framework for web scraping, combined with Playwright to handle dynamic content.
 Database Integration: The scraped data is stored in a PostgreSQL database and accessed by the Next.js application.
 
@@ -23,6 +26,7 @@ First, clone the repository. Then, you can run the application either using Dock
 git clone https://github.com/Nella1a/next-js-hotdeals.git
 cd next-js-hotdeals
 ```
+
 #### Run with Docker
 
 - Make sure that you have a reasonably recent version of docker installed & running
@@ -35,28 +39,30 @@ cd next-js-hotdeals
      POSTGRES_PRISMA_URL="postgresql://myuser:mypassword@postgres-db:5432/mydatabase?schema=hotdeals"
    ```
 
-3. Secrets:
+2. Secrets:
 
-    Create a new directory named docker/secrets in the project's root folder, and then:
-     - Create a file named db-pass.txt and add your database password to it.
-     - Create a file named db-user.txt and add your database username.
-     - Create a file named db-name.txt and add your database name.
-     
-5. docker-compose.override.yaml:
-   
+   Create a new directory named docker/secrets in the project's root folder, and then:
+
+   - Create a file named db-pass.txt and add your database password to it.
+   - Create a file named db-user.txt and add your database username.
+   - Create a file named db-name.txt and add your database name.
+
+3. docker-compose.override.yaml:
+
    For development, a docker-compose.override-example.yaml is provided. After copying the example file to docker-compose.override.yaml, Docker Compose will automatically apply the overrides. The docker-compose.yaml file runs a Next.js app along with a PostgreSQL database in a Docker stack. You can find more details on how docker compose works [here](https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/)
 
    ```
    cp docker-compose.override-example.yaml docker-compose.override.yaml
    ```
 
-7. Start the entire application stack
+4. Start the entire application stack
 
    ```
    docker compose up
    ```
-8. Open <http://localhost:3000> on your browser.
-   
+
+5. Open <http://localhost:3000> on your browser.
+
 #### Run Local (without Docker)
 
 1. Ensure that you have a PostgreSQL instance running, then create a database and user.
@@ -73,7 +79,7 @@ cd next-js-hotdeals
    For example:
 
    ```text
-   POSTGRES_PRISMA_URL="postgresql://myuser:mypassword@localhost:5432/mydatabase?schema=hotdeals"   
+   POSTGRES_PRISMA_URL="postgresql://myuser:mypassword@localhost:5432/mydatabase?schema=hotdeals"
    ```
 
 3. Install dependencies
@@ -87,6 +93,7 @@ cd next-js-hotdeals
    ```text
    npx prisma migrate dev
    ```
+
 5. Run application
 
    ```text
@@ -95,17 +102,15 @@ cd next-js-hotdeals
 
 6. Open <http://localhost:3000> on your browser.
 
+## CI/CD Pipeline – Jenkins Multibranch Pipeline
 
-
-
-
-## CI/CD Pipeline – Jenkins Multibranch Pipeline  
 (automates versioning and Docker image deployment)
 
 #### Jenkins Pipeline Features
 
 - Version Management
   When code is pushed to, or pull requests are merged into, the `main` branch, the pipeline automatically:
+
   - Reads the current version from `package.json`
   - Increments the patch version (e.g., `1.2.3 → 1.2.4`)
   - Commits the updated version back to the repository
@@ -126,8 +131,13 @@ cd next-js-hotdeals
 
 ## Technology Stack
 
-  - Frontend: Next.js for server-side rendering and efficient client-side interactions.
-  - Styling: Tailwind CSS for rapid and customizable UI development.
-  - Database: PostgreSQL for data storage. Prisma for database schema management and querying.
-  - Jenkins
-  - Docker 
+- Frontend: Next.js for server-side rendering and efficient client-side interactions.
+- Styling: Tailwind CSS for rapid and customizable UI development.
+- Database: PostgreSQL for data storage. Prisma for database schema management and querying.
+- Jenkins
+- Docker
+
+#### Screenshots
+
+![Index Page](./public/screenshotIndexPage.png)
+![Index Page](./public/screenshotCatPage.png)

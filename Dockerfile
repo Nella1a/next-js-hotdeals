@@ -9,7 +9,6 @@ RUN mkdir -p /opt/frontend
 WORKDIR /opt/frontend
 
 COPY src ./src/
-COPY public ./public/
 COPY prisma ./prisma/
 COPY .eslintrc.json ./
 COPY next.config.mjs ./
