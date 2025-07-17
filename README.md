@@ -1,3 +1,4 @@
+***Please note that this project is currently under active development. The codebase is subject to change and continuous improvement.***
 # MöbelDeals Platform Mock-Up
 
 This is a basic platform mock-up showcasing deals from two Austrian furniture stores. The platform is branded with a simple logo and name: MöbelDeals.
