@@ -95,9 +95,38 @@ cd next-js-hotdeals
 6. Open <http://localhost:3000> on your browser.
 
 
+
+
+
+## CI/CD Pipeline – Jenkins Multibranch Pipeline  
+(automates versioning and Docker image deployment)
+
+#### Jenkins Pipeline Features
+
+- Version Management
+  When code is pushed to, or pull requests are merged into, the `main` branch, the pipeline automatically:
+  - Reads the current version from `package.json`
+  - Increments the patch version (e.g., `1.2.3 → 1.2.4`)
+  - Commits the updated version back to the repository
+
+- Docker Image Build & Push
+  After updating the version:
+  - A Docker image is built from the current state of the app
+  - The image is tagged using the new version (e.g., `hotdeals-1.2.4`)
+  - The image is securely pushed to a private Docker registry
+
+#### Jenkins Requirements
+
+- A configured Multibranch Pipeline job pointing to this repository
+- Required credentials:
+  - Docker registry authentication
+  - GitHub push access
+- GitHub webhook that triggers the pipeline on pushes and pull request updates
+
 ## Technology Stack
 
   - Frontend: Next.js for server-side rendering and efficient client-side interactions.
   - Styling: Tailwind CSS for rapid and customizable UI development.
   - Database: PostgreSQL for data storage. Prisma for database schema management and querying.
+  - Jenkins
   - Docker 
