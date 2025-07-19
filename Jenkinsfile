@@ -67,8 +67,8 @@ pipeline {
               script {
                     echo "Commit changes to github"
                     withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-
-
+                      sh 'git config user.name "jenkins"'
+                      sh 'git config user.email "jenkins@example.com"'
 
                       sh 'git remote set-url origin https://$USER:$PASS@github.com/Nella1a/next-js-hotdeals.git'
                       sh 'git add .'
