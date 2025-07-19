@@ -69,7 +69,6 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
                       sh 'git config user.name "jenkins"'
                       sh 'git config user.email "jenkins@example.com"'
-
                       sh 'git remote set-url origin https://$USER:$PASS@github.com/Nella1a/next-js-hotdeals.git'
                       sh 'git add .'
                       sh "git commit -m \"Updated image version from ${env.CURRENT_VERSION} to ${env.UPDATED_VERSION}\""
