@@ -16,7 +16,7 @@ Currently, deals are available for the following categories: Wohnzimmer (Living 
 Scraping: Deals were scraped using Scrapy, a Python framework for web scraping, combined with Playwright to handle dynamic content.
 Database Integration: The scraped data is stored in a PostgreSQL database and accessed by the Next.js application.
 
-## Setup
+## Development Setup
 
 ### Clone the repository
 
