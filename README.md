@@ -85,7 +85,7 @@ cd next-js-hotdeals
 3. Install dependencies
 
    ```text
-   npm run install
+   npm install
    ```
 
 4. Run database migrations
