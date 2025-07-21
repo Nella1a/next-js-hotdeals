@@ -1,4 +1,4 @@
-**_Please note that this project is currently under active development. The codebase is subject to change and continuous improvement._**
+**_Please note this project is in active development and subject to change and ongoing improvement._**
 
 # MöbelDeals Platform Mock-Up
 
