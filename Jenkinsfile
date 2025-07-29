@@ -1,5 +1,14 @@
 #! /usr/bin/env groovy
 
+library identifier: 'jenkins-shared-lib-node-js-apps
+@main', retriever: modernSCM(
+[$class: 'GitSCMSource',
+ remote: 'https://github.com/Nella1a/jenkins-shared-lib-node-js-apps.git',
+ credentialsId: 'github-credentials'
+])
+
+def gv
+
 pipeline {
   agent any
   stages {
