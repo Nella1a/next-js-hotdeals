@@ -7,7 +7,6 @@ library identifier: 'jenkins-shared-lib-node-js-apps
  credentialsId: 'github-credentials'
 ])
 
-def gv
 
 pipeline {
   agent any
@@ -31,20 +30,21 @@ pipeline {
               sh "git checkout ${env.BRANCH_NAME}"
               sh "git pull -r"
 
-              // Capture current version from package.json
-              env.CURRENT_VERSION = sh(
-                script: "node -p \"require('./package.json').version\"",
-                returnStdout: true
-              ).trim()
-
+              // // Capture current version from package.json
+              // env.CURRENT_VERSION = sh(
+              //   script: "node -p \"require('./package.json').version\"",
+              //   returnStdout: true
+              // ).trim()
+              env.CURRENT_VERSION = getCurrentVersion()
               // Bump patch version
               sh "npm version patch --git-tag-version false"
 
-              // Capture updated version
-              env.UPDATED_VERSION = sh(
-                script: "node -p \"require('./package.json').version\"",
-                returnStdout: true
-              ).trim()
+              // // Capture updated version
+              // env.UPDATED_VERSION = sh(
+              //   script: "node -p \"require('./package.json').version\"",
+              //   returnStdout: true
+              // ).trim()
+              env.UPDATED_VERSION = updateVersion()
             }
           }
 
@@ -56,13 +56,21 @@ pipeline {
                 }
             }
             steps {
-                    script {
-                        echo 'Building the docker image'
-                        withCredentials([usernamePassword(credentialsId: 'cred-docker', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                          sh "docker build -t kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION} ."
-                          sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
-                          sh "docker push kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
-                        }
+                    // script {
+                    //     echo 'Building the docker image'
+                    //     withCredentials([usernamePassword(credentialsId: 'cred-docker', passwordVariable: 'PASS', usernameVariable: 'USER')]){
+                    //       sh "docker build -t kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION} ."
+                    //       sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
+                    //       sh "docker push kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
+                    //     }
+                    // }
+               script {
+
+                      def imageName = "kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
+
+                      buildImage(imageName)
+                      dockerLogin()
+                      dockerPush(imageName)
                     }
             }
         }
