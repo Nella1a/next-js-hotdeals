@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-const upperCaseFirstLetter = (name: string) => {
+export const upperCaseFirstLetter = (name: string) => {
   return name[0].toUpperCase() + name.slice(1);
 };
 
