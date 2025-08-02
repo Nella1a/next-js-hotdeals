@@ -1,5 +1,6 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { ProductDetails } from '../page';
 import Product from './product';
@@ -28,11 +29,13 @@ const Products = ({
   const [selectedShop, setSelectedShop] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(currentCategory);
   const [products, setProducts] = useState(deals);
-
+  const params = useParams<{ slug: string }>();
   const handleOnChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const option = event.currentTarget.value;
     setSelectedCategory(Number(option));
   };
+
+  console.log(params.slug);
 
   useEffect(() => {
     if (selectedCategory) {
@@ -95,19 +98,25 @@ const Products = ({
           <option value="3">Wohnzimmer</option>
         </select>
       </div>
+      {/* {filteredDeals?.length === 0 && (
+        <p className="">Bald gibt es hier wieder tolle Angebote!</p>
+      )} */}
+      <h1 className="">{params.slug} SALE%</h1>
       {filteredDeals?.length > 0 && (
-        <div className="mb-2"> {filteredDeals.length} Artikel</div>
+        <>
+          <div className="mb-2"> {filteredDeals.length} Artikel</div>
+          <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2">
+            {filteredDeals?.length > 0 &&
+              filteredDeals?.map((deal, index) => (
+                <Product
+                  key={`${index}-${deal.title}`}
+                  deal={deal}
+                  shops={shops}
+                />
+              ))}
+          </div>
+        </>
       )}
-
-      <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2">
-        {filteredDeals?.length > 0 ? (
-          filteredDeals.map((deal, index) => (
-            <Product key={`${index}-${deal.title}`} deal={deal} shops={shops} />
-          ))
-        ) : (
-          <p className="">Bald gibt es hier wieder tolle Angebote!</p>
-        )}
-      </div>
     </>
   );
 };
