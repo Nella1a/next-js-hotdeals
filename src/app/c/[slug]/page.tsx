@@ -1,4 +1,6 @@
 import prisma from '../../../../prisma';
+import Navigation from '../../components/Navigation/page';
+import NoDeals from '../../components/NoDeals';
 import Products from './components/products';
 
 export interface ProductDetails {
@@ -33,6 +35,7 @@ const getDeals = async (category: string) => {
 };
 
 const getShops = async () => await prisma.shops.findMany();
+const getCategories = async () => await prisma.categories.findMany();
 
 const Category = async (props: { params: Promise<{ slug: string }> }) => {
   const category = await props.params;
@@ -41,35 +44,28 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
   );
   const deals = await getDeals(category.slug);
   const shops = await getShops();
-
-  if (!deals?.length) {
-    return (
-      <>
-        <section className="max-w-screen-lg  mx-auto flex flex-col justify-center items-center my-10 flex-nowrap sm:my-12">
-          <h1 className="font-semibold capitalize  text-3xl m-3">
-            {category.slug}
-          </h1>
-          <p className="">Bald gibt es hier wieder tolle Angebote.</p>
-        </section>
-      </>
-    );
-  }
+  const categories = await getCategories();
+  console.log('categories: ', categories);
 
   return (
     <>
-      {' '}
+      <Navigation categories={categories} />
       <h1 className="h-12 mt-2 mb-10 md:mb-6 flex flex-col justify-center items-center text-xl font-semibold ">
         <span className="font-normal text-xs text-gray-500">
           Angebote vom 02.11.2024
         </span>
       </h1>
-      <section className="max-w-screen-md  mx-auto justify-center items-center px-4 md:max-w-screen-lg">
-        <Products
-          deals={deals}
-          shops={shops}
-          currentCategory={currentCat?.id}
-        />
-      </section>
+      {!deals?.length ? (
+        <NoDeals category={category.slug} />
+      ) : (
+        <section className="max-w-screen-md  mx-auto justify-center items-center px-4 md:max-w-screen-lg">
+          <Products
+            deals={deals}
+            shops={shops}
+            currentCategory={currentCat?.id}
+          />
+        </section>
+      )}
     </>
   );
 };
