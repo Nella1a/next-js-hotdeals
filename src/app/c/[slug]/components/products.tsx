@@ -1,13 +1,21 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import FilterDeals from '../../../components/FilterDeals/page';
+import { upperCaseFirstLetter } from '../../../components/Navigation/page';
 import { ProductDetails } from '../page';
 import Product from './product';
 
 export type Shops = {
   id: number;
   name: string;
+};
+
+export type UpdatedShops = {
+  id: number;
+  name: string;
+  selected: boolean;
 };
 
 export type Category =
@@ -26,16 +34,12 @@ const Products = ({
   shops: Shops[];
   currentCategory?: number;
 }) => {
-  const [selectedShop, setSelectedShop] = useState(0);
+  const [selectedShops, setSelectedShops] = useState(
+    shops.map((shop) => ({ ...shop, selected: true })),
+  );
   const [selectedCategory, setSelectedCategory] = useState(currentCategory);
   const [products, setProducts] = useState(deals);
   const params = useParams<{ slug: string }>();
-  const handleOnChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const option = event.currentTarget.value;
-    setSelectedCategory(Number(option));
-  };
-
-  console.log(params.slug);
 
   useEffect(() => {
     if (selectedCategory) {
@@ -63,45 +67,30 @@ const Products = ({
   }, [selectedCategory]);
 
   const filteredDeals = products.filter((deal) => {
-    const shopMatches = selectedShop === 0 || deal.shop_id === selectedShop;
-    const categoryMatches =
-      selectedCategory === 0 || deal.category_id === selectedCategory;
-    return shopMatches && categoryMatches;
-  });
+    // Check if any shop is selected and matches the deal's shop_id
+    const isShopSelected = selectedShops.some(
+      (shop) => deal.shop_id === shop.id && shop.selected,
+    );
 
-  // todo: make select reusable and add sorting logic for deals
+    // Check if the category matches or if the category is 0 (all categories)
+    const isCategorySelected =
+      selectedCategory === 0 || deal.category_id === selectedCategory;
+
+    // Return true if both conditions are satisfied
+    return isShopSelected && isCategorySelected;
+  });
   return (
     <>
       <div className="flex mb-6 gap-4">
-        <select
-          className="h-10 pl-2 text-left mb-0 w-40 rounded-md border-[1px] border-gray-300"
-          id="selectedShop"
-          name="selectedShop"
-          onChange={(event) =>
-            setSelectedShop(Number(event.currentTarget.value))
-          }
-        >
-          <option value="0">Filter Shops</option>
-          <option value="1">moebelix</option>
-          <option value="2">moemax</option>
-        </select>
-        <select
-          className="h-10 pl-2 text-left mb-0 w-40 rounded-md border-[1px] border-gray-300"
-          id="searchbox"
-          name="searchbox"
-          onChange={(event) => handleOnChange(event)}
-          value={selectedCategory}
-        >
-          <option value="0">Filter Kategorie</option>
-          <option value="1">Badezimmer</option>
-          <option value="2">Schlafzimmer</option>
-          <option value="3">Wohnzimmer</option>
-        </select>
+        <FilterDeals
+          selectedShops={selectedShops}
+          setSelectedShops={setSelectedShops}
+          products={products}
+          setProducts={setProducts}
+        />
       </div>
-      {/* {filteredDeals?.length === 0 && (
-        <p className="">Bald gibt es hier wieder tolle Angebote!</p>
-      )} */}
-      <h1 className="">{params.slug} SALE%</h1>
+
+      <h1 className="">{upperCaseFirstLetter(params.slug)} SALE%</h1>
       {filteredDeals?.length > 0 && (
         <>
           <div className="mb-2"> {filteredDeals.length} Artikel</div>
@@ -111,7 +100,7 @@ const Products = ({
                 <Product
                   key={`${index}-${deal.title}`}
                   deal={deal}
-                  shops={shops}
+                  shops={selectedShops}
                 />
               ))}
           </div>

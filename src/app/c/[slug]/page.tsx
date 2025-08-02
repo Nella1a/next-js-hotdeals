@@ -13,6 +13,7 @@ export interface ProductDetails {
   category_id: number;
   shop_id: number;
   uvp: boolean;
+  shopIsSelected?: boolean;
 }
 
 const getDeals = async (category: string) => {
@@ -45,7 +46,6 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
   const deals = await getDeals(category.slug);
   const shops = await getShops();
   const categories = await getCategories();
-  console.log('categories: ', categories);
 
   return (
     <>
