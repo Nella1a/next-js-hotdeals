@@ -1,10 +1,12 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { Shops, UpdatedShops } from '../../c/[slug]/components/products';
 import { ProductDetails } from '../../c/[slug]/page';
+import ButtonStyle from '../ButtonStyle';
 
 const FilterDeals = ({
   selectedShops,
   setSelectedShops,
+  products,
 }: {
   selectedShops: UpdatedShops[];
   setSelectedShops: Dispatch<SetStateAction<UpdatedShops[]>>;
@@ -27,34 +29,28 @@ const FilterDeals = ({
 
   return (
     <>
-      <section className="border-2 relative">
-        <button className="border-2 w-20" onClick={handleFilters}>
-          Filter
-        </button>
+      <section className="relative z-50">
+        <ButtonStyle text={'Filter Shops'} handleOnChange={handleFilters} />
+
         {isOpen && (
-          <section>
-            <div>
-              <ul>
-                <li>Shops x</li>
-                {selectedShops.map((shop) => (
-                  <li key={shop.name}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={shop.selected || false}
-                        onChange={() => handleShopFilter(shop)}
-                      />
-                      {shop.name}
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p>Preis</p>
-              <p>Selection of Preis</p>
-            </div>
-          </section>
+          <ul className="mt-0.5 pt-3.5 border border-gray-300  rounded-sm">
+            {selectedShops.map((shop) => (
+              <li key={shop.name} className="p-2">
+                <label className="flex gap-2 items-start justify-start">
+                  <span className="">
+                    <input
+                      className="w-5 h-5"
+                      type="checkbox"
+                      checked={shop.selected || false}
+                      onChange={() => handleShopFilter(shop)}
+                    />
+                  </span>
+
+                  <span>{shop.name}</span>
+                </label>
+              </li>
+            ))}
+          </ul>
         )}
       </section>
     </>
