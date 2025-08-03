@@ -50,15 +50,15 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
   return (
     <>
       <Navigation categories={categories} />
-      <h1 className="h-12 mt-2 mb-10 md:mb-6 flex flex-col justify-center items-center text-xl font-semibold ">
+      <p className=" my-4 flex flex-col justify-center items-center text-xl font-semibold ">
         <span className="font-normal text-xs text-gray-500">
           Angebote vom 02.11.2024
         </span>
-      </h1>
+      </p>
       {!deals?.length ? (
         <NoDeals category={category.slug} />
       ) : (
-        <section className="max-w-screen-md  mx-auto justify-center items-center px-4 md:max-w-screen-lg">
+        <section className="max-w-screen-md  mx-auto justify-center items-center px-4 md:max-w-screen-lg relative">
           <Products
             deals={deals}
             shops={shops}

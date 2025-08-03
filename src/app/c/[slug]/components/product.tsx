@@ -19,8 +19,8 @@ const Product = ({ deal, shops }: { deal: ProductDetails; shops: Shops[] }) => {
     <Link href={deal.product_url} passHref target="_blank">
       <article
         key={`deal${deal.id}${deal.title}`}
-        className="border-[.5px] border-grey-600 grid grid-cols-[80px,_1fr]
-      h-28 relative bg-white hover:border-[1px] hover:border-yellow-200 p-2"
+        className="border border-gray-400 grid grid-cols-[80px,_1fr]
+      h-28 relative bg-white hover:border-[1px] hover:border-yellow-300 p-2"
       >
         <div className="flex justify-center items-center pb-1.5">
           <div className="text-sm">{shop?.name}</div>

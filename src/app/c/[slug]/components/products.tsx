@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import DiscountSort from '../../../components/DiscountSort/page';
 import FilterDeals from '../../../components/FilterDeals/page';
 import { upperCaseFirstLetter } from '../../../components/Navigation/page';
 import { ProductDetails } from '../page';
@@ -39,6 +40,7 @@ const Products = ({
   );
   const [selectedCategory, setSelectedCategory] = useState(currentCategory);
   const [products, setProducts] = useState(deals);
+  const [dealsSortOrder, setDealsSortOrder] = useState('');
   const params = useParams<{ slug: string }>();
 
   useEffect(() => {
@@ -66,6 +68,17 @@ const Products = ({
     }
   }, [selectedCategory]);
 
+  useEffect(() => {
+    let sortedDeals = [...products];
+
+    if (dealsSortOrder === 'asc') {
+      sortedDeals.sort((a, b) => a.discount - b.discount);
+    } else if (dealsSortOrder === 'desc') {
+      sortedDeals.sort((a, b) => b.discount - a.discount);
+    }
+    setProducts(sortedDeals);
+  }, [dealsSortOrder]);
+
   const filteredDeals = products.filter((deal) => {
     // Check if any shop is selected and matches the deal's shop_id
     const isShopSelected = selectedShops.some(
@@ -79,22 +92,27 @@ const Products = ({
     // Return true if both conditions are satisfied
     return isShopSelected && isCategorySelected;
   });
+
   return (
     <>
-      <div className="flex mb-6 gap-4">
+      <h1 className="h-12 mb-10 text-2xl flex items-center font-semibold">
+        {upperCaseFirstLetter(params.slug)} SALE
+      </h1>
+      <div className="flex mb-6 gap-2 md:gap-4 absolute top-20 ">
         <FilterDeals
           selectedShops={selectedShops}
           setSelectedShops={setSelectedShops}
           products={products}
           setProducts={setProducts}
         />
+        <DiscountSort setDealsSortOrder={setDealsSortOrder} />
       </div>
-
-      <h1 className="">{upperCaseFirstLetter(params.slug)} SALE%</h1>
       {filteredDeals?.length > 0 && (
-        <>
-          <div className="mb-2"> {filteredDeals.length} Artikel</div>
-          <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2">
+        <div>
+          <div className="mb-2 text-right mt-36">
+            {filteredDeals.length} Artikel
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2 ">
             {filteredDeals?.length > 0 &&
               filteredDeals?.map((deal, index) => (
                 <Product
@@ -104,7 +122,7 @@ const Products = ({
                 />
               ))}
           </div>
-        </>
+        </div>
       )}
     </>
   );
