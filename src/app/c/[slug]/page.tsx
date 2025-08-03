@@ -1,5 +1,5 @@
 import prisma from '../../../../prisma';
-import Navigation from '../../components/Navigation/page';
+import Navigation from '../../components/Navigation';
 import NoDeals from '../../components/NoDeals';
 import Products from './components/products';
 

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 import XMark from '../Icons/xmark';
-import { upperCaseFirstLetter } from '../Navigation/page';
+import { upperCaseFirstLetter } from '../Navigation';
 
 export default function MobileMenu({
   categories,

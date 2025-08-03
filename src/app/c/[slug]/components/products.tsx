@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import DiscountSort from '../../../components/DiscountSort';
 import FilterDeals from '../../../components/FilterDeals';
-import { upperCaseFirstLetter } from '../../../components/Navigation/page';
+import { upperCaseFirstLetter } from '../../../components/Navigation';
 import { ProductDetails } from '../page';
 import Product from './product';
 
