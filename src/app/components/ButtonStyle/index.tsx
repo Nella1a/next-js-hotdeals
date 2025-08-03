@@ -6,7 +6,7 @@ const ButtonStyle = ({
   handleOnChange: () => void;
 }) => (
   <button
-    className="w-42 py-2 rounded-sm border border-gray-300 bg-gray-200"
+    className="w-32 md:w-40 py-2 rounded-sm border border-gray-300 bg-gray-200 cursor-pointer"
     onClick={handleOnChange}
   >
     {text}
