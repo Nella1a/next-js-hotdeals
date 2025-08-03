@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { Shops, UpdatedShops } from '../../c/[slug]/components/products';
 import { ProductDetails } from '../../c/[slug]/page';
 import ButtonStyle from '../ButtonStyle';
+import CheckBockCheck from '../Icons/checkBockChecked';
 
 const FilterDeals = ({
   selectedShops,
@@ -13,7 +14,7 @@ const FilterDeals = ({
   products: ProductDetails[];
   setProducts: Dispatch<SetStateAction<ProductDetails[]>>;
 }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const handleFilters = () => setIsOpen(!isOpen);
 
   const handleShopFilter = (shop: Shops) => {
@@ -29,29 +30,33 @@ const FilterDeals = ({
 
   return (
     <>
-      <section className="relative z-50">
+      <section className="relative">
         <ButtonStyle text={'Filter Shops'} handleOnChange={handleFilters} />
-
-        {isOpen && (
-          <ul className="mt-0.5 pt-3.5 border border-gray-300  rounded-sm">
-            {selectedShops.map((shop) => (
-              <li key={shop.name} className="p-2">
-                <label className="flex gap-2 items-start justify-start">
-                  <span className="">
-                    <input
-                      className="w-5 h-5"
-                      type="checkbox"
-                      checked={shop.selected || false}
-                      onChange={() => handleShopFilter(shop)}
-                    />
+        <ul
+          className={` overflow-hidden transition-all duration-500 ease-in-out
+    border border-gray-300 rounded-sm bg-white mt-0.5 pt-1.5
+    ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
+  `}
+        >
+          {selectedShops.map((shop) => (
+            <li
+              key={shop.name}
+              className="py-1 pl-3"
+              onClick={() => handleShopFilter(shop)}
+            >
+              <div className="flex gap-2">
+                {shop.selected ? (
+                  <span className="block w-6 h-6">
+                    <CheckBockCheck />
                   </span>
-
-                  <span>{shop.name}</span>
-                </label>
-              </li>
-            ))}
-          </ul>
-        )}
+                ) : (
+                  <span className="border block w-6 h-6"></span>
+                )}
+                <span>{shop.name}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
     </>
   );
