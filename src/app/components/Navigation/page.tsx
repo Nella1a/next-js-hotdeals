@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import MenuBars from '../Icons/menubars';
-import MobileMenu from '../MobileMenu/page';
+import MobileMenu from '../MobileMenu';
 
 export const upperCaseFirstLetter = (name: string) => {
   return name[0].toUpperCase() + name.slice(1);
