@@ -52,7 +52,7 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
       <Navigation categories={categories} />
       <p className=" my-4 flex flex-col justify-center items-center text-xl font-semibold ">
         <span className="font-normal text-xs text-gray-500">
-          Angebote vom 02.11.2024
+          Angebote zuletzt aktualisiert: 11.08.2025
         </span>
       </p>
       {!deals?.length ? (
