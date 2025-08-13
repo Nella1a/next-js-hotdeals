@@ -95,10 +95,10 @@ const Products = ({
 
   return (
     <>
-      <h1 className="h-12 mb-10 text-2xl flex items-center font-semibold">
+      <h1 className="h-12 text-2xl flex items-center font-semibold">
         {upperCaseFirstLetter(params.slug)} SALE
       </h1>
-      <div className="flex mb-6 gap-2 md:gap-4 absolute top-20 ">
+      <div className="flex gap-2 md:gap-4 absolute top-20 ">
         <FilterDeals
           selectedShops={selectedShops}
           setSelectedShops={setSelectedShops}
@@ -107,6 +107,7 @@ const Products = ({
         />
         <DiscountSort setDealsSortOrder={setDealsSortOrder} />
       </div>
+
       {filteredDeals?.length > 0 && (
         <div>
           <div className="mb-2 text-right mt-36">

@@ -1,6 +1,6 @@
 import prisma from '../../../../prisma';
-import Navigation from '../../components/Navigation';
 import NoDeals from '../../components/NoDeals';
+import BackToTop from './components/BackToTop';
 import Products from './components/products';
 
 export interface ProductDetails {
@@ -45,20 +45,19 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
   );
   const deals = await getDeals(category.slug);
   const shops = await getShops();
-  const categories = await getCategories();
 
   return (
-    <>
-      <Navigation categories={categories} />
-      <p className=" my-4 flex flex-col justify-center items-center text-xl font-semibold ">
+    <section className="mt-32 mx-auto max-w-screen-md py-2 px-4  md:max-w-screen-lg">
+      <BackToTop />
+      <p className="my-4 flex flex-col  justify-center items-start md:items-center text-xl font-semibold ">
         <span className="font-normal text-xs text-gray-500">
-          Angebote zuletzt aktualisiert: 11.08.2025
+          Angebote zuletzt aktualisiert: 13.08.2025
         </span>
       </p>
       {!deals?.length ? (
         <NoDeals category={category.slug} />
       ) : (
-        <section className="max-w-screen-md  mx-auto justify-center items-center px-4 md:max-w-screen-lg relative">
+        <section className="max-w-screen-md  mx-auto justify-center items-center  md:max-w-screen-lg relative">
           <Products
             deals={deals}
             shops={shops}
@@ -66,7 +65,7 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
           />
         </section>
       )}
-    </>
+    </section>
   );
 };
 export default Category;
