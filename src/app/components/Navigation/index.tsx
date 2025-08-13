@@ -47,8 +47,8 @@ const Navigation = ({
   }, [isMenuOpen]);
 
   return (
-    <nav className="border-b border-gray-200 shadow-sm">
-      <ul className="flex gap-5 py-2 mx-auto max-w-screen-md  justify-start items-center px-4 md:max-w-screen-lg">
+    <nav className="border-b border-gray-200 bg-white opacity-100 shadow-sm fixed top-20  w-full z-10">
+      <ul className="flex gap-5 py-2 mx-auto max-w-screen-md justify-start items-center px-4 md:max-w-screen-lg">
         <li>
           <div className="w-8 h-8 ">
             <button
