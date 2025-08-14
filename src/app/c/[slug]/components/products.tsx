@@ -47,23 +47,13 @@ const Products = ({
     if (selectedCategory) {
       fetch(`/api/category/${selectedCategory}`)
         .then((response) => response.json())
-        .then((data) => {
-          setProducts(data);
-          setSelectedCategory(selectedCategory);
+        .then((catgegoryProducts) => {
+          setProducts(catgegoryProducts);
         })
         .catch(() =>
           console.log(
             'Something went wrong while retrieving a product category.',
           ),
-        );
-    } else {
-      fetch(`/api/product/`)
-        .then((response) => response.json())
-        .then((products) => {
-          setProducts(products);
-        })
-        .catch(() =>
-          console.log('Something went wrong while retrieving the products'),
         );
     }
   }, [selectedCategory]);
@@ -85,9 +75,9 @@ const Products = ({
       (shop) => deal.shop_id === shop.id && shop.selected,
     );
 
-    // Check if the category matches or if the category is 0 (all categories)
+    // Check if a category is selected
     const isCategorySelected =
-      selectedCategory === 0 || deal.category_id === selectedCategory;
+      !selectedCategory || deal.category_id === selectedCategory;
 
     // Return true if both conditions are satisfied
     return isShopSelected && isCategorySelected;
@@ -96,7 +86,9 @@ const Products = ({
   return (
     <>
       <h1 className="h-12 text-2xl flex items-center font-semibold">
-        {upperCaseFirstLetter(params.slug)} SALE
+        {selectedCategory
+          ? upperCaseFirstLetter(params.slug) + ' SALE'
+          : 'Alle SALE Produkte'}
       </h1>
       <div className="flex gap-2 md:gap-4 absolute top-20 ">
         <FilterDeals
