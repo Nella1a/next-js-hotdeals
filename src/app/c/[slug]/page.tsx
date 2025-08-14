@@ -17,6 +17,10 @@ export interface ProductDetails {
 }
 
 const getDeals = async (category: string) => {
+  if (category === 'sale') {
+    return await prisma.hproducts.findMany();
+  }
+
   const catId = (await prisma.categories.findMany()).find(
     (cat) => cat.name === category,
   );
@@ -36,7 +40,6 @@ const getDeals = async (category: string) => {
 };
 
 const getShops = async () => await prisma.shops.findMany();
-const getCategories = async () => await prisma.categories.findMany();
 
 const Category = async (props: { params: Promise<{ slug: string }> }) => {
   const category = await props.params;
@@ -54,7 +57,7 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
           Angebote zuletzt aktualisiert: 13.08.2025
         </span>
       </p>
-      {!deals?.length ? (
+      {deals && deals.length === 0 ? (
         <NoDeals category={category.slug} />
       ) : (
         <section className="max-w-screen-md  mx-auto justify-center items-center  md:max-w-screen-lg relative">
