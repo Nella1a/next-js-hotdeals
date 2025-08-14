@@ -60,7 +60,7 @@ const Navigation = ({
           </div>
         </li>
         <li className="hidden md:block">
-          <Link href="/">Produkte</Link>
+          <Link href="/c/sale">Produkte</Link>
         </li>
         {categories.map((cat) => (
           <li key={cat.name} className="hidden md:block">
