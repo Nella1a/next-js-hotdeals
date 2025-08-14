@@ -37,19 +37,22 @@ export default function MobileMenu({
             <XMark />
           </button>
         </li>
-        <li className="pl-3 flex min-h-16 items-center hover:bg-gray-100 font-medium">
-          <Link href="/">Produkte</Link>
-        </li>
-        {categories.map((cat) => (
-          <li
-            key={cat.name}
-            className="pl-3 border-t  border-gray-200  min-h-16 flex items-center hover:bg-gray-100"
-            onClick={handleCloseMobileMenu}
-          >
-            <Link href={`/c/${cat.name}`}>
-              {upperCaseFirstLetter(cat.name)}
-            </Link>
+
+        <Link href="/c/sale" onClick={handleCloseMobileMenu}>
+          <li className="pl-3 flex min-h-16 items-center hover:bg-gray-100 font-medium">
+            Produkte
           </li>
+        </Link>
+
+        {categories.map((cat) => (
+          <Link href={`/c/${cat.name}`} key={cat.name}>
+            <li
+              className="pl-3 border-t  border-gray-200  min-h-16 flex items-center hover:bg-gray-100"
+              onClick={handleCloseMobileMenu}
+            >
+              {upperCaseFirstLetter(cat.name)}
+            </li>
+          </Link>
         ))}
       </ul>
     </aside>
