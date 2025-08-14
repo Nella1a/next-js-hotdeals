@@ -105,7 +105,10 @@ const Products = ({
           <div className="mb-2 text-right mt-36">
             {filteredDeals.length} Artikel
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2 ">
+          <div
+            className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2"
+            data-testid="productCards"
+          >
             {filteredDeals?.length > 0 &&
               filteredDeals?.map((deal, index) => (
                 <Product

@@ -31,7 +31,7 @@ const FilterDeals = ({
 
   return (
     <>
-      <section className="relative">
+      <section className="relative" data-testid="filterDeals">
         <ButtonStyle text={'Filter Shops'} handleOnChange={handleFilters} />
         <ul
           className={` overflow-hidden transition-all duration-500 ease-in-out

@@ -17,7 +17,7 @@ const DiscountSort = ({
     setDealsSortOrder(order);
   };
   return (
-    <div>
+    <div data-testid="sortDiscount">
       <ButtonStyle text={'Rabatt'} handleOnChange={ToggleDiscountSort} />
 
       <ul
