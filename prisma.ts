@@ -16,7 +16,7 @@ const globalForPrisma = globalThis as unknown as {
 let prisma = globalForPrisma.prisma ?? prismaClientSingleton();
 
 // mock switching for testing
-if (process.env.USE_MOCK_PRISMA === 'true') {
+if (process.env.APP_ENV === 'test') {
   prisma = require('./prisma/__mocks__/prisma').default;
 } else {
   const { PrismaClient } = require('@prisma/client');
