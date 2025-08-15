@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { mockCategories } from '../src/mocks/fixturesDeals';
 
 test.describe('Deals Index-Page', () => {
   test('should render the heading', async ({ page }) => {
@@ -11,26 +12,18 @@ test.describe('Deals Index-Page', () => {
   test('should render category links correctly', async ({ page }) => {
     await page.goto('/');
     const categoryLinks = page.locator('section a');
+    const catLinksCount = await categoryLinks.count();
+    expect(catLinksCount).toBe(3);
 
-    await expect(categoryLinks).toHaveCount(3);
-
-    await expect(categoryLinks.nth(0)).toHaveText(/mock-category-1/i);
-    await expect(categoryLinks.nth(0)).toHaveAttribute(
-      'href',
-      '/c/mock-category-1',
-    );
-
-    await expect(categoryLinks.nth(1)).toHaveText(/mock-category-2/i);
-    await expect(categoryLinks.nth(1)).toHaveAttribute(
-      'href',
-      '/c/mock-category-2',
-    );
-
-    await expect(categoryLinks.nth(2)).toHaveText(/mock-category-3/i);
-    await expect(categoryLinks.nth(2)).toHaveAttribute(
-      'href',
-      '/c/mock-category-3',
-    );
+    for (let i = 0; i < catLinksCount; i++) {
+      await expect(categoryLinks.nth(i)).toHaveText(
+        `${mockCategories[i].name}`,
+      );
+      await expect(categoryLinks.nth(i)).toHaveAttribute(
+        'href',
+        `/c/${mockCategories[i].name}`,
+      );
+    }
   });
 
   test('hover state changes border color', async ({ page }) => {
