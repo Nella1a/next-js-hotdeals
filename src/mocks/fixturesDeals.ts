@@ -1,4 +1,4 @@
-export const deals = [
+export const mockDeals = [
   {
     id: 34,
     title: 'product one in category bathroom',
@@ -48,7 +48,7 @@ export const deals = [
     img_url: null,
     created: '2025-08-11T13:19:20.196Z',
     shop_id: 2,
-    category_id: 1,
+    category_id: 2,
     uvp: true,
   },
   {
@@ -61,7 +61,7 @@ export const deals = [
     img_url: null,
     created: '2025-08-11T13:19:20.199Z',
     shop_id: 1,
-    category_id: 1,
+    category_id: 2,
     uvp: true,
   },
   {
@@ -74,7 +74,7 @@ export const deals = [
     img_url: null,
     created: '2025-08-11T13:19:20.202Z',
     shop_id: 1,
-    category_id: 1,
+    category_id: 2,
     uvp: true,
   },
   {
@@ -116,4 +116,15 @@ export const deals = [
     category_id: 3,
     uvp: true,
   },
+];
+
+export const mockShops = [
+  { id: 1, name: 'mock-shop-1' },
+  { id: 2, name: 'mock-shop-2' },
+];
+
+export const mockCategories = [
+  { id: 1, name: 'mock-category-1' },
+  { id: 2, name: 'mock-category-2' },
+  { id: 3, name: 'mock-category-3' },
 ];

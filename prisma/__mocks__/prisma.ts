@@ -1,20 +1,17 @@
-import { deals } from '../../src/mocks/fixturesDeals';
+import {
+  mockCategories,
+  mockDeals,
+  mockShops,
+} from '../../src/mocks/fixturesDeals';
 
 const prisma = {
   categories: {
-    findMany: async () => [
-      { id: 1, name: 'mock-category-1' },
-      { id: 2, name: 'mock-category-2' },
-      { id: 3, name: 'mock-category-3' },
-    ],
+    findMany: async () => mockCategories,
   },
   shops: {
-    findMany: async () => [
-      { id: 1, name: 'mock-shop-1' },
-      { id: 2, name: 'mock-shop-2' },
-    ],
+    findMany: async () => mockShops,
   },
-  hproducts: { findMany: async () => deals },
+  hproducts: { findMany: async () => mockDeals },
 };
 
 export default prisma;
