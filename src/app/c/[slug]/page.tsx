@@ -60,7 +60,7 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
       {deals && deals.length === 0 ? (
         <NoDeals category={category.slug} />
       ) : (
-        <section className="max-w-screen-md  mx-auto justify-center items-center  md:max-w-screen-lg relative">
+        <section className="max-w-screen-md mx-auto justify-center items-center md:max-w-screen-lg relative">
           <Products
             deals={deals}
             shops={shops}

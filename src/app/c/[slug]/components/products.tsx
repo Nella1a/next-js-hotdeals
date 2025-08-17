@@ -101,7 +101,7 @@ const Products = ({
       </div>
 
       {filteredDeals?.length > 0 && (
-        <div>
+        <>
           <div className="mb-2 text-right mt-36" data-testid={'productSum'}>
             {filteredDeals.length} Artikel
           </div>
@@ -118,7 +118,7 @@ const Products = ({
                 />
               ))}
           </div>
-        </div>
+        </>
       )}
     </>
   );
