@@ -13,8 +13,16 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClientSingleton | undefined;
 };
 
-const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
+let prisma = globalForPrisma.prisma ?? prismaClientSingleton();
 
+// mock switching for testing
+if (process.env.APP_ENV === 'test') {
+  //#todo: remove require: mix of cjs and esm!!!
+
+  prisma = require('./prisma/__mocks__/prisma').default;
+} else {
+  const { PrismaClient } = require('@prisma/client');
+  prisma = globalForPrisma.prisma || new PrismaClient();
+  if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+}
 export default prisma;
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;

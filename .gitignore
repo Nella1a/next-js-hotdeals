@@ -46,3 +46,10 @@ yarn-error.log*
 # docker
 /docker/secrets/
 docker-compose.override.yaml
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
