@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import prisma from '../../prisma';
 
@@ -17,13 +18,24 @@ const Deals = async () => {
         <span className="inline-block"> Für dich zusammengestellt!</span>
       </h1>
 
-      <section className="flex flex-col max-w-screen-lg mx-auto justify-center items-center gap-8">
-        {readCategories?.map((productCategory) => (
+      <section className="max-w-screen-lg mx-auto justify-center items-center grid gap-8 md:grid-cols-3 px-4">
+        {readCategories?.map((productCategory, index) => (
           <Link
             href={`/c/${productCategory.name}`}
             key={`deal${productCategory.id}`}
-            className="bg-white p-4 border-2 w-3xs text-center hover:border-[#e20015]"
+            className="rounded-md text-center flex-col md:gap-2 items-center hover:opacity-80"
           >
+            <div className="flex justify-center">
+              <div className="w-[200px] md:w-[600px]">
+                <Image
+                  src={`/imgCat-0${index}.jpg`}
+                  width={500}
+                  height={500}
+                  alt={`category image ${productCategory.name}`}
+                  className="rounded-md"
+                />
+              </div>
+            </div>
             <p className="font-semibold capitalize mt-2">
               {productCategory.name}
             </p>
