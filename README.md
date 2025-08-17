@@ -139,5 +139,5 @@ cd next-js-hotdeals
 
 #### Screenshots
 
-![Index Page](./public/screenshotIndexPage.png)
-![Index Page](./public/screenshotCatPage.png)
+![Index Page](./public/picIndexPage.png)
+![Index Page](./public/picCatPage.png)
