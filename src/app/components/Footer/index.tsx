@@ -13,7 +13,7 @@ export default async function Footer() {
           %<span className="text-black">Möbel</span>Deals
         </Link>
 
-        <ul className="flex gap-2 justify-center">
+        <ul className="flex gap-2 justify-center text-xs md:text-base ">
           <li>Impressum</li>
           <li>AGB</li>
           <li>Datenschutz</li>
