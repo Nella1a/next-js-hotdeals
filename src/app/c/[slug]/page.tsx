@@ -50,7 +50,7 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
   const shops = await getShops();
 
   return (
-    <section className="mt-32 mx-auto max-w-screen-md py-2 px-4  md:max-w-screen-lg">
+    <section className="mt-20 md:mt-32 mx-auto max-w-screen-md py-2 px-4  md:max-w-screen-lg">
       <BackToTop />
       <p className="my-4 flex flex-col  justify-center items-start md:items-center text-xl font-semibold ">
         <span className="font-normal text-xs text-gray-500">
