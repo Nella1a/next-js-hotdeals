@@ -51,7 +51,9 @@ export default function MobileMenu({
           <MenuBars />
         </button>
       </div>
-
+      {isMenuOpen && (
+        <div className="bg-gray-500 w-screen h-screen top-0 left-0 opacity-50 absolute z-40" />
+      )}
       <aside
         ref={modalRef}
         className={`
