@@ -1,4 +1,5 @@
 import './global.css';
+import Footer from './components/Footer/page';
 import Header from './components/Header';
 
 export default function RootLayout({
@@ -8,9 +9,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-50">
+      <body className="bg-gray-100">
         <Header />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
