@@ -22,7 +22,7 @@ Database Integration: The scraped data is stored in a PostgreSQL database and ac
 
 First, clone the repository. Then, you can run the application either using Docker or locally (without Docker).
 
-```
+```shell
 git clone https://github.com/Nella1a/next-js-hotdeals.git
 cd next-js-hotdeals
 ```
@@ -35,7 +35,7 @@ cd next-js-hotdeals
 1. Create a .env file in the project’s root directory and set the environment variable for the database connection URL that Prisma ORM uses to connect to the database.
    For example:
 
-   ```
+   ```shell
      POSTGRES_PRISMA_URL="postgresql://myuser:mypassword@postgres-db:5432/mydatabase?schema=hotdeals"
    ```
 
@@ -51,13 +51,13 @@ cd next-js-hotdeals
 
    For development, a docker-compose.override-example.yaml is provided. After copying the example file to docker-compose.override.yaml, Docker Compose will automatically apply the overrides. The docker-compose.yaml file runs a Next.js app along with a PostgreSQL database in a Docker stack. You can find more details on how docker compose works [here](https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/)
 
-   ```
+   ```shell
    cp docker-compose.override-example.yaml docker-compose.override.yaml
    ```
 
 4. Start the entire application stack
 
-   ```
+   ```shell
    docker compose up
    ```
 
@@ -78,26 +78,26 @@ cd next-js-hotdeals
 2. Create a .env file in the project’s root directory and set the environment variable for the database connection URL that Prisma ORM uses to connect to the database.
    For example:
 
-   ```text
+   ```shell
    POSTGRES_PRISMA_URL="postgresql://myuser:mypassword@localhost:5432/mydatabase?schema=hotdeals"
    ```
 
 3. Install dependencies
 
-   ```text
+   ```shell
    npm install
    ```
 
 4. Run database migrations
 
-   ```text
+   ```shell
    npx prisma migrate dev
    ```
 
 5. Run application
 
-   ```text
-   npm run start
+   ```shell
+   npm run dev
    ```
 
 6. Open <http://localhost:3000> on your browser.
