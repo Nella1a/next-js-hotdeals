@@ -1,6 +1,9 @@
 import Link from 'next/link';
+import prisma from '../../../../prisma';
+import Navigation from '../Navigation';
 
-export default function Header() {
+export default async function Header() {
+  const categories = await prisma.categories.findMany();
   return (
     <header className="w-full  bg-white fixed top-0 z-10">
       <div>
@@ -13,6 +16,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex justify-center items-center bg-[#333] p-1.5" />
+      <Navigation categories={categories} />
     </header>
   );
 }
