@@ -7,8 +7,6 @@ const SearchResultPage = async (props: {
 }) => {
   const searchTerms = await props.searchParams;
 
-  const query = searchTerms['q'] ?? '';
-  const keywords = Array.isArray(query) ? query.join(' ') : query;
   return (
     <>
       <SearchResult searchParams={new URLSearchParams(searchTerms as any)} />
