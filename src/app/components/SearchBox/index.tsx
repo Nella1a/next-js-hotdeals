@@ -30,7 +30,7 @@ const SearchBox = () => {
       className={`w-full border border-grey-250 bg-white h-12 md:h-11 flex items-center justify-center rounded px-2`}
     >
       <button
-        className="min-w-8 flex items-center justify-center"
+        className="min-w-8 flex items-center justify-center cursor-pointer"
         onClick={onSearchHandler}
       >
         <MagnifyingGlass />
@@ -47,7 +47,7 @@ const SearchBox = () => {
       />
       {searchTerm && (
         <button
-          className="min-w-6 border rounded-2xl"
+          className="min-w-6 border rounded-2xl cursor-pointer hover:border-2"
           onClick={() => setSearchTerm('')}
         >
           <XMark />
