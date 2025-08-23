@@ -18,7 +18,7 @@ const Navigation = ({
         data-testid="navigationLinks"
       >
         <li className="hidden md:block">
-          <Link href="/c/sale">Produkte</Link>
+          <Link href="/c/sale">Alle Produkte</Link>
         </li>
         {categories.map((cat) => (
           <li key={cat.name}>

@@ -75,7 +75,7 @@ export default function MobileMenu({
 
           <Link href="/c/sale" onClick={handleMobileMenu}>
             <li className="pl-3 flex min-h-16 items-center hover:bg-gray-100 font-medium">
-              Produkte
+              Alle Produkte
             </li>
           </Link>
 
