@@ -44,6 +44,7 @@ const SearchBox = () => {
         value={searchTerm}
         placeholder="Suche"
         className="w-full py-1 px-0.5 mx-1"
+        onKeyDown={(event) => event.key === 'Enter' && onSearchHandler()}
       />
       {searchTerm && (
         <button
