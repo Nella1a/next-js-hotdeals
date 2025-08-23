@@ -1,9 +1,9 @@
 'use client';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Shops, UpdatedShops } from '../../c/[slug]/components/products';
-import { ProductDetails } from '../../c/[slug]/page';
+import { Shops, UpdatedShops } from '../Products';
 import ButtonStyle from '../ButtonStyle';
 import CheckBockCheck from '../Icons/checkBockChecked';
+import { ProductDetails } from '../../c/[slug]/page';
 
 const FilterDeals = ({
   selectedShops,

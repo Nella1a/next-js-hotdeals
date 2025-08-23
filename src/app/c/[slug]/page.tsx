@@ -1,7 +1,7 @@
-import prisma from '../../../../prisma';
 import NoDeals from '../../components/NoDeals';
 import BackToTop from './components/BackToTop';
-import Products from './components/products';
+import prisma from '../../../../prisma';
+import Products from '../../components/Products';
 
 export interface ProductDetails {
   id: number;
