@@ -16,7 +16,7 @@ const SearchBox = () => {
 
   return (
     <div
-      className={`w-full relative border border-grey-250 bg-white h-12 md:h-11 flex items-center justify-center rounded px-2`}
+      className={`w-full border border-grey-250 bg-white h-12 md:h-11 flex items-center justify-center rounded px-2`}
     >
       <span className="min-w-8 flex items-center justify-center">
         <MagnifyingGlass />
