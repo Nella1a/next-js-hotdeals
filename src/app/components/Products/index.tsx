@@ -22,10 +22,12 @@ const Products = ({
   deals,
   shops,
   currentCategory,
+  heading,
 }: {
   deals: ProductDetails[];
   shops: Shops[];
   currentCategory?: number;
+  heading?: string;
 }) => {
   const [selectedShops, setSelectedShops] = useState(
     shops.map((shop) => ({ ...shop, selected: true })),
@@ -78,7 +80,9 @@ const Products = ({
   return (
     <>
       <h1 className="h-12 text-2xl flex items-center font-semibold">
-        {selectedCategory
+        {heading
+          ? heading
+          : selectedCategory
           ? upperCaseFirstLetter(params.slug) + ' SALE'
           : 'Alle SALE Produkte'}
       </h1>
