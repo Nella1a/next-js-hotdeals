@@ -27,7 +27,7 @@ const SearchBox = () => {
 
   return (
     <div
-      className={`w-full border border-grey-250 bg-white h-12 md:h-11 flex items-center justify-center rounded px-2`}
+      className={`w-full border border-grey-250 bg-white h-12 md:h-11 flex items-center justify-center rounded px-2 hover:border-[1.5px]`}
     >
       <button
         className="min-w-8 flex items-center justify-center cursor-pointer"
@@ -42,9 +42,9 @@ const SearchBox = () => {
         onChange={(event) => onSearchTermHandler(event)}
         name="SearchField"
         value={searchTerm}
-        placeholder="Suche"
-        className="w-full py-1 px-0.5 mx-1"
+        placeholder="Suchbegriff eingeben"
         onKeyDown={(event) => event.key === 'Enter' && onSearchHandler()}
+        className="w-full py-1 px-0.5 mx-1 focus:outline-none"
       />
       {searchTerm && (
         <button
