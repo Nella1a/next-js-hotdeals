@@ -33,4 +33,4 @@ networks:
 
 volumes:
   hotdeals_scraper_db-data:
-    external: true
+    external: false
