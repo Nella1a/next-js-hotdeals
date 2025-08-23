@@ -28,7 +28,7 @@ const SearchBox = () => {
         onChange={(event) => handleSearch(event)}
         name="SearchField"
         value={searchTerm}
-        className="border-2 w-full py-1 px-0.5"
+        className="w-full py-1 px-0.5 mx-1"
       />
       {searchTerm && (
         <button
