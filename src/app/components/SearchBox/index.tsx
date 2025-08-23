@@ -7,7 +7,6 @@ import XMark from '../Icons/xmark';
 
 const SearchBox = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [search, setSearch] = useState(false);
   const router = useRouter();
   const onSearchTermHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.currentTarget.value;
@@ -18,9 +17,6 @@ const SearchBox = () => {
     const url = `/c/search/?q=${encodeURIComponent(searchTerm)}`;
 
     if (searchTerm) {
-      //setSearch(false);
-      //setSearchTerm('');
-      console.log('URL-ENCODED: ', url);
       router.push(url);
     }
   };
