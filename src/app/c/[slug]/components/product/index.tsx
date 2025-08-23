@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { ProductDetails } from '../page';
-import { Shops } from './products';
-
+import { ProductDetails } from '../../page';
+import { Shops } from '../../../../components/Products';
 const formatPrice = (price: number) => {
   const euros = Math.floor(price / 100);
   const cents = price % 100;
