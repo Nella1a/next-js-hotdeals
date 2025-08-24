@@ -1,7 +1,7 @@
-const NoSearchResult = () => (
-  <h1 className="h-12 text-xl flex items-center font-normal">
-    Für deine Suche wurden leider keine passenden Treffer gefunden - versuche
-    einen anderen Suchbegriff!
+const NoSearchResult = ({ searchTerm }: { searchTerm: string }) => (
+  <h1 className="h-12 text-lg flex items-center font-normal my-10 sm:my-12">
+    Für deine Suche '{searchTerm}' wurden leider keine passenden Treffer
+    gefunden - versuche einen anderen Suchbegriff!
   </h1>
 );
 export default NoSearchResult;
