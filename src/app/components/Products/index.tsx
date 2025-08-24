@@ -38,21 +38,6 @@ const Products = ({
   const params = useParams<{ slug: string }>();
 
   useEffect(() => {
-    if (selectedCategory) {
-      fetch(`/api/category/${selectedCategory}`)
-        .then((response) => response.json())
-        .then((catgegoryProducts) => {
-          setProducts(catgegoryProducts);
-        })
-        .catch(() =>
-          console.log(
-            'Something went wrong while retrieving a product category.',
-          ),
-        );
-    }
-  }, [selectedCategory]);
-
-  useEffect(() => {
     let sortedDeals = [...products];
 
     if (dealsSortOrder === 'asc') {
