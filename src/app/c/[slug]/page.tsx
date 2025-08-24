@@ -1,7 +1,8 @@
-import prisma from '../../../../prisma';
 import NoDeals from '../../components/NoDeals';
 import BackToTop from './components/BackToTop';
-import Products from './components/products';
+import prisma from '../../../../prisma';
+import Products from '../../components/Products';
+import LastUpdate from '../../components/LastUpdated';
 
 export interface ProductDetails {
   id: number;
@@ -50,13 +51,9 @@ const Category = async (props: { params: Promise<{ slug: string }> }) => {
   const shops = await getShops();
 
   return (
-    <section className="mt-20 md:mt-32 mx-auto max-w-screen-md py-2 px-4  md:max-w-screen-lg">
+    <section className="mt-40 mx-auto max-w-screen-md py-2 px-4  md:max-w-screen-lg">
       <BackToTop />
-      <p className="my-4 flex flex-col  justify-center items-start md:items-center text-xl font-semibold ">
-        <span className="font-normal text-xs text-gray-500">
-          Angebote zuletzt aktualisiert: 13.08.2025
-        </span>
-      </p>
+      <LastUpdate />
       {deals && deals.length === 0 ? (
         <NoDeals category={category.slug} />
       ) : (

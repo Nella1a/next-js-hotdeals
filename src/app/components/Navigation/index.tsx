@@ -12,13 +12,13 @@ const Navigation = ({
   categories: { id: number; name: string }[];
 }) => {
   return (
-    <nav className="border-b border-gray-200 bg-white opacity-100 shadow-sm fixed top-20 w-full z-10 hidden md:block">
+    <nav className="border-b border-gray-200 bg-white opacity-100 shadow-sm fixed top-20 md:top-26 w-full z-10 hidden md:block">
       <ul
         className="flex gap-5 py-2 mx-auto max-w-screen-md justify-start items-center px-4 md:max-w-screen-lg"
         data-testid="navigationLinks"
       >
         <li className="hidden md:block">
-          <Link href="/c/sale">Produkte</Link>
+          <Link href="/c/sale">Alle Produkte</Link>
         </li>
         {categories.map((cat) => (
           <li key={cat.name}>

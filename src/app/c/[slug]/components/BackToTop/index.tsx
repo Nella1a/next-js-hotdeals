@@ -25,7 +25,7 @@ const BackToTop = () => {
 
   return (
     <Link
-      href="#topSection"
+      href="#headerSection"
       className={`bg-black block fixed right-1/11 bottom-4 rounded-full ${
         isVisible ? 'opacity-100 z-50' : 'opacity-0 -z-50'
       }

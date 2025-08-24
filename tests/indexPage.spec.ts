@@ -5,7 +5,7 @@ test.describe('Deals Index-Page', () => {
   test('should render the heading', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      /Die besten Angebote\.\s+Für dich zusammengestellt!/i,
+      /Die besten Angebote.Für dich zusammengestellt!/i,
     );
   });
 
@@ -26,15 +26,21 @@ test.describe('Deals Index-Page', () => {
     }
   });
 
-  test('hover state changes border color', async ({ page }) => {
+  test('hover state changes opacity', async ({ page }) => {
     await page.goto('/');
     const firstLink = page.locator('section a').first();
-    await firstLink.hover();
 
-    // You can test hover styles by checking computed style, or using visual comparisons (e.g., screenshots).
-    const borderColor = await firstLink.evaluate(
-      (el) => window.getComputedStyle(el).borderColor,
+    const initialOpacity = await firstLink.evaluate(
+      (el) => window.getComputedStyle(el).opacity,
     );
-    expect(borderColor).toBe('rgb(226, 0, 21)'); // #e20015 in RGB
+
+    expect(initialOpacity).toBe('1');
+
+    await firstLink.hover();
+    const hoverOpacity = await firstLink.evaluate(
+      (el) => window.getComputedStyle(el).opacity,
+    );
+
+    expect(hoverOpacity).toBe('0.8');
   });
 });
