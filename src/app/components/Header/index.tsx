@@ -7,7 +7,7 @@ import SearchBox from '../SearchBox';
 export default async function Header() {
   const categories = await prisma.categories.findMany();
   return (
-    <header className="w-full bg-white fixed top-0 z-10">
+    <header className="w-full bg-white fixed top-0 z-10" id="headerSection">
       <div className="max-w-screen-lg mx-auto flex flex-col  md:flex-row items-center justify-start px-3 py-4 md:gap-6 ">
         <div className="flex items-center justify-start gap-4 md:gap-6 w-full md:w-1/3">
           <MobileMenu categories={categories} />
