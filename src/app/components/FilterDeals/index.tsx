@@ -1,19 +1,16 @@
 'use client';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Shops, UpdatedShops } from '../Products';
+import { ProductDetails } from '../../c/[slug]/page';
 import ButtonStyle from '../ButtonStyle';
 import CheckBockCheck from '../Icons/checkBockChecked';
-import { ProductDetails } from '../../c/[slug]/page';
+import { Shops, UpdatedShops } from '../Products';
 
 const FilterDeals = ({
   selectedShops,
   setSelectedShops,
-  products,
 }: {
   selectedShops: UpdatedShops[];
   setSelectedShops: Dispatch<SetStateAction<UpdatedShops[]>>;
-  products: ProductDetails[];
-  setProducts: Dispatch<SetStateAction<ProductDetails[]>>;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleFilters = () => setIsOpen(!isOpen);

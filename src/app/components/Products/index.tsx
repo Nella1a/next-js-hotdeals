@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductDetails } from '../../c/[slug]/page';
 import DiscountSort from '../DiscountSort';
 import FilterDeals from '../FilterDeals';
@@ -18,6 +18,7 @@ export type UpdatedShops = {
   name: string;
   selected: boolean;
 };
+
 const Products = ({
   deals,
   shops,
@@ -33,33 +34,25 @@ const Products = ({
     shops.map((shop) => ({ ...shop, selected: true })),
   );
   const [selectedCategory, setSelectedCategory] = useState(currentCategory);
-  const [products, setProducts] = useState(deals);
   const [dealsSortOrder, setDealsSortOrder] = useState('');
   const params = useParams<{ slug: string }>();
 
-  useEffect(() => {
-    let sortedDeals = [...products];
-
-    if (dealsSortOrder === 'asc') {
-      sortedDeals.sort((a, b) => a.discount - b.discount);
-    } else if (dealsSortOrder === 'desc') {
-      sortedDeals.sort((a, b) => b.discount - a.discount);
-    }
-    setProducts(sortedDeals);
-  }, [dealsSortOrder]);
-
-  const filteredDeals = products.filter((deal) => {
-    // Check if any shop is selected and matches the deal's shop_id
+  // 1. Filter deals
+  const filteredDeals = deals.filter((deal) => {
     const isShopSelected = selectedShops.some(
-      (shop) => deal.shop_id === shop.id && shop.selected,
+      (shop) => shop.selected && shop.id === deal.shop_id,
     );
-
-    // Check if a category is selected
     const isCategorySelected =
       !selectedCategory || deal.category_id === selectedCategory;
 
-    // Return true if both conditions are satisfied
     return isShopSelected && isCategorySelected;
+  });
+
+  // 2. Sort filtered deals
+  const sortedDeals = [...filteredDeals].sort((a, b) => {
+    if (dealsSortOrder === 'asc') return a.discount - b.discount;
+    if (dealsSortOrder === 'desc') return b.discount - a.discount;
+    return 0;
   });
 
   return (
@@ -71,33 +64,31 @@ const Products = ({
           ? upperCaseFirstLetter(params.slug) + ' SALE'
           : 'Alle SALE Produkte'}
       </h1>
+
       <div className="flex gap-2 md:gap-4 absolute top-20 ">
         <FilterDeals
           selectedShops={selectedShops}
           setSelectedShops={setSelectedShops}
-          products={products}
-          setProducts={setProducts}
         />
         <DiscountSort setDealsSortOrder={setDealsSortOrder} />
       </div>
 
-      {filteredDeals?.length > 0 && (
+      {sortedDeals.length > 0 && (
         <>
           <div className="mb-2 text-right mt-36" data-testid={'productSum'}>
-            {filteredDeals.length} Artikel
+            {sortedDeals.length} Artikel
           </div>
           <div
-            className="grid grid-cols-1 gap-6 md:grid md:grid-cols-2 md:grid-2"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2"
             data-testid="productCards"
           >
-            {filteredDeals?.length > 0 &&
-              filteredDeals?.map((deal, index) => (
-                <Product
-                  key={`${index}-${deal.title}`}
-                  deal={deal}
-                  shops={selectedShops}
-                />
-              ))}
+            {sortedDeals.map((deal, index) => (
+              <Product
+                key={`${index}-${deal.title}`}
+                deal={deal}
+                shops={selectedShops}
+              />
+            ))}
           </div>
         </>
       )}
