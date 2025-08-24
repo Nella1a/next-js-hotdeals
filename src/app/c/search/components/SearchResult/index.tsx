@@ -4,6 +4,7 @@ import LastUpdate from '../../../../components/LastUpdated';
 import Products from '../../../../components/Products';
 import BackToTop from '../../../[slug]/components/BackToTop';
 import NoSearchResult from '../NoResult';
+
 const getShops = async () => await prisma.shops.findMany();
 
 const SearchResult = async ({
@@ -14,8 +15,7 @@ const SearchResult = async ({
   const keywords = searchParams.getAll('q').join(' ');
   const products = await searchProducts(keywords);
   const shops = await getShops();
-
-  const heading = `Suchergebnisse für '${keywords}'`;
+  const headerText = `Suchergebnisse für '${keywords}'`;
 
   return (
     <section className="mt-40 mx-auto max-w-screen-md py-2 px-4  md:max-w-screen-lg">
@@ -24,11 +24,11 @@ const SearchResult = async ({
           <BackToTop />
           <LastUpdate />
           <section className="max-w-screen-md mx-auto justify-center items-center md:max-w-screen-lg relative">
-            <Products deals={products} shops={shops} heading={heading} />
+            <Products deals={products} shops={shops} headerText={headerText} />
           </section>
         </>
       ) : (
-        <NoSearchResult />
+        <NoSearchResult searchTerm={keywords} />
       )}
     </section>
   );
