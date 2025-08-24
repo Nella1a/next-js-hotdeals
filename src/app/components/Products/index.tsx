@@ -2,10 +2,10 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { ProductDetails } from '../../c/[slug]/page';
 import DiscountSort from '../DiscountSort';
 import FilterDeals from '../FilterDeals';
 import { upperCaseFirstLetter } from '../Navigation';
-import { ProductDetails } from '../../c/[slug]/page';
 import Product from '../Product';
 
 export type Shops = {
@@ -22,12 +22,12 @@ const Products = ({
   deals,
   shops,
   currentCategory,
-  heading,
+  headerText,
 }: {
   deals: ProductDetails[];
   shops: Shops[];
   currentCategory?: number;
-  heading?: string;
+  headerText?: string;
 }) => {
   const [selectedShops, setSelectedShops] = useState(
     shops.map((shop) => ({ ...shop, selected: true })),
@@ -80,8 +80,8 @@ const Products = ({
   return (
     <>
       <h1 className="h-12 text-2xl flex items-center font-semibold">
-        {heading
-          ? heading
+        {headerText
+          ? headerText
           : selectedCategory
           ? upperCaseFirstLetter(params.slug) + ' SALE'
           : 'Alle SALE Produkte'}
