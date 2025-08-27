@@ -12,7 +12,9 @@ pipeline {
         stage ('Run Tests') {
           steps {
             script {
-              echo 'Tests will be running here very soon...'
+              echo 'Running Playwright e2e-Tests....'
+              sh 'npm install'
+              sh 'npm run e2e-test'
             }
           }
         }
