@@ -14,7 +14,10 @@ pipeline {
             script {
               echo 'Running Playwright e2e-Tests....'
               sh 'npm install'
-              sh 'npm run e2e-test'
+              def testResult = sh(script: 'npx playwright e2e-test', returnStatus: true )
+              if (result != 0){
+                  echo "Tests failed. Stopping pipeline."
+              }
             }
           }
         }
