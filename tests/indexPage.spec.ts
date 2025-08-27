@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { mockCategories } from '../src/mocks/fixturesDeals';
 
+const URL = 'http://localhost:3000';
+
 test.describe('Deals Index-Page', () => {
   test('should render the heading', async ({ page }) => {
     await page.goto('/');
@@ -26,21 +28,17 @@ test.describe('Deals Index-Page', () => {
     }
   });
 
-  test('hover state changes opacity', async ({ page }) => {
+  test('make sure links redirect to category pages', async ({ page }) => {
     await page.goto('/');
-    const firstLink = page.locator('section a').first();
+    const dealCatLinks = await page.locator('section a').all();
 
-    const initialOpacity = await firstLink.evaluate(
-      (el) => window.getComputedStyle(el).opacity,
-    );
+    for (let i = 0; i < dealCatLinks.length - 1; i++) {
+      const catLinks = await page.locator('section a').all();
+      await catLinks[i].click();
 
-    expect(initialOpacity).toBe('1');
-
-    await firstLink.hover();
-    const hoverOpacity = await firstLink.evaluate(
-      (el) => window.getComputedStyle(el).opacity,
-    );
-
-    expect(hoverOpacity).toBe('0.8');
+      await page.waitForURL(URL + `/c/${mockCategories[i].name}`);
+      await expect(page).toHaveURL(URL + `/c/${mockCategories[i].name}`);
+      await page.goto('/');
+    }
   });
 });
