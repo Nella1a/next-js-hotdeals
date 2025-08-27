@@ -12,7 +12,12 @@ pipeline {
         stage ('Run Tests') {
           steps {
             script {
-              echo 'Tests will be running here very soon...'
+              echo 'Running Playwright e2e-Tests....'
+              sh 'npm install'
+              def testResult = sh(script: 'npm run e2e-test', returnStatus: true )
+              if (testResult != 0){
+                  echo "Tests failed. Stopping pipeline."
+              }
             }
           }
         }
@@ -27,21 +32,9 @@ pipeline {
 
               sh "git checkout ${env.BRANCH_NAME}"
               sh "git pull -r"
-
-              // // Capture current version from package.json
-              // env.CURRENT_VERSION = sh(
-              //   script: "node -p \"require('./package.json').version\"",
-              //   returnStdout: true
-              // ).trim()
               env.CURRENT_VERSION = getCurrentVersion()
               // Bump patch version
               sh "npm version patch --git-tag-version false"
-
-              // // Capture updated version
-              // env.UPDATED_VERSION = sh(
-              //   script: "node -p \"require('./package.json').version\"",
-              //   returnStdout: true
-              // ).trim()
               env.UPDATED_VERSION = updateVersion()
             }
           }
@@ -54,16 +47,7 @@ pipeline {
                 }
             }
             steps {
-                    // script {
-                    //     echo 'Building the docker image'
-                    //     withCredentials([usernamePassword(credentialsId: 'cred-docker', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                    //       sh "docker build -t kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION} ."
-                    //       sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
-                    //       sh "docker push kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
-                    //     }
-                    // }
                script {
-
                       def imageName = "kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
 
                       buildImage(imageName)
