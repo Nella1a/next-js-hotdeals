@@ -2,14 +2,14 @@
 
 # MöbelDeals Platform Mock-Up
 
-This is a basic platform mock-up showcasing deals from two Austrian furniture stores. The platform is branded with a simple logo and name: MöbelDeals.
+This is a basic platform mock-up bringing together deals from two Austrian retail chains in one convenient place. The platform is branded with a simple logo and name: MöbelDeals.
 It is built as a Next.js application that uses a PostgreSQL database for storing and managing deals data. The data was scraped using Python packages (Scrapy and Playwright).
 
 #### Features
 
-Users can browse and filter deals by categories and shops.
+Users can browse, search and filter deals by categories and shops.
 Each deal links directly to the product page on the original store's website, allowing users to get more information and purchase items seamlessly.
-Currently, deals are available for the following categories: Wohnzimmer (Living Room), Schlafzimmer (Bedroom), and Badezimmer (Bathroom).
+Currently, deals are available in the following categories: Schlafzimmer (Bedroom), Badezimmer (Bathroom), Wohnzimmer (Living Room), Garten (Garden), and Kinderzimmer (Kids' Room)
 
 #### Data Collection
 
@@ -104,40 +104,53 @@ cd next-js-hotdeals
 
 ## CI/CD Pipeline – Jenkins Multibranch Pipeline
 
-(automates versioning and Docker image deployment)
-
-#### Jenkins Pipeline Features
-
-- Version Management
-  When code is pushed to, or pull requests are merged into, the `main` branch, the pipeline automatically:
-
-  - Reads the current version from `package.json`
-  - Increments the patch version (e.g., `1.2.3 → 1.2.4`)
-  - Commits the updated version back to the repository
-
-- Docker Image Build & Push
-  After updating the version:
-  - A Docker image is built from the current state of the app
-  - The image is tagged using the new version (e.g., `hotdeals-1.2.4`)
-  - The image is securely pushed to a private Docker registry
+This process automates versioning, builds and pushes a Docker image to a private Docker repository, and deploys it on an AWS EC2 instance.
 
 #### Jenkins Requirements
 
-- A configured Multibranch Pipeline job pointing to this repository
+- A configured Multibranch Pipeline job pointing to this repository.
 - Required credentials:
-  - Docker registry authentication
-  - GitHub push access
-- GitHub webhook that triggers the pipeline on pushes and pull request updates
+  - Docker registry credentials (for authentication).
+  - GitHub credentials with push access.
+  - SSH key (openSSH) for connecting to the Amazon EC2 instance.
+- A GitHub webhook configured to trigger the pipeline on push events and pull request updates.
+
+#### AWS Requirements
+
+- An AWS account
+- An Amazon EC2 key pair
+- An AWS IAM User with programmatic key access and permissions to launch EC2 instances
+- A running Amazon EC2 instance with the following setup:
+  - Docker installed (to run Docker commands)
+  - Security Group / Firewall configured to:
+    - Allow Jenkins to connect via SSH
+    - Open the necessary application port(s) or external access
+
+#### Jenkins Pipeline Features
+
+- Automated Testing
+
+  - End-to-end (E2E) tests are run using Playwright
+  - Tests are triggered automatically whenever code is pushed to any active branch
+
+- Full CI/CD Pipeline (on `main` branch updates)
+  The complete pipeline — including versioning, build, test, and deployment — runs automatically when:
+
+  - Code is pushed to the main branch, or
+  - A pull request is merged into it
+
+  The full pipeline includes the following steps: - Version Management - Reads the current version from `package.json` - Increments the patch version (e.g., `1.2.3 → 1.2.4`) - Commits the updated version back to the repository - Docker Image Build & Push - Builds a Docker image from the current state of the application - Tags the image using the new version (e.g., `<name-of-private-docker-repo>:hotdeals-1.2.4`) - Pushes the image securely to a private Docker registry - Deployment to AWS EC2 - Jenkins connects to the AWS EC2 instance via SSH - Pulls the latest Docker image from the private registry - Runs the updated container on the instance
 
 ## Technology Stack
 
 - Frontend: Next.js for server-side rendering and efficient client-side interactions.
-- Styling: Tailwind CSS for rapid and customizable UI development.
 - Database: PostgreSQL for data storage. Prisma for database schema management and querying.
-- Jenkins
-- Docker
+- Tests: End-to-end (E2E) tests using Playwright
+- Styling: Tailwind CSS for rapid and customizable UI development.
+- Containerization: Dockerfile & Docker Compose
+- CI/CD: Jenkins – for building, testing, and deploying the application
 
-#### Screenshots
+## Screenshots
 
 ![Index Page](./public/picIndexPage.png)
 ![Index Page](./public/picCatPage.png)
