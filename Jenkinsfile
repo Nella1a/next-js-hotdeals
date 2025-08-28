@@ -84,7 +84,7 @@ pipeline {
             }
             steps {
               script {
-                    echo "Deploying ... "
+                  deployToAWSEC2(imageName,'3000','3.75.238.144','ubuntu')
               }
             }
         }
