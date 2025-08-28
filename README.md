@@ -166,3 +166,4 @@ This process automates testing, versioning, builds and pushes a Docker image to 
 
 ![Index Page](./public/picIndexPage.png)
 ![Index Page](./public/picCatPage.png)
+![Index Page](./public/picSearch.png)
