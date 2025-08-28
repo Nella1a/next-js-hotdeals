@@ -14,6 +14,7 @@ pipeline {
             script {
               echo 'Running Playwright e2e-Tests....'
               sh 'npm install'
+              sh 'npx playwright install'
               def testResult = sh(script: 'npm run e2e-test', returnStatus: true )
               if (testResult != 0){
                   echo "Tests failed. Stopping pipeline."
@@ -29,7 +30,6 @@ pipeline {
           }
           steps {
             script {
-
               sh "git checkout ${env.BRANCH_NAME}"
               sh "git pull -r"
               env.CURRENT_VERSION = getCurrentVersion()
@@ -48,11 +48,10 @@ pipeline {
             }
             steps {
                script {
-                      def imageName = "kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
-
-                      buildImage(imageName)
+                      env.IMAGENAME = "kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
+                      buildImage(env.IMAGENAME)
                       dockerLogin()
-                      dockerPush(imageName)
+                      dockerPush(env.IMAGENAME)
                     }
             }
         }
@@ -84,7 +83,7 @@ pipeline {
             }
             steps {
               script {
-                  deployToAWSEC2(imageName,'3000','3.75.238.144','ubuntu')
+                deployToAWSEC2(env.IMAGENAME,'3000','3.75.238.144','ubuntu')
               }
             }
         }
