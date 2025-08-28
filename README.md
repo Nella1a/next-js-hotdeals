@@ -154,3 +154,4 @@ This process automates versioning, builds and pushes a Docker image to a private
 
 ![Index Page](./public/picIndexPage.png)
 ![Index Page](./public/picCatPage.png)
+![Index Page](./public/picSearch.png)
