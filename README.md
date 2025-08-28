@@ -104,7 +104,7 @@ cd next-js-hotdeals
 
 ## CI/CD Pipeline – Jenkins Multibranch Pipeline
 
-This process automates versioning, builds and pushes a Docker image to a private Docker repository, and deploys it on an AWS EC2 instance.
+This process automates testing, versioning, builds and pushes a Docker image to a private Docker repository, and deploys it on an AWS EC2 instance.
 
 #### Jenkins Requirements
 
@@ -124,7 +124,7 @@ This process automates versioning, builds and pushes a Docker image to a private
   - Docker installed (to run Docker commands)
   - Security Group / Firewall configured to:
     - Allow Jenkins to connect via SSH
-    - Open the necessary application port(s) or external access
+    - Open the necessary application port(s) for external access
 
 #### Jenkins Pipeline Features
 
@@ -139,7 +139,19 @@ This process automates versioning, builds and pushes a Docker image to a private
   - Code is pushed to the main branch, or
   - A pull request is merged into it
 
-  The full pipeline includes the following steps: - Version Management - Reads the current version from `package.json` - Increments the patch version (e.g., `1.2.3 → 1.2.4`) - Commits the updated version back to the repository - Docker Image Build & Push - Builds a Docker image from the current state of the application - Tags the image using the new version (e.g., `<name-of-private-docker-repo>:hotdeals-1.2.4`) - Pushes the image securely to a private Docker registry - Deployment to AWS EC2 - Jenkins connects to the AWS EC2 instance via SSH - Pulls the latest Docker image from the private registry - Runs the updated container on the instance
+  The full pipeline includes the following steps:
+  - Version Management
+    - Reads the current version from `package.json`
+    - Increments the patch version (e.g., `1.2.3 → 1.2.4`)
+    - Commits the updated version back to the repository
+  - Docker Image Build & Push
+    - Builds a Docker image from the current state of the application
+    - Tags the image using the new version (e.g: `kanjamn/demo-app:hotdeals-1.2.4`)
+    - Pushes the image securely to a private Docker repository
+  - Deployment to AWS EC2
+    - Jenkins connects to the AWS EC2 instance via SSH
+    - Pulls the Docker image from the private repository
+    - Runs the container on the instance
 
 ## Technology Stack
 
