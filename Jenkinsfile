@@ -32,10 +32,10 @@ pipeline {
             script {
               sh "git checkout ${env.BRANCH_NAME}"
               sh "git pull -r"
-              env.CURRENT_VERSION = getCurrentVersion()
+              env.CURRENT_VERSION = getAppVersion()
               // Bump patch version
-              sh "npm version patch --git-tag-version false"
-              env.UPDATED_VERSION = updateVersion()
+               updateAppVersion('patch')
+               env.UPDATED_VERSION = getAppVersion()
             }
           }
 
