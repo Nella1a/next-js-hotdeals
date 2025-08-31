@@ -9,7 +9,7 @@ library identifier: 'jenkins-shared-lib-node-js-apps@main', retriever: modernSCM
 pipeline {
   agent any
   stages {
-        stage ('Run Tests') {
+        stage ('Build App and Run Tests') {
           steps {
             script {
               echo 'Running Playwright e2e-Tests....'
