@@ -134,25 +134,26 @@ The pipeline handles production builds, runs tests, applies versioning, builds a
   - Tests are triggered automatically whenever code is pushed to any active branch
 
 - Full CI/CD Pipeline (on `main` branch updates)
+
   The complete pipeline – from build to deployment — runs automatically when:
 
   - Code is pushed to the main branch, or
   - A pull request is merged into it
 
   The full pipeline includes the following steps:
-  - Automated build and testing, as outlined above
-  - Version Management
-    - Reads the current version from `package.json`
-    - Increments the patch version (e.g., `1.2.3 → 1.2.4`)
-    - Commits the updated version back to the repository
-  - Docker Image Build & Push
-    - Builds a Docker image from the current state of the application
-    - Tags the image using the new version (e.g: `hotdeals-1.2.4`)
-    - Pushes the image securely to a private Docker repository
-  - Deployment to AWS EC2
-    - Jenkins connects to the AWS EC2 instance via SSH
-    - Pulls the Docker image from the private repository
-    - Runs the container on the instance
+  1. Automated build and testing, as outlined above
+  2. Version Management
+       - Reads the current version from `package.json`
+       - Increments the patch version (e.g., `1.2.3 → 1.2.4`)
+       - Commits the updated version back to the repository
+  3. Docker Image Build & Push
+       - Builds a Docker image from the current state of the application
+       - Tags the image using the new version (e.g: `hotdeals-1.2.4`)
+       - Pushes the image securely to a private Docker repository
+  4. Deployment to AWS EC2
+       - Jenkins connects to the AWS EC2 instance via SSH
+       - Pulls the Docker image from the private repository
+       - Runs the container on the instance
 
 ## Technology Stack
 
