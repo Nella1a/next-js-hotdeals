@@ -86,8 +86,8 @@ pipeline {
                 def ec2Instance = "ec2-user@18.185.22.31"
                 def userHomeDir = "/home/ec2-user"
                 def startingScriptName = "server-cmds.sh"
-                sh "scp docker-compose.yaml ec2-user@${ec2Instance}:${userHomeDir}"
-                sh "scp docker-compose.prod.yaml ec2-user@${ec2Instance}:${userHomeDir}"
+                sh "scp docker-compose.yaml ${ec2Instance}:${userHomeDir}"
+                sh "scp docker-compose.prod.yaml ${ec2Instance}:${userHomeDir}"
                 deployToAWSEC2(env.IMAGE_TAG,ec2Instance,startingScriptName)
               }
             }
