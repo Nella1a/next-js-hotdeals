@@ -83,7 +83,7 @@ pipeline {
             }
             steps {
               script {
-                deployToAWSEC2(env.IMAGENAME,'3000','3.74.149.147','ec2-user')
+                deployToAWSEC2(env.IMAGENAME,'3000','18.185.22.31','ec2-user')
               }
             }
         }
