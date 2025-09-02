@@ -48,10 +48,10 @@ pipeline {
             }
             steps {
                script {
-                      env.IMAGENAME = "kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
-                      buildImage(env.IMAGENAME)
+                      env.IMAGE_NAME = "kanjamn/demo-app:hotdeals-${env.UPDATED_VERSION}"
+                      buildImage(env.IMAGE_NAME)
                       dockerLogin()
-                      dockerPush(env.IMAGENAME)
+                      dockerPush(env.IMAGE_NAME)
                     }
             }
         }
