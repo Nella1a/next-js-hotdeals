@@ -1,0 +1,5 @@
+services:
+  frontend:
+    image: kanjamn/demo-app:hotdeals-${IMAGE_TAG}
+    environment:
+      NODE_ENV: production
