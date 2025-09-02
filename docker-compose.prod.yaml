@@ -3,3 +3,7 @@ services:
     image: kanjamn/demo-app:hotdeals-${IMAGE_TAG}
     environment:
       NODE_ENV: production
+
+  postgres-db:
+    image: postgres:16-alpine
+    profiles: ["local"]
