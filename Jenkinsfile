@@ -9,7 +9,7 @@ library identifier: 'jenkins-shared-lib-node-js-apps@main', retriever: modernSCM
 pipeline {
   agent any
   stages {
-        stage ('Run Tests') {
+        stage ('Build App and Run Tests') {
           steps {
             script {
               echo 'Running Playwright e2e-Tests....'
@@ -32,10 +32,10 @@ pipeline {
             script {
               sh "git checkout ${env.BRANCH_NAME}"
               sh "git pull -r"
-              env.CURRENT_VERSION = getCurrentVersion()
+              env.CURRENT_VERSION = getAppVersion()
               // Bump patch version
-              sh "npm version patch --git-tag-version false"
-              env.UPDATED_VERSION = updateVersion()
+               updateAppVersion('patch')
+               env.UPDATED_VERSION = getAppVersion()
             }
           }
 
@@ -83,7 +83,7 @@ pipeline {
             }
             steps {
               script {
-                deployToAWSEC2(env.IMAGENAME,'3000','18.184.169.243','ec2-user')
+                deployToAWSEC2(env.IMAGENAME,'3000','18.185.22.31','ec2-user')
               }
             }
         }

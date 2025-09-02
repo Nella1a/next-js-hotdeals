@@ -2,8 +2,7 @@
 
 # MöbelDeals Platform Mock-Up
 
-This is a basic platform mock-up bringing together deals from two Austrian retail chains in one convenient place. The platform is branded with a simple logo and name: MöbelDeals.
-It is built as a Next.js application that uses a PostgreSQL database for storing and managing deals data. The data was scraped using Python packages (Scrapy and Playwright).
+This is a basic platform mock-up bringing together deals from two Austrian retail chains in one convenient place. The platform is branded with a simple logo and name: MöbelDeals. It is built as a Next.js application that uses a PostgreSQL database for storing and managing deals data. The data was scraped using Scrapy, a Python package, together with Playwright.
 
 #### Features
 
@@ -104,7 +103,7 @@ cd next-js-hotdeals
 
 ## CI/CD Pipeline – Jenkins Multibranch Pipeline
 
-This process automates testing, versioning, builds and pushes a Docker image to a private Docker repository, and deploys it on an AWS EC2 instance.
+The pipeline handles production builds, runs tests, applies versioning, builds a Docker image, pushes it to a private repository, and deploys it to an EC2 instance on AWS.
 
 #### Jenkins Requirements
 
@@ -121,37 +120,40 @@ This process automates testing, versioning, builds and pushes a Docker image to 
 - An Amazon EC2 key pair
 - An AWS IAM User with programmatic key access and permissions to launch EC2 instances
 - A running Amazon EC2 instance with the following setup:
-  - Docker installed (to run Docker commands)
+  - Docker and docker compose installed (to run Docker commands)
   - Security Group / Firewall configured to:
     - Allow Jenkins to connect via SSH
     - Open the necessary application port(s) for external access
 
 #### Jenkins Pipeline Features
 
-- Automated Testing
+- Automated Build and Testing
 
-  - End-to-end (E2E) tests are run using Playwright
+  - The process begins with a production build of the application.
+  - End-to-end (E2E) tests are executed with Playwright on the production build to ensure application functionality.
   - Tests are triggered automatically whenever code is pushed to any active branch
 
 - Full CI/CD Pipeline (on `main` branch updates)
-  The complete pipeline — including versioning, build, test, and deployment — runs automatically when:
+
+  The complete pipeline – from build to deployment — runs automatically when:
 
   - Code is pushed to the main branch, or
   - A pull request is merged into it
 
   The full pipeline includes the following steps:
-  - Version Management
-    - Reads the current version from `package.json`
-    - Increments the patch version (e.g., `1.2.3 → 1.2.4`)
-    - Commits the updated version back to the repository
-  - Docker Image Build & Push
-    - Builds a Docker image from the current state of the application
-    - Tags the image using the new version (e.g: `kanjamn/demo-app:hotdeals-1.2.4`)
-    - Pushes the image securely to a private Docker repository
-  - Deployment to AWS EC2
-    - Jenkins connects to the AWS EC2 instance via SSH
-    - Pulls the Docker image from the private repository
-    - Runs the container on the instance
+  1. Automated build and testing, as outlined above
+  2. Version Management
+       - Reads the current version from `package.json`
+       - Increments the patch version (e.g., `1.2.3 → 1.2.4`)
+       - Commits the updated version back to the repository
+  3. Docker Image Build & Push
+       - Builds a Docker image from the current state of the application
+       - Tags the image using the new version (e.g: `hotdeals-1.2.4`)
+       - Pushes the image securely to a private Docker repository
+  4. Deployment to AWS EC2
+       - Jenkins connects to the AWS EC2 instance via SSH
+       - Pulls the Docker image from the private repository
+       - Runs the container on the instance
 
 ## Technology Stack
 
