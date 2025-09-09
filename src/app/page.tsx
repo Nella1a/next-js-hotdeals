@@ -15,7 +15,7 @@ const Deals = async () => {
         <span className="inline-block text-[#e20015]">
           Die besten Angebote.
         </span>
-        <span className="inline-block">Für dich zusammengestellt!</span>
+        <span className="inline-block">&nbsp;Für dich zusammengestellt!</span>
       </h1>
 
       <section className="max-w-screen-lg mx-auto justify-center items-center grid gap-4 md:grid-cols-3">
