@@ -23,7 +23,7 @@ const Deals = async () => {
           <Link
             href={`/c/${productCategory.name}`}
             key={`deal${productCategory.id}`}
-            className="rounded-md text-center flex-col md:gap-2 items-center hover:opacity-80 bg-white p-4"
+            className="rounded-lg text-center flex-col md:gap-2 items-center hover:opacity-80 bg-white p-4"
           >
             <div className="flex justify-center">
               <div className="w-[200px] md:w-[600px]">
@@ -32,11 +32,11 @@ const Deals = async () => {
                   width={500}
                   height={500}
                   alt={`category image ${productCategory.name}`}
-                  className="rounded-md"
+                  className="rounded-sm"
                 />
               </div>
             </div>
-            <p className="font-semibold capitalize mt-2">
+            <p className="font-semibold text-center capitalize mt-2">
               {productCategory.name}
             </p>
           </Link>
