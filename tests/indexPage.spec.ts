@@ -6,8 +6,8 @@ const URL = 'http://localhost:3000';
 test.describe('Deals Index-Page', () => {
   test('should render the heading', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      /Die besten Angebote.Für dich zusammengestellt!/i,
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(
+      /Die besten Angebote\.\s+Für dich zusammengestellt!/i,
     );
   });
 
