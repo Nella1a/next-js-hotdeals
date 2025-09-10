@@ -16,6 +16,7 @@ services:
       - ./postcss.config.js:/opt/frontend/postcss.config.js:ro
       - ./tailwind.config.ts:/opt/frontend/tailwind.config.ts:ro
       - ./prisma.ts:/opt/frontend/prisma.ts:ro
+      - ./docker/secrets/prisma-url.txt:/run/secrets/prisma-url.txt:ro
 
 secrets:
   db-pass:
