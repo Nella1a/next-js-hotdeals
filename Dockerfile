@@ -13,13 +13,14 @@ COPY prisma ./prisma/
 COPY .eslintrc.json ./
 COPY next.config.mjs ./
 COPY package.json ./
-COPY package-lock.json ./
 COPY prisma.ts ./
 COPY tailwind.config.js ./
 COPY postcss.config.js ./
 COPY tsconfig.json ./
 COPY docker/context/run.sh ./
 COPY docker/context/wait-for.sh ./
+
+
 
 RUN mkdir -p /opt/frontend/static && \
     apt-get update && \
