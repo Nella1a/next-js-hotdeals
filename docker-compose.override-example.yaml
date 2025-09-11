@@ -17,6 +17,9 @@ services:
       - ./tailwind.config.ts:/opt/frontend/tailwind.config.ts:ro
       - ./prisma.ts:/opt/frontend/prisma.ts:ro
       - ./docker/secrets/prisma-url.txt:/run/secrets/prisma-url.txt:ro
+      - ./tests:/opt/frontend/tests:ro
+      - ./config/runtests.sh:/opt/frontend/config/runtests.sh:ro
+      - ./playwright.config.ts:/opt/frontend/playwright.config.ts:ro
 
 secrets:
   db-pass:
