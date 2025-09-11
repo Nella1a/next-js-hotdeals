@@ -5,14 +5,14 @@ const URL = 'http://localhost:3000';
 
 test.describe('Deals Index-Page', () => {
   test('should render the heading', async ({ page }) => {
-    await page.goto('/');
+    await page.goto(URL, { timeout: 3000 });
     await expect(page.getByRole('heading', { level: 1 })).toContainText(
       /Die besten Angebote\.\s+Für dich zusammengestellt!/i,
     );
   });
 
   test('should render category links correctly', async ({ page }) => {
-    await page.goto('/');
+    await page.goto(URL, { timeout: 3000 });
     const categoryLinks = page.locator('section a');
     const catLinksCount = await categoryLinks.count();
     expect(catLinksCount).toBe(3);
@@ -29,7 +29,7 @@ test.describe('Deals Index-Page', () => {
   });
 
   test('make sure links redirect to category pages', async ({ page }) => {
-    await page.goto('/');
+    await page.goto(URL, { timeout: 3000 });
     const dealCatLinks = await page.locator('section a').all();
 
     for (let i = 0; i < dealCatLinks.length - 1; i++) {
@@ -38,7 +38,7 @@ test.describe('Deals Index-Page', () => {
 
       await page.waitForURL(URL + `/c/${mockCategories[i].name}`);
       await expect(page).toHaveURL(URL + `/c/${mockCategories[i].name}`);
-      await page.goto('/');
+      await page.goto(URL);
     }
   });
 });
