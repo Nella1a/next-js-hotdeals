@@ -2,6 +2,8 @@ import { expect, Locator, test } from '@playwright/test';
 import { upperCaseFirstLetter } from '../src/app/components/Navigation';
 import { mockCategories, mockDeals } from '../src/mocks/fixturesDeals';
 
+const URL = 'http://localhost:3000';
+
 const assertNavLinks = async (navLinks: Locator[]) => {
   for (let i = 0; i < navLinks.length - 1; i++) {
     if (i == 0) {
@@ -20,7 +22,7 @@ const assertNavLinks = async (navLinks: Locator[]) => {
 };
 test.describe('Deals Category Pages ', () => {
   test('all products ', async ({ page }) => {
-    await page.goto('/c/sale');
+    await page.goto(URL + '/c/sale');
 
     // navigation links
     const navLinks = await page
@@ -63,7 +65,7 @@ test.describe('Deals Category Pages ', () => {
   });
 
   test('product category ', async ({ page }) => {
-    await page.goto('/c/mock-category-3/');
+    await page.goto(URL + '/c/mock-category-3/');
 
     // navigation links
     const navLinks = await page

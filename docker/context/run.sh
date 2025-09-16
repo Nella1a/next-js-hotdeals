@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# -x: enables debugging mode,causes Bash to print each command that it executes to the terminal, preceded by a + sign
-set -x
 
 # script to exit immediately when any command in the script fails
 set -e
+
+# read POSTGRES_PRISMA_URL from docker secrets
+export POSTGRES_PRISMA_URL=$(cat /run/secrets/prisma-url.txt)
+export DOCKER_ENV=$DOCKER_ENV
 
 # Set DATABASE_HOST to 'postgres-db' if not set
 DATABASE_HOST="${DATABASE_HOST:-postgres-db}"
@@ -17,6 +19,7 @@ else
     npm install
     NPM_CMD="dev"
 fi
+
 
 echo "Wait for database to be ready.."
 # Wait for the database to start using wait-for.sh script
@@ -33,7 +36,6 @@ fi
 echo "Running database migrations..."
 # Run Prisma migrations
 npx prisma migrate dev
-
 
 echo "Starting the application..."
 # Start the application
